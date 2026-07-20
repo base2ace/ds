@@ -388,7 +388,7 @@
             </div>
 
             <!-- 2. Directed Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('directed')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--secondary); margin-bottom:0.5rem;">2. Directed Graph (Digraph) ➔</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Edges have one-way directional arrows: <code>u ➔ v</code> does NOT imply <code>v ➔ u</code>.</p>
@@ -414,7 +414,7 @@
             </div>
 
             <!-- 3. Weighted Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('weighted')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-amber); margin-bottom:0.5rem;">3. Weighted Graph ⚖️</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Each edge carries a numerical weight representing distance, cost, or latency.</p>
@@ -438,7 +438,7 @@
             </div>
 
             <!-- 4. Unweighted Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('unweighted')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-green); margin-bottom:0.5rem;">4. Unweighted Graph ⚪</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">All edges carry equal unit weights (weight = 1). Shortest paths found via BFS.</p>
@@ -459,7 +459,7 @@
             </div>
 
             <!-- 5. Cyclic Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('cyclic')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-red); margin-bottom:0.5rem;">5. Cyclic Graph 🔄</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Contains at least 1 closed path loop starting and ending at the same node.</p>
@@ -486,7 +486,7 @@
             </div>
 
             <!-- 6. Acyclic Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('acyclic')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-purple); margin-bottom:0.5rem;">6. Acyclic Graph ➡️</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">A graph containing zero cycles or closed loops.</p>
@@ -509,7 +509,7 @@
             </div>
 
             <!-- 7. DAG -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('dag')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-green); margin-bottom:0.5rem;">7. Directed Acyclic Graph (DAG) ⚡</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Directed graph free of cycles! Essential for Topological Sorting & Task Scheduling.</p>
@@ -538,7 +538,7 @@
             </div>
 
             <!-- 8. Connected Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('connected')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-sky); margin-bottom:0.5rem;">8. Connected Graph 🌐</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Every pair of vertices has a connecting path.</p>
@@ -563,7 +563,7 @@
             </div>
 
             <!-- 9. Disconnected Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('disconnected')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-amber); margin-bottom:0.5rem;">9. Disconnected Graph 🧩</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Graph broken into 2 or more isolated subgraphs.</p>
@@ -588,7 +588,7 @@
             </div>
 
             <!-- 10. Complete Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('complete')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--primary); margin-bottom:0.5rem;">10. Complete Graph (Kn) 🕸️</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Every vertex is connected directly to every other vertex. Total Edges = <code>V*(V-1)/2</code>.</p>
@@ -614,7 +614,7 @@
             </div>
 
             <!-- 11. Bipartite Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('bipartite')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--secondary); margin-bottom:0.5rem;">11. Bipartite Graph 🎨</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Vertices partitionable into 2 sets U & V such that no edge connects nodes in the same set.</p>
@@ -638,7 +638,7 @@
             </div>
 
             <!-- 12. Tree (Special Graph) -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div class="feature-box" onclick="GraphEngine.openGraphTypeModal('tree')" style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; transition:all 0.3s ease;">
               <div>
                 <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-green); margin-bottom:0.5rem;">12. Tree (Special Graph) 🌲</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">A connected acyclic undirected graph with exactly <code>V - 1</code> edges.</p>
