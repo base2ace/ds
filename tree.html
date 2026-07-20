@@ -131,7 +131,7 @@
         </div>
       </header>
 
-      <!-- SUB-VIEW 1: TREE FOUNDATIONS & TERMINOLOGY DICTIONARY -->
+      <!-- SUB-VIEW 1: TREE FOUNDATIONS & TERMINOLOGY DICTIONARY WITH VISUAL TREE INSPECTOR -->
       <div class="view-panel active-view" id="viewTreeFoundations">
         
         <!-- Module Banner Header -->
@@ -152,6 +152,27 @@
           </p>
         </div>
 
+        <!-- PROMINENT VISUAL TREE CANVAS ABOVE DICTIONARY -->
+        <div class="viz-canvas-card" style="margin-bottom:1.5rem; width:100%;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.75rem;">
+            <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); display:flex; align-items:center; gap:0.5rem;">
+              <span>🌲</span> Interactive Terminology Tree Inspector Canvas
+            </h3>
+            <span class="badge badge-primary">Click Any Term Below to Highlight</span>
+          </div>
+
+          <div id="termStatusBanner" style="margin-bottom:1rem;">
+            <div style="background:rgba(59,130,246,0.1); border:1px dashed var(--primary); padding:0.65rem 1rem; border-radius:var(--radius-md); font-size:0.88rem; color:var(--text-muted);">
+              👆 Click any of the 14 terminology cards below to dynamically highlight its nodes, paths & edges in the tree above!
+            </div>
+          </div>
+
+          <!-- Tree Render Stage -->
+          <div class="array-stage" style="overflow-x:auto; padding:1rem 0.5rem; width:100%;">
+            <div id="termTreeStageContainer"></div>
+          </div>
+        </div>
+
         <!-- 2. Complete Tree Terminology Dictionary Grid -->
         <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
           <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1rem;">
@@ -160,7 +181,7 @@
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem;" class="features-row">
             
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="root" onclick="TreeEngine.highlightTerm('root', 'Root Node', 'The topmost node (Node 50) in the tree hierarchy having no parent node.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">👑</div>
               <div class="feature-info">
                 <h3>Root Node</h3>
@@ -168,7 +189,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="parent" onclick="TreeEngine.highlightTerm('parent', 'Parent Node', 'Node 30 and Node 70 are parents connecting directly to child nodes.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">👨‍👧</div>
               <div class="feature-info">
                 <h3>Parent Node</h3>
@@ -176,7 +197,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="child" onclick="TreeEngine.highlightTerm('child', 'Child Node', 'Nodes 20, 40, 60, 80 are child nodes connected below parents.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">👶</div>
               <div class="feature-info">
                 <h3>Child Node</h3>
@@ -184,7 +205,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="siblings" onclick="TreeEngine.highlightTerm('siblings', 'Siblings', 'Nodes 20 & 40 are siblings sharing the exact same parent node 30.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">👯</div>
               <div class="feature-info">
                 <h3>Siblings</h3>
@@ -192,7 +213,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="leaf" onclick="TreeEngine.highlightTerm('leaf', 'Leaf Node (External)', 'Nodes 20, 40, 60, 80 have 0 children (terminal leaf nodes).')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(239,68,68,0.15); color:var(--accent-red);">🍃</div>
               <div class="feature-info">
                 <h3>Leaf Node (External)</h3>
@@ -200,7 +221,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="internal" onclick="TreeEngine.highlightTerm('internal', 'Internal Node', 'Nodes 50, 30, 70 are internal nodes having at least 1 child.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(139,92,246,0.15); color:var(--accent-purple);">🏛️</div>
               <div class="feature-info">
                 <h3>Internal Node</h3>
@@ -208,7 +229,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="ancestor" onclick="TreeEngine.highlightTerm('ancestor', 'Ancestor', 'Nodes 50 & 30 are ancestors on the path down to target Node 20.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(56,189,248,0.15); color:var(--accent-sky);">👴</div>
               <div class="feature-info">
                 <h3>Ancestor</h3>
@@ -216,7 +237,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="descendant" onclick="TreeEngine.highlightTerm('descendant', 'Descendant', 'Nodes 20 & 40 are descendants reachable under parent Node 30.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">🧒</div>
               <div class="feature-info">
                 <h3>Descendant</h3>
@@ -224,7 +245,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="degree" onclick="TreeEngine.highlightTerm('degree', 'Degree', 'Node 50 has Degree = 2 (2 children). Max degree in binary tree is 2.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">📐</div>
               <div class="feature-info">
                 <h3>Degree of Node / Tree</h3>
@@ -232,7 +253,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="depth" onclick="TreeEngine.highlightTerm('depth', 'Depth of Node', 'Depth of Node 20 is 2 edges (50 ➔ 30 ➔ 20). Root depth = 0.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">📏</div>
               <div class="feature-info">
                 <h3>Depth of Node</h3>
@@ -240,7 +261,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="height" onclick="TreeEngine.highlightTerm('height', 'Height of Tree', 'Height of Tree is 2 edges (longest path from Root 50 down to Leaf 20).')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">📐</div>
               <div class="feature-info">
                 <h3>Height of Tree / Node</h3>
@@ -248,7 +269,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="level" onclick="TreeEngine.highlightTerm('level', 'Level', 'Root 50 is at Level 1, Children at Level 2, Leaves at Level 3.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(139,92,246,0.15); color:var(--accent-purple);">📊</div>
               <div class="feature-info">
                 <h3>Level</h3>
@@ -256,7 +277,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="edge" onclick="TreeEngine.highlightTerm('edge', 'Edge', 'Edges are the directional links connecting parent node 50 to child 30.')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(56,189,248,0.15); color:var(--accent-sky);">🔗</div>
               <div class="feature-info">
                 <h3>Edge</h3>
@@ -264,7 +285,7 @@
               </div>
             </div>
 
-            <div class="feature-box">
+            <div class="feature-box term-card" data-term="forest" onclick="TreeEngine.highlightTerm('forest', 'Forest', 'Removing Root 50 yields a Forest of 2 disjoint subtrees [30,20,40] and [70,60,80].')" style="cursor:pointer;">
               <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">🌲🌲</div>
               <div class="feature-info">
                 <h3>Forest</h3>
@@ -298,15 +319,22 @@ struct Node {
         </div>
       </div>
 
-      <!-- SUB-VIEW 3: TREE TRAVERSALS ENGINE -->
+      <!-- SUB-VIEW 3: TREE TRAVERSALS ENGINE WITH VISUAL TREE CANVAS -->
       <div class="view-panel" id="viewTreeTraversals">
         <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
           <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:0.75rem;">
             🔄 3. Tree Traversals Engine (DFS & BFS)
           </h2>
-          <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.5rem;">
-            Tree traversal means visiting every node in a specific order. Select a traversal mode below to compute the visited node sequence:
+          <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.25rem;">
+            Tree traversal means visiting every node in a specific order. Select a traversal mode below to step through and highlight nodes on the tree:
           </p>
+
+          <!-- PROMINENT VISUAL TREE CANVAS ABOVE TRAVERSAL BUTTONS -->
+          <div class="viz-canvas-card" style="margin-bottom:1.5rem; width:100%;">
+            <div class="array-stage" style="overflow-x:auto; padding:1rem 0.5rem; width:100%;">
+              <div id="traversalTreeStageContainer"></div>
+            </div>
+          </div>
 
           <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.5rem;">
             <button class="btn btn-primary btn-sm" onclick="TreeEngine.runTraversal('inorder')">🔄 Inorder (Left ➔ Root ➔ Right)</button>

@@ -1,11 +1,15 @@
 /* ==========================================================================
    Base2ace Technologies Education - Interactive Trees Engine
-   Module 4: Trees (Binary Trees, BST, Traversals, Complexity, C Programs)
+   Module 4: Trees (Visual Tree Canvas, Interactive Terminology Highlighting,
+   Traversals, BST Simulator, Complexity, C Programs)
    ========================================================================== */
 
 const TreeEngine = {
   activeView: 'viewTreeFoundations',
   root: null,
+  
+  // Terminology Highlighting State
+  activeTerm: null,
   
   // Animation & Playback State
   steps: [],
@@ -31,6 +35,8 @@ const TreeEngine = {
       }
     };
 
+    this.renderTermStage();
+    this.renderTraversalStage();
     this.renderStage();
     this.renderCCode();
   },
@@ -45,7 +51,11 @@ const TreeEngine = {
       item.classList.toggle('active', item.dataset.treeView === viewId);
     });
 
-    if (viewId === 'viewTreeSim') {
+    if (viewId === 'viewTreeFoundations') {
+      this.renderTermStage();
+    } else if (viewId === 'viewTreeTraversals') {
+      this.renderTraversalStage();
+    } else if (viewId === 'viewTreeSim') {
       this.renderStage();
       this.renderCCode();
     }
@@ -75,6 +85,161 @@ const TreeEngine = {
       alertEl.style.textAlign = 'center';
       alertEl.innerText = msg;
     }
+  },
+
+  // TERMINOLOGY INTERACTIVE HIGHLIGHTING ENGINE
+  highlightTerm(termKey, termTitle, descText) {
+    this.activeTerm = termKey;
+
+    // Highlight active dictionary card
+    document.querySelectorAll('.term-card').forEach(card => {
+      card.classList.toggle('active-term-card', card.dataset.term === termKey);
+    });
+
+    const statusBanner = document.getElementById('termStatusBanner');
+    if (statusBanner) {
+      statusBanner.innerHTML = `
+        <div style="background:rgba(59,130,246,0.15); border:1px solid var(--primary); padding:0.75rem 1.1rem; border-radius:var(--radius-md); font-size:0.9rem; line-height:1.5;">
+          <strong style="color:var(--secondary);">🔍 Terminology Inspector: ${termTitle}</strong> — ${descText}
+        </div>
+      `;
+    }
+
+    this.renderTermStage(termKey);
+  },
+
+  renderTermStage(termKey = null) {
+    const container = document.getElementById('termTreeStageContainer');
+    if (!container) return;
+
+    // Define which node values to highlight for each term
+    let highlightedVals = [];
+    let badgeLabel = '';
+
+    switch (termKey) {
+      case 'root':
+        highlightedVals = [50];
+        badgeLabel = 'ROOT (Node 50)';
+        break;
+      case 'parent':
+        highlightedVals = [30, 70];
+        badgeLabel = 'PARENTS (Nodes 30, 70)';
+        break;
+      case 'child':
+        highlightedVals = [20, 40, 60, 80];
+        badgeLabel = 'CHILDREN (Nodes 20, 40, 60, 80)';
+        break;
+      case 'siblings':
+        highlightedVals = [20, 40];
+        badgeLabel = 'SIBLINGS (Nodes 20 & 40)';
+        break;
+      case 'leaf':
+        highlightedVals = [20, 40, 60, 80];
+        badgeLabel = 'LEAF NODES (0 children)';
+        break;
+      case 'internal':
+        highlightedVals = [50, 30, 70];
+        badgeLabel = 'INTERNAL NODES (≥1 child)';
+        break;
+      case 'ancestor':
+        highlightedVals = [50, 30];
+        badgeLabel = 'ANCESTORS OF NODE 20 (Nodes 50, 30)';
+        break;
+      case 'descendant':
+        highlightedVals = [20, 40];
+        badgeLabel = 'DESCENDANTS OF NODE 30 (Nodes 20, 40)';
+        break;
+      case 'degree':
+        highlightedVals = [50];
+        badgeLabel = 'DEGREE = 2 (Node 50 has 2 children)';
+        break;
+      case 'depth':
+        highlightedVals = [50, 30, 20];
+        badgeLabel = 'DEPTH OF NODE 20 = 2 Edges';
+        break;
+      case 'height':
+        highlightedVals = [50, 30, 20];
+        badgeLabel = 'HEIGHT OF TREE = 2 Edges';
+        break;
+      case 'level':
+        highlightedVals = [50];
+        badgeLabel = 'LEVEL 1 (Root Node 50)';
+        break;
+      case 'edge':
+        highlightedVals = [50, 30];
+        badgeLabel = 'EDGE (Link 50 ➔ 30)';
+        break;
+      case 'forest':
+        highlightedVals = [30, 20, 40, 70, 60, 80];
+        badgeLabel = 'FOREST (2 Disjoint Subtrees)';
+        break;
+      default:
+        highlightedVals = [];
+        badgeLabel = 'Click any terminology card below to inspect & highlight!';
+    }
+
+    const renderNodeHTML = (node) => {
+      if (!node) return '';
+      const isHL = highlightedVals.includes(node.val);
+
+      return `
+        <div style="display:flex; flex-direction:column; align-items:center; margin:0 0.75rem;">
+          <div style="background:${isHL ? 'rgba(16,185,129,0.35)' : 'var(--bg-surface)'}; border:2.5px solid ${isHL ? 'var(--accent-green)' : 'var(--primary)'}; border-radius:50%; width:52px; height:52px; display:flex; justify-content:center; align-items:center; font-family:var(--font-code); font-weight:800; font-size:1.15rem; color:var(--text-main); box-shadow:${isHL ? '0 0 20px rgba(16,185,129,0.7)' : 'var(--shadow-card)'}; transition:all 0.3s ease; position:relative;">
+            ${node.val}
+            ${isHL && node.val === 50 && termKey === 'root' ? `<span style="position:absolute; top:-22px; font-size:0.65rem; background:var(--primary); color:#fff; padding:0.15rem 0.4rem; border-radius:4px; font-family:var(--font-sans); font-weight:800;">ROOT</span>` : ''}
+            ${isHL && (node.val === 20 || node.val === 40 || node.val === 60 || node.val === 80) && termKey === 'leaf' ? `<span style="position:absolute; bottom:-22px; font-size:0.62rem; background:var(--accent-red); color:#fff; padding:0.15rem 0.4rem; border-radius:4px; font-family:var(--font-sans); font-weight:800;">LEAF</span>` : ''}
+          </div>
+
+          ${(node.left || node.right) ? `
+            <div style="display:flex; justify-content:space-between; width:100%; margin-top:0.75rem; border-top:2px solid var(--bg-surface-border); padding-top:0.75rem;">
+              <div style="flex:1; display:flex; justify-content:center;">${renderNodeHTML(node.left)}</div>
+              <div style="flex:1; display:flex; justify-content:center;">${renderNodeHTML(node.right)}</div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    };
+
+    container.innerHTML = `
+      <div style="display:flex; flex-direction:column; align-items:center; gap:0.85rem; width:100%;">
+        <div style="font-size:0.88rem; color:var(--secondary); font-weight:700; font-family:var(--font-sans);">${badgeLabel}</div>
+        <div style="display:flex; justify-content:center; padding:1.25rem 0.5rem; overflow-x:auto; width:100%;">
+          ${renderNodeHTML(this.root)}
+        </div>
+      </div>
+    `;
+  },
+
+  // TRAVERSALS VISUAL ENGINE
+  renderTraversalStage(highlightVal = null) {
+    const container = document.getElementById('traversalTreeStageContainer');
+    if (!container) return;
+
+    const renderNodeHTML = (node) => {
+      if (!node) return '';
+      const isHL = highlightVal === node.val;
+
+      return `
+        <div style="display:flex; flex-direction:column; align-items:center; margin:0 0.75rem;">
+          <div style="background:${isHL ? 'rgba(16,185,129,0.35)' : 'var(--bg-surface)'}; border:2.5px solid ${isHL ? 'var(--accent-green)' : 'var(--primary)'}; border-radius:50%; width:52px; height:52px; display:flex; justify-content:center; align-items:center; font-family:var(--font-code); font-weight:800; font-size:1.15rem; color:var(--text-main); box-shadow:${isHL ? '0 0 20px rgba(16,185,129,0.7)' : 'var(--shadow-card)'}; transition:all 0.3s ease;">
+            ${node.val}
+          </div>
+
+          ${(node.left || node.right) ? `
+            <div style="display:flex; justify-content:space-between; width:100%; margin-top:0.75rem; border-top:2px solid var(--bg-surface-border); padding-top:0.75rem;">
+              <div style="flex:1; display:flex; justify-content:center;">${renderNodeHTML(node.left)}</div>
+              <div style="flex:1; display:flex; justify-content:center;">${renderNodeHTML(node.right)}</div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    };
+
+    container.innerHTML = `
+      <div style="display:flex; justify-content:center; padding:1.25rem 0.5rem; overflow-x:auto; width:100%;">
+        ${renderNodeHTML(this.root)}
+      </div>
+    `;
   },
 
   // BST OPERATIONS
@@ -242,7 +407,6 @@ const TreeEngine = {
         this.steps.push(snapshot(this.root, node.val, `Search key ${key} > ${node.val}: Move Right`, 1, { 'curr': node.val }));
         node.right = deleteHelper(node.right, key);
       } else {
-        // Node found
         this.steps.push(snapshot(this.root, node.val, `Target Node ${key} Found! Check deletion cases...`, 2, { 'target': key }));
         if (!node.left && !node.right) {
           this.steps.push(snapshot(this.root, node.val, `Case 1: Leaf node (0 children). Delete node ${key} directly!`, 3, { 'case': 'Leaf Node' }));
@@ -254,7 +418,6 @@ const TreeEngine = {
           this.steps.push(snapshot(this.root, node.left.val, `Case 2: One child (Left child). Replace node ${key} with left child ${node.left.val}`, 4, { 'replace_with': node.left.val }));
           return node.left;
         } else {
-          // Case 3: Two children
           let minRight = node.right;
           while (minRight.left) minRight = minRight.left;
           this.steps.push(snapshot(this.root, minRight.val, `Case 3: Two children. Find Inorder Successor (min in right subtree) = ${minRight.val}`, 5, { 'successor': minRight.val }));
@@ -418,21 +581,24 @@ const TreeEngine = {
     this.renderTreeHTMLWithState(this.root, highlightVal);
   },
 
-  // TRAVERSALS RUNNER
+  // TRAVERSALS RUNNER WITH STEP HIGHLIGHTING IN STAGE
   runTraversal(type) {
     this.clearAlerts();
     const result = [];
+    const sequence = [];
 
     const traverseInorder = (n) => {
       if (!n) return;
       traverseInorder(n.left);
       result.push(n.val);
+      sequence.push(n.val);
       traverseInorder(n.right);
     };
 
     const traversePreorder = (n) => {
       if (!n) return;
       result.push(n.val);
+      sequence.push(n.val);
       traversePreorder(n.left);
       traversePreorder(n.right);
     };
@@ -442,6 +608,7 @@ const TreeEngine = {
       traversePostorder(n.left);
       traversePostorder(n.right);
       result.push(n.val);
+      sequence.push(n.val);
     };
 
     const traverseLevelOrder = (n) => {
@@ -450,6 +617,7 @@ const TreeEngine = {
       while (q.length > 0) {
         const curr = q.shift();
         result.push(curr.val);
+        sequence.push(curr.val);
         if (curr.left) q.push(curr.left);
         if (curr.right) q.push(curr.right);
       }
@@ -463,12 +631,23 @@ const TreeEngine = {
     const resultBox = document.getElementById('treeTraversalResult');
     if (resultBox) {
       resultBox.innerHTML = `
-        <div style="background:var(--bg-main); border:1px solid var(--accent-green); padding:0.85rem 1.1rem; border-radius:var(--radius-md); font-family:var(--font-code); font-size:0.95rem;">
+        <div style="background:var(--bg-main); border:1.5px solid var(--accent-green); padding:0.85rem 1.1rem; border-radius:var(--radius-md); font-family:var(--font-code); font-size:0.95rem;">
           <span style="color:var(--text-muted); text-transform:uppercase; font-size:0.8rem; font-weight:700;">${type} Traversal Output: </span>
           <strong style="color:var(--accent-green);">${result.join(' ➔ ')}</strong>
         </div>
       `;
     }
+
+    // Step-by-step traversal highlight on stage
+    let stepIdx = 0;
+    const interval = setInterval(() => {
+      if (stepIdx >= sequence.length) {
+        clearInterval(interval);
+        return;
+      }
+      this.renderTraversalStage(sequence[stepIdx]);
+      stepIdx++;
+    }, 800);
   },
 
   codeViewMode: 'snippet',
