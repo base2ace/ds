@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 5: Graph Algorithms | Base2ace Academy</title>
+  <title>Module 5: Graph Algorithms in C | Base2ace Academy</title>
+  <meta name="description" content="Master Graph Data Structures and Algorithms in C with interactive Adjacency Matrix, Adjacency List, BFS/DFS Traversals, Cycle Detection, and C code execution. Created by Base2ace Technologies.">
   <link rel="icon" type="image/png" href="B2A_3D_logo.png">
   <link rel="apple-touch-icon" href="B2A_3D_logo.png">
-  <meta name="description" content="Master Graph Algorithms in C with interactive Adjacency Matrix and Adjacency List representations, BFS/DFS traversal engines, and GCC C code execution. Created by base2ace Academy.">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/visualizer.css">
@@ -28,7 +28,7 @@
           </div>
         </a>
 
-        <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar Width (Collapse/Expand)">◀</button>
+        <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar Width">◀</button>
       </div>
 
       <!-- Scrollable Course Menu Body -->
@@ -43,21 +43,31 @@
         </div>
 
         <div class="sidebar-category">
-          <div class="sidebar-cat-title">Graph Sub-Modules</div>
+          <div class="sidebar-cat-title">🕸️ Module 5: Graphs Sub-Topics</div>
 
-          <a href="#visualizer" class="sidebar-item active" data-graph-view="viewGraphSim" onclick="GraphSim.switchSubView('viewGraphSim')">
-            <span class="sidebar-item-icon">🕸️</span>
-            <span class="sidebar-item-label">1. Matrix & List Engine</span>
+          <a href="#foundations" class="sidebar-item active" data-graph-view="viewGraphFoundations" onclick="GraphEngine.switchSubView('viewGraphFoundations')">
+            <span class="sidebar-item-icon">📖</span>
+            <span class="sidebar-item-label">1. Intro & Real-World Apps</span>
           </a>
 
-          <a href="#traversals" class="sidebar-item" data-graph-view="viewGraphTraversals" onclick="GraphSim.switchSubView('viewGraphTraversals')">
+          <a href="#types" class="sidebar-item" data-graph-view="viewGraphTypes" onclick="GraphEngine.switchSubView('viewGraphTypes')">
+            <span class="sidebar-item-icon">📐</span>
+            <span class="sidebar-item-label">2. Types of Graphs (12 Cards)</span>
+          </a>
+
+          <a href="#representation" class="sidebar-item" data-graph-view="viewGraphRep" onclick="GraphEngine.switchSubView('viewGraphRep')">
+            <span class="sidebar-item-icon">📊</span>
+            <span class="sidebar-item-label">3. Matrix vs List vs Edge List</span>
+          </a>
+
+          <a href="#traversals" class="sidebar-item" data-graph-view="viewGraphTraversals" onclick="GraphEngine.switchSubView('viewGraphTraversals')">
             <span class="sidebar-item-icon">🔍</span>
-            <span class="sidebar-item-label">2. BFS & DFS Traversals</span>
+            <span class="sidebar-item-label">4. BFS, DFS & Cycle Detection</span>
           </a>
 
-          <a href="#programs" class="sidebar-item" data-graph-view="viewGraphPrograms" onclick="GraphSim.switchSubView('viewGraphPrograms')">
+          <a href="#programs" class="sidebar-item" data-graph-view="viewGraphPrograms" onclick="GraphEngine.switchSubView('viewGraphPrograms')">
             <span class="sidebar-item-icon">💻</span>
-            <span class="sidebar-item-label">3. C Code & Assessment</span>
+            <span class="sidebar-item-label">5. Full C Code & Assessment</span>
           </a>
         </div>
 
@@ -78,111 +88,498 @@
         <div class="breadcrumb-nav">
           <a href="index.html" style="color:var(--text-muted); text-decoration:none;">DS Catalog</a>
           <span>➔</span>
-          <span class="breadcrumb-active" id="breadcrumbActiveTitle">Graph Algorithms in C</span>
+          <span style="color:var(--text-main); font-weight:700;">Module 5: Graph Algorithms in C</span>
         </div>
 
-        <div style="display:flex; align-items:center; gap:0.75rem;">
-          <button class="btn btn-accent btn-sm" onclick="openMemoryModal()" id="btnOpenMemoryModalNav">🧠 Memory Inspector</button>
-          <a href="https://base2ace.com" target="_blank" class="btn btn-secondary btn-sm">Main Site ↗</a>
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-sm" onclick="location.href='tree.html'">⬅️ Prev: Trees Module</button>
+          <button class="btn btn-primary btn-sm" onclick="location.href='index.html'">Catalog Home 🏠</button>
         </div>
       </header>
 
-      <!-- VIEW 1: GRAPH VISUALIZER -->
-      <div class="view-panel active-view" id="viewGraphSim">
+      <!-- SUB-VIEW 1: GRAPH FOUNDATIONS, 5 REAL-WORLD APPLICATIONS & 9-TERM DICTIONARY -->
+      <div class="view-panel active-view" id="viewGraphFoundations">
         
-        <div class="viz-header">
-          <div class="viz-title-group">
-            <h1>
-              <span>🕸️ Graph Algorithms & Representations</span>
-              <span class="badge badge-primary">Adjacency Matrix & List</span>
-            </h1>
-            <p>Compare Adjacency Matrix vs. Adjacency List memory and run Breadth-First and Depth-First traversals.</p>
-          </div>
-
-          <div class="viz-config-bar">
-            <button class="btn btn-secondary btn-sm active" id="btnRepMatrix" onclick="GraphSim.setRepMode('matrix')">📊 Adjacency Matrix</button>
-            <button class="btn btn-secondary btn-sm" id="btnRepList" onclick="GraphSim.setRepMode('list')">🔗 Adjacency List</button>
-          </div>
+        <!-- Module Banner Header -->
+        <div class="module-header-card" style="margin-bottom:1.5rem;">
+          <h1 class="module-title">🕸️ Module 5: Graph Data Structures & Algorithms</h1>
+          <p class="module-subtitle">
+            Understand non-linear networks G = (V, E), real-world systems, adjacency representations, BFS/DFS algorithms, and cycle detection.
+          </p>
         </div>
 
-        <!-- Visualizer Layout -->
-        <div class="viz-layout">
-
-          <!-- Left Stage Card -->
-          <div class="viz-canvas-card">
-            
-            <div class="op-controls">
-              <button class="btn btn-primary btn-sm" onclick="GraphSim.runBFS()">🔍 Run BFS (Breadth-First Search)</button>
-              <button class="btn btn-secondary btn-sm" onclick="GraphSim.runDFS()">🌲 Run DFS (Depth-First Search)</button>
-            </div>
-
-            <!-- Stage Area -->
-            <div class="array-stage" style="min-height:260px;">
-              <div id="graphStageContainer"></div>
-            </div>
-
-          </div>
-
-          <!-- Right C Code View -->
-          <div class="code-panel">
-            <div class="code-panel-header">
-              <div class="code-panel-title">
-                <span>💻 GCC C Execution Code</span>
-              </div>
-              <span class="c-badge">GCC / C99</span>
-            </div>
-
-            <div class="code-view" id="graphCCodeView"></div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- VIEW 2: TRAVERSALS -->
-      <div class="view-panel" id="viewGraphTraversals">
-        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
-          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.75rem; color:var(--text-main);">
-            🔍 Graph Traversals: BFS vs DFS
+        <!-- 1. What is a Graph? & 5 Real-World Applications -->
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--primary); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
+            <span>💡</span> 1. What is a Graph?
           </h2>
-          <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6; margin-bottom:1.5rem;">
-            Graph traversal algorithms visit all vertices systematically:
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin-bottom:1.25rem;">
+            A <strong>Graph</strong> is a non-linear data structure consisting of a set of <strong>Vertices (Nodes)</strong> denoted by <code>V</code> and a set of <strong>Edges (Links)</strong> denoted by <code>E</code> connecting pairs of vertices: <code>G = (V, E)</code>. Unlike trees, graphs can contain cycles, multiple components, and bidirectional links.
           </p>
 
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem;" class="matrix-layout-grid">
-            <div style="background:var(--bg-surface); padding:1.1rem; border-radius:var(--radius-md); border:1px solid var(--bg-surface-border);">
-              <h4 style="color:var(--secondary); margin-bottom:0.4rem;">Breadth-First Search (BFS)</h4>
-              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Explores neighbors level-by-level using a Queue. Guarantees finding the shortest path on unweighted graphs.</p>
+          <h3 style="font-size:1.1rem; font-weight:700; color:var(--text-main); margin-bottom:1rem;">🌍 5 Essential Real-World Graph Applications:</h3>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem;" class="features-row">
+            
+            <div class="feature-box" style="background:var(--bg-card);">
+              <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">🗺️</div>
+              <div class="feature-info">
+                <h3>Google Maps Navigation</h3>
+                <p style="font-size:0.83rem; color:var(--text-muted);">Intersections are Vertices; Roads are Weighted Edges (distance & travel time).</p>
+              </div>
             </div>
 
-            <div style="background:var(--bg-surface); padding:1.1rem; border-radius:var(--radius-md); border:1px solid var(--bg-surface-border);">
-              <h4 style="color:var(--primary); margin-bottom:0.4rem;">Depth-First Search (DFS)</h4>
-              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Explores as deep as possible along each branch before backtracking using a Stack or recursion.</p>
+            <div class="feature-box" style="background:var(--bg-card);">
+              <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">👥</div>
+              <div class="feature-info">
+                <h3>Social Networks</h3>
+                <p style="font-size:0.83rem; color:var(--text-muted);">Facebook / LinkedIn users are Vertices; Friendships & Connections are Edges.</p>
+              </div>
             </div>
+
+            <div class="feature-box" style="background:var(--bg-card);">
+              <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">✈️</div>
+              <div class="feature-info">
+                <h3>Airline Route Networks</h3>
+                <p style="font-size:0.83rem; color:var(--text-muted);">Airports are Vertices; Flight routes are Edges carrying ticket prices & durations.</p>
+              </div>
+            </div>
+
+            <div class="feature-box" style="background:var(--bg-card);">
+              <div class="feature-icon-wrapper" style="background:rgba(139,92,246,0.15); color:var(--accent-purple);">🌐</div>
+              <div class="feature-info">
+                <h3>Computer & Internet Networks</h3>
+                <p style="font-size:0.83rem; color:var(--text-muted);">IP Routers & Switches are Vertices; Fiber optic cables are High-bandwidth Edges.</p>
+              </div>
+            </div>
+
+            <div class="feature-box" style="background:var(--bg-card);">
+              <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">📦</div>
+              <div class="feature-info">
+                <h3>Package Dependencies</h3>
+                <p style="font-size:0.83rem; color:var(--text-muted);">Software modules are Vertices; Directed edges dictate build & execution order.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PROMINENT VISUAL GRAPH CANVAS ABOVE TERMINOLOGY DICTIONARY -->
+        <div class="viz-canvas-card" style="margin-bottom:1.5rem; width:100%;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.75rem;">
+            <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); display:flex; align-items:center; gap:0.5rem;">
+              <span>🕸️</span> Interactive Graph Terminology Inspector Canvas
+            </h3>
+            <span class="badge badge-primary">Click Any Term Below to Highlight</span>
+          </div>
+
+          <div id="graphTermStatusBanner" style="margin-bottom:1rem;">
+            <div style="background:rgba(59,130,246,0.1); border:1px dashed var(--primary); padding:0.65rem 1rem; border-radius:var(--radius-md); font-size:0.88rem; color:var(--text-muted);">
+              👆 Click any of the 9 terminology cards below to dynamically highlight vertices & edges in the graph above!
+            </div>
+          </div>
+
+          <!-- Graph Render Stage -->
+          <div class="array-stage" style="overflow-x:auto; padding:1.25rem 0.5rem; width:100%;">
+            <div id="graphTermStageContainer"></div>
+          </div>
+        </div>
+
+        <!-- 2. Complete Graph Terminology Dictionary Grid -->
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1rem;">
+            📖 Complete Graph Terminology Dictionary
+          </h2>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem;" class="features-row">
+            
+            <div class="feature-box term-card" data-term="vertex" onclick="GraphEngine.highlightTerm('vertex', 'Vertex (Node)', 'Individual fundamental data point in a graph (Nodes A, B, C, D, E).')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">📍</div>
+              <div class="feature-info">
+                <h3>Vertex (Node)</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">An individual fundamental entity or data element in the graph network.</p>
+              </div>
+            </div>
+
+            <div class="feature-box term-card" data-term="edge" onclick="GraphEngine.highlightTerm('edge', 'Edge', 'Connection or link connecting a pair of vertices (e.g. A-B, C-D).')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">🔗</div>
+              <div class="feature-info">
+                <h3>Edge</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">A link or connection between two vertices representing relationships.</p>
+              </div>
+            </div>
+
+            <div class="feature-box term-card" data-term="adjacent" onclick="GraphEngine.highlightTerm('adjacent', 'Adjacent Vertices', 'Nodes B and C share a direct edge with Node A.')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">🤝</div>
+              <div class="feature-info">
+                <h3>Adjacent Vertices</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Two vertices that share a direct connecting edge.</p>
+              </div>
+            </div>
+
+            <div class="feature-box term-card" data-term="degree" onclick="GraphEngine.highlightTerm('degree', 'Degree', 'Node C has Degree 3 (connected to A, D, E). In-degree and Out-degree apply for digraphs.')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">📐</div>
+              <div class="feature-info">
+                <h3>Degree of Vertex</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Number of edges incident on a vertex (In-degree & Out-degree for digraphs).</p>
+              </div>
+            </div>
+
+            <div class="feature-box term-card" data-term="path" onclick="GraphEngine.highlightTerm('path', 'Path', 'Path sequence A ➔ B ➔ D ➔ E connects vertex A to vertex E.')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(139,92,246,0.15); color:var(--accent-purple);">🛤️</div>
+              <div class="feature-info">
+                <h3>Path</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">A sequence of adjacent vertices connected by edges with no repeated edges.</p>
+              </div>
+            </div>
+
+            <div class="feature-box term-card" data-term="cycle" onclick="GraphEngine.highlightTerm('cycle', 'Cycle', 'Sub-network C ➔ D ➔ E ➔ C forms a closed loop cycle.')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(239,68,68,0.15); color:var(--accent-red);">🔄</div>
+              <div class="feature-info">
+                <h3>Cycle</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">A closed path starting and ending at the exact same vertex.</p>
+              </div>
+            </div>
+
+            <div class="feature-box term-card" data-term="connected" onclick="GraphEngine.highlightTerm('connected', 'Connected Graph', 'A path exists between every pair of vertices in the network.')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(56,189,248,0.15); color:var(--accent-sky);">🌐</div>
+              <div class="feature-info">
+                <h3>Connected Graph</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">A graph where a path exists between every single pair of vertices.</p>
+              </div>
+            </div>
+
+            <div class="feature-box term-card" data-term="disconnected" onclick="GraphEngine.highlightTerm('disconnected', 'Disconnected Graph', 'Contains 2 or more isolated sub-networks without connecting paths.')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">🧩</div>
+              <div class="feature-info">
+                <h3>Disconnected Graph</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">A graph containing two or more isolated components.</p>
+              </div>
+            </div>
+
+            <div class="feature-box term-card" data-term="components" onclick="GraphEngine.highlightTerm('components', 'Components', 'Maximal connected subgraphs within a larger disconnected graph.')" style="cursor:pointer;">
+              <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">🧱</div>
+              <div class="feature-info">
+                <h3>Connected Components</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Maximal connected subgraphs where every vertex is reachable.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SUB-VIEW 2: TYPES OF GRAPHS (12 CARDS) -->
+      <div class="view-panel" id="viewGraphTypes">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1rem;">
+            📐 2. Classification & 12 Types of Graphs
+          </h2>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem;">
+            
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--primary); margin-bottom:0.4rem;">1. Undirected Graph ↔️</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Edges have no direction. Traversal is bidirectional: <code>(u, v) == (v, u)</code>.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--secondary); margin-bottom:0.4rem;">2. Directed Graph (Digraph) ➔</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Edges have one-way directional arrows: <code>u ➔ v</code> does NOT imply <code>v ➔ u</code>.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-amber); margin-bottom:0.4rem;">3. Weighted Graph ⚖️</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Each edge carries a numerical weight representing distance, cost, or latency.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-green); margin-bottom:0.4rem;">4. Unweighted Graph ⚪</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">All edges carry equal unit weights (weight = 1). Shortest paths found via BFS.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-red); margin-bottom:0.4rem;">5. Cyclic Graph 🔄</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Contains at least 1 closed path loop starting and ending at the same node.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-purple); margin-bottom:0.4rem;">6. Acyclic Graph ➡️</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">A graph containing zero cycles or closed loops.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-green); margin-bottom:0.4rem;">7. Directed Acyclic Graph (DAG) ⚡</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Directed graph free of cycles! Essential for Topological Sorting & Task Scheduling.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-sky); margin-bottom:0.4rem;">8. Connected Graph 🌐</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Every pair of vertices has a connecting path.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-amber); margin-bottom:0.4rem;">9. Disconnected Graph 🧩</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Graph broken into 2 or more isolated subgraphs.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--primary); margin-bottom:0.4rem;">10. Complete Graph (Kn) 🕸️</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Every vertex is connected directly to every other vertex. Total Edges = <code>V*(V-1)/2</code>.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--secondary); margin-bottom:0.4rem;">11. Bipartite Graph 🎨</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Vertices partitionable into 2 sets U & V such that no edge connects nodes in the same set.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem;">
+              <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-green); margin-bottom:0.4rem;">12. Tree (Special Graph) 🌲</h3>
+              <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">A connected acyclic undirected graph with exactly <code>V - 1</code> edges.</p>
+            </div>
+
           </div>
         </div>
       </div>
 
-      <!-- VIEW 3: C PROGRAMS -->
-      <div class="view-panel" id="viewGraphPrograms">
-        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
-          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:1rem; color:var(--text-main);">
-            💻 C Graph Adjacency Matrix Representation Code
+      <!-- SUB-VIEW 3: GRAPH REPRESENTATION ENGINE (MATRIX VS LIST VS EDGE LIST) -->
+      <div class="view-panel" id="viewGraphRep">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--primary); margin-bottom:0.75rem;">
+            📊 3. Graph Memory Representation Engine
           </h2>
-          <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; font-family:var(--font-code); font-size:0.83rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
+          <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.25rem;">
+            Compare <strong>Adjacency Matrix</strong> (2D Array), <strong>Adjacency List</strong> (Array of Linked Lists), and <strong>Edge List</strong> (Tuples):
+          </p>
+
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.25rem;">
+            <button class="btn btn-primary btn-sm active" id="btnRepMatrix" onclick="GraphEngine.setRepMode('matrix')">📊 Adjacency Matrix</button>
+            <button class="btn btn-secondary btn-sm" id="btnRepList" onclick="GraphEngine.setRepMode('list')">🔗 Adjacency List</button>
+            <button class="btn btn-accent btn-sm" id="btnRepEdgeList" onclick="GraphEngine.setRepMode('edgelist')">📋 Edge List</button>
+          </div>
+
+          <div class="viz-canvas-card" style="margin-bottom:1.5rem;">
+            <div id="graphRepStageContainer" style="padding:1rem;"></div>
+          </div>
+
+          <!-- Trade-offs Table -->
+          <div style="overflow-x:auto;">
+            <table class="mem-table" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Representation</th>
+                  <th>Space Complexity</th>
+                  <th>Edge Query Time (u, v)</th>
+                  <th>Find All Neighbors</th>
+                  <th>Best Used For</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Adjacency Matrix</strong></td>
+                  <td><span class="badge badge-danger">O(V²)</span></td>
+                  <td><span class="badge badge-primary">O(1)</span></td>
+                  <td><code>O(V)</code></td>
+                  <td>Dense Graphs (E ≈ V²)</td>
+                </tr>
+                <tr>
+                  <td><strong>Adjacency List</strong></td>
+                  <td><span class="badge badge-primary">O(V + E)</span></td>
+                  <td><code>O(Degree)</code></td>
+                  <td><span class="badge badge-primary">O(Degree)</span></td>
+                  <td>Sparse Graphs (E « V²)</td>
+                </tr>
+                <tr>
+                  <td><strong>Edge List</strong></td>
+                  <td><span class="badge badge-primary">O(E)</span></td>
+                  <td><code>O(E)</code></td>
+                  <td><code>O(E)</code></td>
+                  <td>Kruskal's MST Algorithm</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Code Panel -->
+        <div class="code-panel" style="width:100%;">
+          <div class="code-panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:700; color:var(--text-main);">⚡ C Struct & Memory Representation Tracker</span>
+          </div>
+          <div class="code-view" id="graphCCodeView"></div>
+        </div>
+      </div>
+
+      <!-- SUB-VIEW 4: GRAPH TRAVERSALS & CYCLE DETECTION -->
+      <div class="view-panel" id="viewGraphTraversals">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:0.75rem;">
+            🔍 4. Graph Traversals (BFS, DFS) & Cycle Detection
+          </h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.25rem;">
+            Step through <strong>Breadth-First Search (BFS)</strong> using a FIFO Queue, <strong>Depth-First Search (DFS)</strong> using Stack / Recursion, and <strong>Cycle Detection</strong>:
+          </p>
+
+          <!-- PROMINENT VISUAL GRAPH CANVAS ABOVE TRAVERSAL BUTTONS -->
+          <div class="viz-canvas-card" style="margin-bottom:1.5rem; width:100%;">
+            <div class="array-stage" style="overflow-x:auto; padding:1.25rem 0.5rem; width:100%;">
+              <div id="graphTraversalStageContainer"></div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+            <button class="btn btn-primary btn-sm" onclick="GraphEngine.runBFS()">🌊 Run BFS Traversal (Queue)</button>
+            <button class="btn btn-secondary btn-sm" onclick="GraphEngine.runDFS()">🔍 Run DFS Traversal (Stack)</button>
+            <button class="btn btn-accent btn-sm" onclick="GraphEngine.runCycleDetection('undirected')">🔄 Detect Cycle (Undirected)</button>
+            <button class="btn btn-accent btn-sm" onclick="GraphEngine.runCycleDetection('directed')">⚡ Detect Cycle (Directed)</button>
+          </div>
+
+          <div id="graphTraversalResult"></div>
+        </div>
+      </div>
+
+      <!-- SUB-VIEW 5: FULL C PROGRAMS & ASSESSMENT -->
+      <div class="view-panel" id="viewGraphPrograms">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; display:flex; flex-direction:column; gap:2rem;">
+          
+          <div>
+            <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.4rem; color:var(--text-main);">
+              💻 Essential C Programs & Problems Suite for Graphs
+            </h2>
+            <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:1.5rem;">
+              Production-ready, compilable C implementations for BFS, DFS, Adjacency representations, and Cycle Detection.
+            </p>
+          </div>
+
+          <!-- Section 1: Adjacency Matrix & List C Code -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary);">1. Adjacency Matrix & Adjacency List Creation in C</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeGraph1').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto;"><code id="cCodeGraph1">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 #define V 5
 
-void addEdge(int matrix[V][V], int i, int j) {
-    matrix[i][j] = 1;
-    matrix[j][i] = 1;
+// Adjacency Matrix
+int adjMatrix[V][V] = {0};
+
+void addEdgeMatrix(int u, int v) {
+    adjMatrix[u][v] = 1;
+    adjMatrix[v][u] = 1;
 }
 
-int main() {
-    int adjMatrix[V][V] = {0};
-    addEdge(adjMatrix, 0, 1);
-    addEdge(adjMatrix, 0, 2);
+// Adjacency List Node
+struct Node {
+    int dest;
+    struct Node* next;
+};
+
+struct Node* adjList[V];
+
+void addEdgeList(int u, int v) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->dest = v;
+    newNode->next = adjList[u];
+    adjList[u] = newNode;
+}</code></pre>
+          </div>
+
+          <!-- Section 2: BFS Traversal in C -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-green);">2. Breadth-First Search (BFS) in C using Queue</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeGraph2').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto;"><code id="cCodeGraph2">void bfs(int startVertex) {
+    int visited[V] = {0};
+    int queue[V];
+    int front = 0, rear = 0;
+
+    visited[startVertex] = 1;
+    queue[rear++] = startVertex;
+
+    printf("BFS Traversal: ");
+    while (front < rear) {
+        int curr = queue[front++];
+        printf("%d ", curr);
+
+        for (int i = 0; i < V; i++) {
+            if (adjMatrix[curr][i] == 1 && !visited[i]) {
+                visited[i] = 1;
+                queue[rear++] = i;
+            }
+        }
+    }
+    printf("\n");
+}</code></pre>
+          </div>
+
+          <!-- Section 3: DFS Traversal in C -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-amber);">3. Depth-First Search (DFS) Recursive Traversal in C</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeGraph3').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-amber); overflow-x:auto;"><code id="cCodeGraph3">int visitedDFS[V] = {0};
+
+void dfs(int vertex) {
+    visitedDFS[vertex] = 1;
+    printf("%d ", vertex);
+
+    for (int i = 0; i < V; i++) {
+        if (adjMatrix[vertex][i] == 1 && !visitedDFS[i]) {
+            dfs(i);
+        }
+    }
+}</code></pre>
+          </div>
+
+          <!-- Section 4: Cycle Detection in Undirected Graph -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-red);">4. Cycle Detection in Undirected Graph using DFS</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeGraph4').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-red); overflow-x:auto;"><code id="cCodeGraph4">int isCyclicUndirectedDFS(int u, int visited[], int parent) {
+    visited[u] = 1;
+
+    for (int v = 0; v < V; v++) {
+        if (adjMatrix[u][v]) {
+            if (!visited[v]) {
+                if (isCyclicUndirectedDFS(v, visited, u)) return 1;
+            } else if (v != parent) {
+                return 1; // Back-edge detected!
+            }
+        }
+    }
     return 0;
 }</code></pre>
+          </div>
+
+          <!-- Section 5: Cycle Detection in Directed Graph -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-purple);">5. Cycle Detection in Directed Graph using Recursion Stack</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeGraph5').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-purple); overflow-x:auto;"><code id="cCodeGraph5">int isCyclicDirectedDFS(int u, int visited[], int recStack[]) {
+    visited[u] = 1;
+    recStack[u] = 1;
+
+    for (int v = 0; v < V; v++) {
+        if (adjMatrix[u][v]) {
+            if (!visited[v] && isCyclicDirectedDFS(v, visited, recStack)) return 1;
+            else if (recStack[v]) return 1; // Cycle found in active recursion stack!
+        }
+    }
+
+    recStack[u] = 0; // Backtrack from stack
+    return 0;
+}</code></pre>
+          </div>
+
         </div>
       </div>
 
@@ -209,28 +606,9 @@ int main() {
 
   </div>
 
-  <!-- Memory Layout Inspector Modal Overlay -->
-  <div class="modal-overlay" id="memoryModalOverlay">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 class="modal-title">
-          <span>🧠</span> Detailed C Memory Layout Inspector
-        </h3>
-        <button class="modal-close" aria-label="Close Modal">&times;</button>
-      </div>
-
-      <div id="memoryInspectorContent"></div>
-
-      <div style="margin-top:1.5rem; text-align:right;">
-        <button class="btn btn-secondary btn-sm" onclick="closeModal('memoryModalOverlay')">Close Inspector</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script src="js/app.js"></script>
   <script src="js/sidebar.js"></script>
-  <script src="js/memory-inspector.js"></script>
   <script src="js/graph.js"></script>
 </body>
 </html>
