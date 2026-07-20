@@ -456,8 +456,8 @@ const GraphEngine = {
 
     return `
       <div style="display:flex; flex-direction:column; align-items:center; width:100%;">
-        ${badgeText ? `<div style="font-size:0.9rem; color:var(--accent-green); font-weight:800; font-family:var(--font-sans); margin-bottom:0.75rem; text-transform:uppercase;">${badgeText}</div>` : ''}
-        <svg width="440" height="310" viewBox="0 0 440 310" style="overflow:visible;">
+        ${badgeText ? `<div style="font-size:0.88rem; color:var(--accent-green); font-weight:800; font-family:var(--font-sans); margin-bottom:0.75rem; text-transform:uppercase; text-align:center;">${badgeText}</div>` : ''}
+        <svg viewBox="0 0 440 310" style="width:100%; max-width:420px; height:auto; display:block; overflow:visible;">
           <defs>
             <radialGradient id="blueGlow" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stop-color="#1e293b"/>
@@ -555,7 +555,7 @@ const GraphEngine = {
       }
     }
 
-    const visualGraphSVG = this.buildGraphSVG(highlightedVertices, highlightedEdges, highlightIdx !== null ? `Highlighted Vertex: ${this.vertices[highlightIdx]}` : 'Active Graph Topology G = (V, E)');
+    const visualGraphSVG = this.buildGraphSVG(highlightedVertices, highlightedEdges, highlightIdx !== null ? `Highlighted Vertex: ${this.vertices[highlightIdx]}` : 'Graph Topology G = (V, E)');
 
     let repHTML = '';
 
@@ -563,22 +563,24 @@ const GraphEngine = {
       repHTML = `
         <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md); width:100%;">
           <h4 style="font-size:0.98rem; font-weight:800; color:var(--secondary); margin-bottom:1rem; text-align:center;">Adjacency Matrix (2D Array: adj[5][5])</h4>
-          <table class="mem-table" style="text-align:center; width:100%;">
-            <thead>
-              <tr>
-                <th></th>
-                ${this.vertices.map(v => `<th>${v}</th>`).join('')}
-              </tr>
-            </thead>
-            <tbody>
-              ${this.matrix.map((row, r) => `
-                <tr onmouseenter="GraphEngine.renderRepStage(${r})" onmouseleave="GraphEngine.renderRepStage()" style="cursor:pointer; ${highlightIdx === r ? 'background:rgba(16,185,129,0.25);' : ''}">
-                  <td><strong style="color:var(--primary);">${this.vertices[r]}</strong></td>
-                  ${row.map(val => `<td style="${val ? 'color:var(--accent-green); font-weight:800;' : 'color:var(--text-dim);'}">${val}</td>`).join('')}
+          <div style="overflow-x:auto;">
+            <table class="mem-table" style="text-align:center; width:100%;">
+              <thead>
+                <tr>
+                  <th></th>
+                  ${this.vertices.map(v => `<th>${v}</th>`).join('')}
                 </tr>
-              `).join('')}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                ${this.matrix.map((row, r) => `
+                  <tr onmouseenter="GraphEngine.renderRepStage(${r})" onmouseleave="GraphEngine.renderRepStage()" style="cursor:pointer; ${highlightIdx === r ? 'background:rgba(16,185,129,0.25);' : ''}">
+                    <td><strong style="color:var(--primary);">${this.vertices[r]}</strong></td>
+                    ${row.map(val => `<td style="${val ? 'color:var(--accent-green); font-weight:800;' : 'color:var(--text-dim);'}">${val}</td>`).join('')}
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
           <div style="font-size:0.8rem; color:var(--text-muted); text-align:center; margin-top:0.75rem;">
             💡 Hover over any row to highlight that vertex & its connections in the graph!
           </div>
@@ -630,12 +632,12 @@ const GraphEngine = {
     }
 
     container.innerHTML = `
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:1.5rem; align-items:center; width:100%;">
-        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; align-items:center;">
-          <h4 style="font-size:1rem; font-weight:800; color:var(--accent-green); margin-bottom:0.75rem;">🕸️ Corresponding Network Graph G = (V, E)</h4>
+      <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; width:100%;">
+        <div style="flex:1 1 300px; min-width:280px; background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; align-items:center;">
+          <h4 style="font-size:1rem; font-weight:800; color:var(--accent-green); margin-bottom:0.75rem;">🕸️ Visual Network Graph G = (V, E)</h4>
           ${visualGraphSVG}
         </div>
-        <div>
+        <div style="flex:1 1 300px; min-width:280px;">
           ${repHTML}
         </div>
       </div>
