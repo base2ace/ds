@@ -52,7 +52,7 @@ const TreeEngine = {
     });
 
     if (viewId === 'viewTreeFoundations') {
-      this.renderTermStage();
+      this.renderTermStage(this.activeTerm);
     } else if (viewId === 'viewTreeTraversals') {
       this.renderTraversalStage();
     } else if (viewId === 'viewTreeSim') {
@@ -87,11 +87,64 @@ const TreeEngine = {
     }
   },
 
+  // CORE REUSABLE VISUAL TREE HTML BUILDER
+  buildTreeCanvasHTML(node, highlightedVals = [], termKey = null) {
+    if (!node) return '<div style="color:var(--text-muted); font-family:var(--font-code); text-align:center;">Tree is Empty (root == NULL)</div>';
+
+    const buildNode = (n) => {
+      if (!n) return '';
+      const isHL = highlightedVals.includes(n.val);
+
+      let badgeText = '';
+      if (isHL && termKey === 'root' && n.val === 50) badgeText = 'ROOT';
+      else if (isHL && termKey === 'leaf' && (n.val === 20 || n.val === 40 || n.val === 60 || n.val === 80)) badgeText = 'LEAF';
+
+      return `
+        <div style="display:flex; flex-direction:column; align-items:center; position:relative; margin:0 0.85rem;">
+          <div style="
+            width: 56px; 
+            height: 56px; 
+            border-radius: 50%; 
+            background: ${isHL ? 'linear-gradient(135deg, #059669, #10b981)' : 'linear-gradient(135deg, #1e293b, #0f172a)'}; 
+            border: 3px solid ${isHL ? '#34d399' : '#3b82f6'}; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: var(--font-code); 
+            font-weight: 800; 
+            font-size: 1.2rem; 
+            color: #ffffff; 
+            box-shadow: ${isHL ? '0 0 25px rgba(16,185,129,0.85)' : '0 4px 15px rgba(0,0,0,0.6)'}; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+          ">
+            ${n.val}
+            ${badgeText ? `<span style="position:absolute; top:-24px; background:${termKey==='leaf'?'var(--accent-red)':'var(--primary)'}; color:#fff; font-size:0.65rem; font-weight:800; padding:0.15rem 0.45rem; border-radius:4px; font-family:var(--font-sans); white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,0.5);">${badgeText}</span>` : ''}
+          </div>
+
+          ${(n.left || n.right) ? `
+            <div style="display:flex; justify-content:space-between; width:100%; margin-top:1rem; position:relative; padding-top:0.75rem;">
+              <div style="position:absolute; top:0; left:22%; right:22%; height:2px; background:rgba(255,255,255,0.2);"></div>
+              <div style="flex:1; display:flex; justify-content:center; position:relative;">${buildNode(n.left)}</div>
+              <div style="flex:1; display:flex; justify-content:center; position:relative;">${buildNode(n.right)}</div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    };
+
+    return `
+      <div style="display:flex; justify-content:center; align-items:flex-start; padding:1.5rem 0.5rem; width:100%; overflow-x:auto;">
+        ${buildNode(node)}
+      </div>
+    `;
+  },
+
   // TERMINOLOGY INTERACTIVE HIGHLIGHTING ENGINE
   highlightTerm(termKey, termTitle, descText) {
     this.activeTerm = termKey;
 
-    // Highlight active dictionary card
     document.querySelectorAll('.term-card').forEach(card => {
       card.classList.toggle('active-term-card', card.dataset.term === termKey);
     });
@@ -112,100 +165,75 @@ const TreeEngine = {
     const container = document.getElementById('termTreeStageContainer');
     if (!container) return;
 
-    // Define which node values to highlight for each term
     let highlightedVals = [];
     let badgeLabel = '';
 
     switch (termKey) {
       case 'root':
         highlightedVals = [50];
-        badgeLabel = 'ROOT (Node 50)';
+        badgeLabel = '👑 ROOT NODE (Node 50)';
         break;
       case 'parent':
         highlightedVals = [30, 70];
-        badgeLabel = 'PARENTS (Nodes 30, 70)';
+        badgeLabel = '👨‍👧 PARENT NODES (Nodes 30 & 70)';
         break;
       case 'child':
         highlightedVals = [20, 40, 60, 80];
-        badgeLabel = 'CHILDREN (Nodes 20, 40, 60, 80)';
+        badgeLabel = '👶 CHILD NODES (Nodes 20, 40, 60, 80)';
         break;
       case 'siblings':
         highlightedVals = [20, 40];
-        badgeLabel = 'SIBLINGS (Nodes 20 & 40)';
+        badgeLabel = '👯 SIBLINGS (Nodes 20 & 40 sharing Parent 30)';
         break;
       case 'leaf':
         highlightedVals = [20, 40, 60, 80];
-        badgeLabel = 'LEAF NODES (0 children)';
+        badgeLabel = '🍃 LEAF NODES (Nodes 20, 40, 60, 80 with 0 children)';
         break;
       case 'internal':
         highlightedVals = [50, 30, 70];
-        badgeLabel = 'INTERNAL NODES (≥1 child)';
+        badgeLabel = '🏛️ INTERNAL NODES (Nodes 50, 30, 70 with ≥1 child)';
         break;
       case 'ancestor':
         highlightedVals = [50, 30];
-        badgeLabel = 'ANCESTORS OF NODE 20 (Nodes 50, 30)';
+        badgeLabel = '👴 ANCESTORS OF NODE 20 (Nodes 50 & 30)';
         break;
       case 'descendant':
         highlightedVals = [20, 40];
-        badgeLabel = 'DESCENDANTS OF NODE 30 (Nodes 20, 40)';
+        badgeLabel = '🧒 DESCENDANTS OF NODE 30 (Nodes 20 & 40)';
         break;
       case 'degree':
         highlightedVals = [50];
-        badgeLabel = 'DEGREE = 2 (Node 50 has 2 children)';
+        badgeLabel = '📐 DEGREE = 2 (Node 50 has 2 children)';
         break;
       case 'depth':
         highlightedVals = [50, 30, 20];
-        badgeLabel = 'DEPTH OF NODE 20 = 2 Edges';
+        badgeLabel = '📏 DEPTH OF NODE 20 = 2 Edges from Root';
         break;
       case 'height':
         highlightedVals = [50, 30, 20];
-        badgeLabel = 'HEIGHT OF TREE = 2 Edges';
+        badgeLabel = '📐 HEIGHT OF TREE = 2 Edges (Longest path to leaf)';
         break;
       case 'level':
         highlightedVals = [50];
-        badgeLabel = 'LEVEL 1 (Root Node 50)';
+        badgeLabel = '📊 LEVEL 1 (Root Node 50)';
         break;
       case 'edge':
         highlightedVals = [50, 30];
-        badgeLabel = 'EDGE (Link 50 ➔ 30)';
+        badgeLabel = '🔗 EDGE (Link connecting 50 ➔ 30)';
         break;
       case 'forest':
         highlightedVals = [30, 20, 40, 70, 60, 80];
-        badgeLabel = 'FOREST (2 Disjoint Subtrees)';
+        badgeLabel = '🌲🌲 FOREST (2 Disjoint Subtrees [30,20,40] and [70,60,80])';
         break;
       default:
         highlightedVals = [];
-        badgeLabel = 'Click any terminology card below to inspect & highlight!';
+        badgeLabel = '👆 Click any terminology card below to inspect & highlight nodes!';
     }
-
-    const renderNodeHTML = (node) => {
-      if (!node) return '';
-      const isHL = highlightedVals.includes(node.val);
-
-      return `
-        <div style="display:flex; flex-direction:column; align-items:center; margin:0 0.75rem;">
-          <div style="background:${isHL ? 'rgba(16,185,129,0.35)' : 'var(--bg-surface)'}; border:2.5px solid ${isHL ? 'var(--accent-green)' : 'var(--primary)'}; border-radius:50%; width:52px; height:52px; display:flex; justify-content:center; align-items:center; font-family:var(--font-code); font-weight:800; font-size:1.15rem; color:var(--text-main); box-shadow:${isHL ? '0 0 20px rgba(16,185,129,0.7)' : 'var(--shadow-card)'}; transition:all 0.3s ease; position:relative;">
-            ${node.val}
-            ${isHL && node.val === 50 && termKey === 'root' ? `<span style="position:absolute; top:-22px; font-size:0.65rem; background:var(--primary); color:#fff; padding:0.15rem 0.4rem; border-radius:4px; font-family:var(--font-sans); font-weight:800;">ROOT</span>` : ''}
-            ${isHL && (node.val === 20 || node.val === 40 || node.val === 60 || node.val === 80) && termKey === 'leaf' ? `<span style="position:absolute; bottom:-22px; font-size:0.62rem; background:var(--accent-red); color:#fff; padding:0.15rem 0.4rem; border-radius:4px; font-family:var(--font-sans); font-weight:800;">LEAF</span>` : ''}
-          </div>
-
-          ${(node.left || node.right) ? `
-            <div style="display:flex; justify-content:space-between; width:100%; margin-top:0.75rem; border-top:2px solid var(--bg-surface-border); padding-top:0.75rem;">
-              <div style="flex:1; display:flex; justify-content:center;">${renderNodeHTML(node.left)}</div>
-              <div style="flex:1; display:flex; justify-content:center;">${renderNodeHTML(node.right)}</div>
-            </div>
-          ` : ''}
-        </div>
-      `;
-    };
 
     container.innerHTML = `
       <div style="display:flex; flex-direction:column; align-items:center; gap:0.85rem; width:100%;">
-        <div style="font-size:0.88rem; color:var(--secondary); font-weight:700; font-family:var(--font-sans);">${badgeLabel}</div>
-        <div style="display:flex; justify-content:center; padding:1.25rem 0.5rem; overflow-x:auto; width:100%;">
-          ${renderNodeHTML(this.root)}
-        </div>
+        <div style="font-size:0.92rem; color:var(--accent-green); font-weight:800; font-family:var(--font-sans); text-transform:uppercase; letter-spacing:0.04em;">${badgeLabel}</div>
+        ${this.buildTreeCanvasHTML(this.root, highlightedVals, termKey)}
       </div>
     `;
   },
@@ -215,31 +243,20 @@ const TreeEngine = {
     const container = document.getElementById('traversalTreeStageContainer');
     if (!container) return;
 
-    const renderNodeHTML = (node) => {
-      if (!node) return '';
-      const isHL = highlightVal === node.val;
-
-      return `
-        <div style="display:flex; flex-direction:column; align-items:center; margin:0 0.75rem;">
-          <div style="background:${isHL ? 'rgba(16,185,129,0.35)' : 'var(--bg-surface)'}; border:2.5px solid ${isHL ? 'var(--accent-green)' : 'var(--primary)'}; border-radius:50%; width:52px; height:52px; display:flex; justify-content:center; align-items:center; font-family:var(--font-code); font-weight:800; font-size:1.15rem; color:var(--text-main); box-shadow:${isHL ? '0 0 20px rgba(16,185,129,0.7)' : 'var(--shadow-card)'}; transition:all 0.3s ease;">
-            ${node.val}
-          </div>
-
-          ${(node.left || node.right) ? `
-            <div style="display:flex; justify-content:space-between; width:100%; margin-top:0.75rem; border-top:2px solid var(--bg-surface-border); padding-top:0.75rem;">
-              <div style="flex:1; display:flex; justify-content:center;">${renderNodeHTML(node.left)}</div>
-              <div style="flex:1; display:flex; justify-content:center;">${renderNodeHTML(node.right)}</div>
-            </div>
-          ` : ''}
-        </div>
-      `;
-    };
-
     container.innerHTML = `
-      <div style="display:flex; justify-content:center; padding:1.25rem 0.5rem; overflow-x:auto; width:100%;">
-        ${renderNodeHTML(this.root)}
+      <div style="display:flex; flex-direction:column; align-items:center; gap:0.85rem; width:100%;">
+        <div style="font-size:0.88rem; color:var(--secondary); font-weight:700;">${highlightVal ? `Active Visited Node: ${highlightVal}` : 'Select a Traversal Mode below'}</div>
+        ${this.buildTreeCanvasHTML(this.root, highlightVal ? [highlightVal] : [])}
       </div>
     `;
+  },
+
+  // BST SIMULATOR STAGE
+  renderStage(highlightVal = null) {
+    const container = document.getElementById('treeStageContainer');
+    if (!container) return;
+
+    container.innerHTML = this.buildTreeCanvasHTML(this.root, highlightVal ? [highlightVal] : []);
   },
 
   // BST OPERATIONS
@@ -487,7 +504,7 @@ const TreeEngine = {
     }
 
     const step = this.steps[this.currentStepIdx];
-    this.renderTreeHTMLWithState(step.tree, step.highlightVal);
+    this.renderStage(step.highlightVal);
 
     const stepDescEl = document.getElementById('treeStepDescBanner');
     if (stepDescEl) {
@@ -539,46 +556,6 @@ const TreeEngine = {
     if (stepCounter) {
       stepCounter.innerText = this.steps.length > 0 ? `Step ${this.currentStepIdx + 1} / ${this.steps.length}` : 'Ready';
     }
-  },
-
-  renderTreeHTMLWithState(rootObj, highlightVal = null) {
-    const container = document.getElementById('treeStageContainer');
-    if (!container) return;
-
-    if (!rootObj) {
-      container.innerHTML = `<div style="color:var(--text-muted); font-family:var(--font-code); text-align:center;">root ➔ NULL (Tree is Empty)</div>`;
-      return;
-    }
-
-    const renderNode = (node) => {
-      if (!node) return '';
-      const isHL = highlightVal === node.val;
-
-      return `
-        <div style="display:flex; flex-direction:column; align-items:center; margin:0 0.6rem;">
-          <div style="background:${isHL ? 'rgba(16,185,129,0.35)' : 'var(--bg-surface)'}; border:2px solid ${isHL ? 'var(--accent-green)' : 'var(--primary)'}; border-radius:50%; width:50px; height:50px; display:flex; justify-content:center; align-items:center; font-family:var(--font-code); font-weight:800; font-size:1.1rem; color:var(--text-main); box-shadow:${isHL ? '0 0 16px rgba(16,185,129,0.6)' : 'var(--shadow-card)'}; transition:all 0.3s ease;">
-            ${node.val}
-          </div>
-
-          ${(node.left || node.right) ? `
-            <div style="display:flex; justify-content:space-between; width:100%; margin-top:0.6rem; border-top:2px solid var(--bg-surface-border); padding-top:0.6rem;">
-              <div style="flex:1; display:flex; justify-content:center;">${renderNode(node.left)}</div>
-              <div style="flex:1; display:flex; justify-content:center;">${renderNode(node.right)}</div>
-            </div>
-          ` : ''}
-        </div>
-      `;
-    };
-
-    container.innerHTML = `
-      <div style="display:flex; justify-content:center; padding:1.5rem 0.5rem; overflow-x:auto;">
-        ${renderNode(rootObj)}
-      </div>
-    `;
-  },
-
-  renderStage(highlightVal = null) {
-    this.renderTreeHTMLWithState(this.root, highlightVal);
   },
 
   // TRAVERSALS RUNNER WITH STEP HIGHLIGHTING IN STAGE
@@ -638,7 +615,6 @@ const TreeEngine = {
       `;
     }
 
-    // Step-by-step traversal highlight on stage
     let stepIdx = 0;
     const interval = setInterval(() => {
       if (stepIdx >= sequence.length) {
@@ -753,6 +729,16 @@ int main() {
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+// Aliases and Auto-initialization
+var TreeSim = TreeEngine;
+
+const initTreeAll = () => {
   TreeEngine.init();
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTreeAll);
+} else {
+  initTreeAll();
+}
+window.addEventListener('load', initTreeAll);
