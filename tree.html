@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 4: Binary Search Trees | Base2ace Academy</title>
+  <title>Module 4: Trees in C | Base2ace Academy</title>
+  <meta name="description" content="Master Trees and Binary Search Trees (BST) in C with interactive node visualizer, DFS/BFS traversals, height & diameter calculations, and C code execution. Created by Base2ace Technologies.">
   <link rel="icon" type="image/png" href="B2A_3D_logo.png">
   <link rel="apple-touch-icon" href="B2A_3D_logo.png">
-  <meta name="description" content="Master Binary Search Trees (BST) in C with interactive node visualizer, recursive Inorder/Preorder/Postorder traversals, and GCC C code execution. Created by base2ace Academy.">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/sidebar.css">
   <link rel="stylesheet" href="css/visualizer.css">
@@ -28,7 +28,7 @@
           </div>
         </a>
 
-        <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar Width (Collapse/Expand)">◀</button>
+        <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar Width">◀</button>
       </div>
 
       <!-- Scrollable Course Menu Body -->
@@ -43,21 +43,65 @@
         </div>
 
         <div class="sidebar-category">
-          <div class="sidebar-cat-title">Binary Trees Sub-Modules</div>
+          <div class="sidebar-cat-title">🌲 Module 4: Trees Sub-Topics</div>
 
-          <a href="#visualizer" class="sidebar-item active" data-tree-view="viewTreeSim" onclick="TreeSim.switchSubView('viewTreeSim')">
-            <span class="sidebar-item-icon">🌲</span>
-            <span class="sidebar-item-label">1. BST Node Visualizer</span>
+          <a href="#foundations" class="sidebar-item active" data-tree-view="viewTreeFoundations" onclick="TreeEngine.switchSubView('viewTreeFoundations')">
+            <span class="sidebar-item-icon">📖</span>
+            <span class="sidebar-item-label">1. Tree Intro & Terminology</span>
           </a>
 
-          <a href="#traversals" class="sidebar-item" data-tree-view="viewTreeTraversals" onclick="TreeSim.switchSubView('viewTreeTraversals')">
+          <a href="#basics" class="sidebar-item" data-tree-view="viewTreeBasics" onclick="TreeEngine.switchSubView('viewTreeBasics')">
+            <span class="sidebar-item-icon">🌿</span>
+            <span class="sidebar-item-label">2. Binary Tree & C Struct</span>
+          </a>
+
+          <a href="#traversals" class="sidebar-item" data-tree-view="viewTreeTraversals" onclick="TreeEngine.switchSubView('viewTreeTraversals')">
             <span class="sidebar-item-icon">🔄</span>
-            <span class="sidebar-item-label">2. Tree Traversals Engine</span>
+            <span class="sidebar-item-label">3. Tree Traversals (DFS/BFS)</span>
           </a>
 
-          <a href="#programs" class="sidebar-item" data-tree-view="viewTreePrograms" onclick="TreeSim.switchSubView('viewTreePrograms')">
+          <a href="#simulator" class="sidebar-item" data-tree-view="viewTreeSim" onclick="TreeEngine.switchSubView('viewTreeSim')">
+            <span class="sidebar-item-icon">🌲</span>
+            <span class="sidebar-item-label">4. BST Node Simulator</span>
+          </a>
+
+          <a href="#complexity" class="sidebar-item" data-tree-view="viewTreeComplexity" onclick="TreeEngine.switchSubView('viewTreeComplexity')">
+            <span class="sidebar-item-icon">⚡</span>
+            <span class="sidebar-item-label">5. Complexity & Diameter</span>
+          </a>
+
+          <a href="#programs" class="sidebar-item" data-tree-view="viewTreePrograms" onclick="TreeEngine.switchSubView('viewTreePrograms')">
             <span class="sidebar-item-icon">💻</span>
-            <span class="sidebar-item-label">3. C Code & Assessment</span>
+            <span class="sidebar-item-label">6. Full C Code & Assessment</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Quick Operations</div>
+
+          <a href="#insert" class="sidebar-item" onclick="TreeEngine.switchSubView('viewTreeSim'); TreeEngine.insertOp();">
+            <span class="sidebar-item-icon">➕</span>
+            <span class="sidebar-item-label">Insert Node</span>
+          </a>
+
+          <a href="#search" class="sidebar-item" onclick="TreeEngine.switchSubView('viewTreeSim'); TreeEngine.searchOp();">
+            <span class="sidebar-item-icon">🔍</span>
+            <span class="sidebar-item-label">Search Node</span>
+          </a>
+
+          <a href="#delete" class="sidebar-item" onclick="TreeEngine.switchSubView('viewTreeSim'); TreeEngine.deleteOp();">
+            <span class="sidebar-item-icon">❌</span>
+            <span class="sidebar-item-label">Delete Node</span>
+          </a>
+
+          <a href="#min" class="sidebar-item" onclick="TreeEngine.switchSubView('viewTreeSim'); TreeEngine.findMinOp();">
+            <span class="sidebar-item-icon">⬇️</span>
+            <span class="sidebar-item-label">Find Minimum</span>
+          </a>
+
+          <a href="#max" class="sidebar-item" onclick="TreeEngine.switchSubView('viewTreeSim'); TreeEngine.findMaxOp();">
+            <span class="sidebar-item-icon">⬆️</span>
+            <span class="sidebar-item-label">Find Maximum</span>
           </a>
         </div>
 
@@ -78,60 +122,268 @@
         <div class="breadcrumb-nav">
           <a href="index.html" style="color:var(--text-muted); text-decoration:none;">DS Catalog</a>
           <span>➔</span>
-          <span class="breadcrumb-active" id="breadcrumbActiveTitle">Binary Search Trees in C</span>
+          <span style="color:var(--text-main); font-weight:700;">Module 4: Trees in C</span>
         </div>
 
-        <div style="display:flex; align-items:center; gap:0.75rem;">
-          <button class="btn btn-accent btn-sm" onclick="openMemoryModal()" id="btnOpenMemoryModalNav">🧠 Memory Inspector</button>
-          <a href="https://base2ace.com" target="_blank" class="btn btn-secondary btn-sm">Main Site ↗</a>
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-sm" onclick="location.href='stack-queue.html'">⬅️ Prev: Stacks & Queues</button>
+          <button class="btn btn-primary btn-sm" onclick="location.href='graph.html'">Next: Graph Algorithms ➡️</button>
         </div>
       </header>
 
-      <!-- VIEW 1: TREE VISUALIZER -->
-      <div class="view-panel active-view" id="viewTreeSim">
+      <!-- SUB-VIEW 1: TREE FOUNDATIONS & TERMINOLOGY DICTIONARY -->
+      <div class="view-panel active-view" id="viewTreeFoundations">
         
-        <div class="viz-header">
-          <div class="viz-title-group">
-            <h1>
-              <span>🌲 Binary Search Tree (BST) Visualizer</span>
-              <span class="badge badge-primary">O(log N) Average Search</span>
-            </h1>
-            <p>Step through BST node insertion, recursive left/right child pointers, and tree traversals.</p>
+        <!-- Module Banner Header -->
+        <div class="module-header-card" style="margin-bottom:1.5rem;">
+          <h1 class="module-title">🌲 Module 4: Trees (Hierarchical Data Structure)</h1>
+          <p class="module-subtitle">
+            Understand non-linear hierarchical tree structures, complete 14-term terminology dictionary, node pointers, and memory layout.
+          </p>
+        </div>
+
+        <!-- 1. What is a Tree? Section -->
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--primary); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
+            <span>💡</span> 1. What is a Tree?
+          </h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin-bottom:1.25rem;">
+            A <strong>Tree</strong> is a non-linear, hierarchical data structure consisting of nodes connected by edges. Unlike linear structures (Arrays, Linked Lists, Stacks, Queues), trees represent parent-child relationships with a single <strong>Root node</strong> at the top.
+          </p>
+        </div>
+
+        <!-- 2. Complete Tree Terminology Dictionary Grid -->
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1rem;">
+            📖 Complete Tree Terminology Dictionary
+          </h2>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem;" class="features-row">
+            
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">👑</div>
+              <div class="feature-info">
+                <h3>Root Node</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">The topmost node in the tree hierarchy having no parent node.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">👨‍👧</div>
+              <div class="feature-info">
+                <h3>Parent Node</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">The immediate predecessor node that links down to a child node.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">👶</div>
+              <div class="feature-info">
+                <h3>Child Node</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">A node connected directly below a parent node.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">👯</div>
+              <div class="feature-info">
+                <h3>Siblings</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Nodes that share the exact same parent node.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(239,68,68,0.15); color:var(--accent-red);">🍃</div>
+              <div class="feature-info">
+                <h3>Leaf Node (External)</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">A terminal node that has 0 children (left=NULL, right=NULL).</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(139,92,246,0.15); color:var(--accent-purple);">🏛️</div>
+              <div class="feature-info">
+                <h3>Internal Node</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Any non-leaf node that has at least 1 child node.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(56,189,248,0.15); color:var(--accent-sky);">👴</div>
+              <div class="feature-info">
+                <h3>Ancestor</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Any node along the path from the root node down to that node.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">🧒</div>
+              <div class="feature-info">
+                <h3>Descendant</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Any node reachable in the subtree rooted below that node.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">📐</div>
+              <div class="feature-info">
+                <h3>Degree of Node / Tree</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Number of children of a node. Max degree in binary trees is 2.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">📏</div>
+              <div class="feature-info">
+                <h3>Depth of Node</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Number of edges on path from Root down to that node. Root depth = 0.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">📐</div>
+              <div class="feature-info">
+                <h3>Height of Tree / Node</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Number of edges on longest path from node down to a leaf.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(139,92,246,0.15); color:var(--accent-purple);">📊</div>
+              <div class="feature-info">
+                <h3>Level</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Level = Depth + 1. Root is at Level 1.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(56,189,248,0.15); color:var(--accent-sky);">🔗</div>
+              <div class="feature-info">
+                <h3>Edge</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">The directional link connecting parent node to child node.</p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">🌲🌲</div>
+              <div class="feature-info">
+                <h3>Forest</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">A set or collection of zero or more disjoint trees.</p>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- Visualizer Layout -->
-        <div class="viz-layout">
+      </div>
 
-          <!-- Left Stage Card -->
-          <div class="viz-canvas-card">
+      <!-- SUB-VIEW 2: BINARY TREE BASICS & C STRUCT -->
+      <div class="view-panel" id="viewTreeBasics">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--primary); margin-bottom:0.75rem;">
+            🌿 2. Binary Tree Basics & C Struct Definition
+          </h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin-bottom:1.25rem;">
+            A <strong>Binary Tree</strong> is a tree structure where every node has <strong>at most 2 children</strong>, referred to as the <code>left</code> child and <code>right</code> child.
+          </p>
+
+          <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; font-family:var(--font-code); font-size:0.85rem; color:var(--secondary); overflow-x:auto;">
+            <pre><code>// C Struct Memory Layout for Binary Tree Node
+struct Node {
+    int data;           // 4 Bytes Data
+    struct Node* left;  // 8 Bytes Left Pointer (Heap RAM)
+    struct Node* right; // 8 Bytes Right Pointer (Heap RAM)
+};                      // Total = 24 Bytes (with 8-byte pointer padding)</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-VIEW 3: TREE TRAVERSALS ENGINE -->
+      <div class="view-panel" id="viewTreeTraversals">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:0.75rem;">
+            🔄 3. Tree Traversals Engine (DFS & BFS)
+          </h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.5rem;">
+            Tree traversal means visiting every node in a specific order. Select a traversal mode below to compute the visited node sequence:
+          </p>
+
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+            <button class="btn btn-primary btn-sm" onclick="TreeEngine.runTraversal('inorder')">🔄 Inorder (Left ➔ Root ➔ Right)</button>
+            <button class="btn btn-secondary btn-sm" onclick="TreeEngine.runTraversal('preorder')">🔄 Preorder (Root ➔ Left ➔ Right)</button>
+            <button class="btn btn-secondary btn-sm" onclick="TreeEngine.runTraversal('postorder')">🔄 Postorder (Left ➔ Right ➔ Root)</button>
+            <button class="btn btn-accent btn-sm" onclick="TreeEngine.runTraversal('levelorder')">🌊 Level Order (BFS via Queue)</button>
+          </div>
+
+          <div id="treeTraversalResult"></div>
+        </div>
+      </div>
+
+      <!-- SUB-VIEW 4: BST INTERACTIVE SIMULATOR -->
+      <div class="view-panel" id="viewTreeSim">
+        
+        <div class="module-header-card" style="margin-bottom:1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <h1 class="module-title">🌲 Binary Search Tree (BST) Node Simulator</h1>
+              <p class="module-subtitle">
+                Perform Node Insertion, Search, Deletion (Leaf, 1 child, 2 children), Find Min, and Find Max.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="treeAlertBanner" style="display:none; margin-bottom:1.25rem;"></div>
+
+        <div style="display:flex; flex-direction:column; gap:1.5rem; width:100%;">
+          
+          <div class="viz-canvas-card" style="width:100%;">
             
-            <div class="op-controls">
+            <div class="op-controls" style="margin-bottom:1.25rem;">
               <div class="op-input-group">
-                <label for="treeValInput">Node Key:</label>
+                <label for="treeValInput">Value:</label>
                 <input type="number" id="treeValInput" class="op-input" value="45" style="width:70px; text-align:center;">
               </div>
 
-              <button class="btn btn-primary btn-sm" onclick="TreeSim.insert()">➕ Insert Node O(log N)</button>
-              <button class="btn btn-secondary btn-sm" onclick="TreeSim.inorder()">🔄 Inorder Traversal</button>
+              <button class="btn btn-primary btn-sm" onclick="TreeEngine.insertOp()">➕ Insert BST Node</button>
+              <button class="btn btn-secondary btn-sm" onclick="TreeEngine.searchOp()">🔍 Search Node</button>
+              <button class="btn btn-secondary btn-sm" onclick="TreeEngine.deleteOp()">❌ Delete Node</button>
+              <button class="btn btn-secondary btn-sm" onclick="TreeEngine.findMinOp()">⬇️ Find Min</button>
+              <button class="btn btn-secondary btn-sm" onclick="TreeEngine.findMaxOp()">⬆️ Find Max</button>
             </div>
 
-            <!-- Stage Area -->
-            <div class="array-stage" style="min-height:260px;">
+            <!-- Playback Mode & Control Bar -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:0.85rem 1.1rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.85rem;">
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.3rem; background:rgba(0,0,0,0.35); padding:0.25rem; border-radius:var(--radius-sm); border:1px solid var(--bg-surface-border); margin-right:0.5rem;">
+                  <button class="btn-toggle active" id="treeBtnModeManual" onclick="TreeEngine.setPlaybackMode('manual')">⏩ Manual Step Mode</button>
+                  <button class="btn-toggle" id="treeBtnModeAuto" onclick="TreeEngine.setPlaybackMode('auto')">▶️ Auto Play</button>
+                </div>
+
+                <button class="btn btn-secondary btn-sm" onclick="TreeEngine.stepBack()">⏪ Back</button>
+                <button class="btn btn-primary btn-sm" id="treeBtnPlayPause" onclick="TreeEngine.isPlaying ? TreeEngine.stopPlayback() : TreeEngine.playSteps()">▶️ Play</button>
+                <button class="btn btn-secondary btn-sm" onclick="TreeEngine.stepForward()">⏩ Step Forward</button>
+              </div>
+
+              <div id="treeStepDescBanner" style="font-size:0.88rem; color:var(--secondary); font-weight:600;">
+                Click ➕ Insert Node or 🔍 Search Node above to step manually.
+              </div>
+
+              <span class="badge badge-primary" id="treeStepCounter">Ready</span>
+            </div>
+
+            <!-- Visual Stage Container -->
+            <div class="array-stage" style="overflow-x:auto; padding:1.5rem 0.75rem; width:100%;">
               <div id="treeStageContainer"></div>
             </div>
-
           </div>
 
-          <!-- Right C Code View -->
-          <div class="code-panel">
-            <div class="code-panel-header">
-              <div class="code-panel-title">
-                <span>💻 GCC C Execution Code</span>
-              </div>
-              <span class="c-badge">GCC / C99</span>
+          <!-- Code Panel -->
+          <div class="code-panel" style="width:100%;">
+            <div class="code-panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:700; color:var(--text-main);">⚡ GCC C Line Execution Tracker</span>
+              <div id="treeVarWatchBox" style="background:rgba(0,0,0,0.3); padding:0.3rem 0.75rem; border-radius:var(--radius-sm);">No active variables</div>
             </div>
-
             <div class="code-view" id="treeCCodeView"></div>
           </div>
 
@@ -139,56 +391,122 @@
 
       </div>
 
-      <!-- VIEW 2: TRAVERSALS ENGINE -->
-      <div class="view-panel" id="viewTreeTraversals">
+      <!-- SUB-VIEW 5: COMPLEXITY, HEIGHT & DIAMETER -->
+      <div class="view-panel" id="viewTreeComplexity">
         <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
-          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.75rem; color:var(--text-main);">
-            🔄 Depth-First Tree Traversals: Inorder, Preorder, Postorder
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--accent-green); margin-bottom:1rem;">
+            ⚡ 5. Time Complexity, Balanced vs Unbalanced & Diameter
           </h2>
-          <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6; margin-bottom:1.5rem;">
-            Because trees are non-linear data structures, visiting every node requires systematic recursion:
-          </p>
 
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem;">
-            <div style="background:var(--bg-surface); padding:1.1rem; border-radius:var(--radius-md); border:1px solid var(--bg-surface-border);">
-              <h4 style="color:var(--secondary); margin-bottom:0.4rem;">Inorder (Left, Root, Right)</h4>
-              <p style="font-size:0.85rem; color:var(--text-muted);">Visits nodes in ascending sorted order on a Binary Search Tree.</p>
-            </div>
+          <div style="overflow-x:auto; margin-bottom:1.5rem;">
+            <table class="mem-table" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Operation</th>
+                  <th>Balanced BST (AVL / Red-Black)</th>
+                  <th>Unbalanced / Skewed BST</th>
+                  <th>Space Complexity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Search</strong></td>
+                  <td><span class="badge badge-primary">O(log N)</span></td>
+                  <td><span class="badge badge-danger">O(N)</span></td>
+                  <td><code>O(h)</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Insert</strong></td>
+                  <td><span class="badge badge-primary">O(log N)</span></td>
+                  <td><span class="badge badge-danger">O(N)</span></td>
+                  <td><code>O(h)</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Delete</strong></td>
+                  <td><span class="badge badge-primary">O(log N)</span></td>
+                  <td><span class="badge badge-danger">O(N)</span></td>
+                  <td><code>O(h)</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Traversals</strong></td>
+                  <td><span class="badge badge-primary">O(N)</span></td>
+                  <td><span class="badge badge-primary">O(N)</span></td>
+                  <td><code>O(h)</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-            <div style="background:var(--bg-surface); padding:1.1rem; border-radius:var(--radius-md); border:1px solid var(--bg-surface-border);">
-              <h4 style="color:var(--primary); margin-bottom:0.4rem;">Preorder (Root, Left, Right)</h4>
-              <p style="font-size:0.85rem; color:var(--text-muted);">Used to copy trees or construct expression tree prefix notation.</p>
-            </div>
-
-            <div style="background:var(--bg-surface); padding:1.1rem; border-radius:var(--radius-md); border:1px solid var(--bg-surface-border);">
-              <h4 style="color:var(--accent-green); margin-bottom:0.4rem;">Postorder (Left, Right, Root)</h4>
-              <p style="font-size:0.85rem; color:var(--text-muted);">Used for deleting trees safely bottom-up without memory leaks.</p>
-            </div>
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md);">
+            <h4 style="color:var(--secondary); margin-bottom:0.4rem;">📏 Diameter of Binary Tree</h4>
+            <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.6;">
+              The <strong>Diameter</strong> (or width) of a tree is defined as the length (number of edges) of the <strong>longest path between any two leaf nodes</strong> in the tree. It may or may not pass through the root!
+            </p>
           </div>
         </div>
       </div>
 
-      <!-- VIEW 3: C PROGRAMS -->
+      <!-- SUB-VIEW 6: C PROGRAMS & PROBLEMS SUITE -->
       <div class="view-panel" id="viewTreePrograms">
-        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
-          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:1rem; color:var(--text-main);">
-            💻 C Binary Tree Implementation Code
-          </h2>
-          <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; font-family:var(--font-code); font-size:0.83rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; display:flex; flex-direction:column; gap:2rem;">
+          
+          <div>
+            <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.4rem; color:var(--text-main);">
+              💻 Essential C Programs & Problems for Trees
+            </h2>
+            <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:1.5rem;">
+              Production-ready C source code for node counts, height, diameter, and BST operations.
+            </p>
+          </div>
+
+          <!-- Section 1: Complete BST C Program -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary); margin-bottom:0.75rem;">1. Complete Binary Search Tree (BST) in C</h3>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
-struct TreeNode {
-    int key;
-    struct TreeNode* left;
-    struct TreeNode* right;
+struct Node {
+    int data;
+    struct Node *left, *right;
 };
 
-struct TreeNode* createNode(int item) {
-    struct TreeNode* temp = (struct TreeNode*)malloc(sizeof(struct TreeNode));
-    temp->key = item;
-    temp->left = temp->right = NULL;
-    return temp;
+struct Node* createNode(int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->left = newNode->right = NULL;
+    return newNode;
+}
+
+struct Node* insert(struct Node* root, int val) {
+    if (root == NULL) return createNode(val);
+    if (val < root->data) root->left = insert(root->left, val);
+    else if (val > root->data) root->right = insert(root->right, val);
+    return root;
 }</code></pre>
+          </div>
+
+          <!-- Section 2: Tree Node Statistics -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-green); margin-bottom:0.75rem;">2. Count Nodes, Leaf Nodes & Height in C</h3>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto;"><code>int countNodes(struct Node* root) {
+    if (root == NULL) return 0;
+    return 1 + countNodes(root->left) + countNodes(root->right);
+}
+
+int countLeafNodes(struct Node* root) {
+    if (root == NULL) return 0;
+    if (root->left == NULL && root->right == NULL) return 1;
+    return countLeafNodes(root->left) + countLeafNodes(root->right);
+}
+
+int getHeight(struct Node* root) {
+    if (root == NULL) return 0;
+    int lh = getHeight(root->left);
+    int rh = getHeight(root->right);
+    return 1 + (lh > rh ? lh : rh);
+}</code></pre>
+          </div>
+
         </div>
       </div>
 
@@ -214,28 +532,9 @@ struct TreeNode* createNode(int item) {
 
   </div>
 
-  <!-- Memory Layout Inspector Modal Overlay -->
-  <div class="modal-overlay" id="memoryModalOverlay">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 class="modal-title">
-          <span>🧠</span> Detailed C Memory Layout Inspector
-        </h3>
-        <button class="modal-close" aria-label="Close Modal">&times;</button>
-      </div>
-
-      <div id="memoryInspectorContent"></div>
-
-      <div style="margin-top:1.5rem; text-align:right;">
-        <button class="btn btn-secondary btn-sm" onclick="closeModal('memoryModalOverlay')">Close Inspector</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script src="js/app.js"></script>
   <script src="js/sidebar.js"></script>
-  <script src="js/memory-inspector.js"></script>
   <script src="js/tree.js"></script>
 </body>
 </html>
