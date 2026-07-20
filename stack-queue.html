@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Module 3: Stacks & Queues | Base2ace Academy</title>
-  <meta name="description" content="Master LIFO Stacks and FIFO Queues in C with interactive push/pop, enqueue/dequeue animations, linear vs circular queues, wasted space explanation, and C code execution. Created by Base2ace Technologies.">
+  <title>Module 3: Stacks & Queues in C | Base2ace Academy</title>
+  <meta name="description" content="Master LIFO Stacks and FIFO Queues in C with interactive push/pop, enqueue/dequeue animations, linear vs circular queues, call stacks, and C code execution. Created by Base2ace Technologies.">
   <link rel="icon" type="image/png" href="B2A_3D_logo.png">
   <link rel="apple-touch-icon" href="B2A_3D_logo.png">
   <link rel="stylesheet" href="css/main.css">
@@ -43,50 +43,63 @@
         </div>
 
         <div class="sidebar-category">
-          <div class="sidebar-cat-title">Module 3 Sub-Topics</div>
+          <div class="sidebar-cat-title">📚 Stacks Sub-Topics (LIFO)</div>
 
-          <a href="#foundations" class="sidebar-item active" data-sq-view="viewQueueFoundations" onclick="StackQueueEngine.switchSubView('viewQueueFoundations')">
+          <a href="#stack-intro" class="sidebar-item active" data-sq-view="viewStackFoundations" onclick="StackQueueEngine.switchSubView('viewStackFoundations')">
             <span class="sidebar-item-icon">📘</span>
-            <span class="sidebar-item-label">1. Queue & FIFO Principle</span>
+            <span class="sidebar-item-label">1. Stack & LIFO Principle</span>
           </a>
 
-          <a href="#simulator" class="sidebar-item" data-sq-view="viewQueueSim" onclick="StackQueueEngine.switchSubView('viewQueueSim')">
-            <span class="sidebar-item-icon">🚶</span>
-            <span class="sidebar-item-label">2. Queue Simulator</span>
-          </a>
-
-          <a href="#stacks" class="sidebar-item" data-sq-view="viewStackSim" onclick="StackQueueEngine.switchSubView('viewStackSim')">
-            <span class="sidebar-item-icon">📚</span>
-            <span class="sidebar-item-label">3. Stack Simulator (LIFO)</span>
-          </a>
-
-          <a href="#programs" class="sidebar-item" data-sq-view="viewQueuePrograms" onclick="StackQueueEngine.switchSubView('viewQueuePrograms')">
-            <span class="sidebar-item-icon">💻</span>
-            <span class="sidebar-item-label">4. Full C Code & Quiz</span>
+          <a href="#stack-sim" class="sidebar-item" data-sq-view="viewStackSim" onclick="StackQueueEngine.switchSubView('viewStackSim')">
+            <span class="sidebar-item-icon">⚡</span>
+            <span class="sidebar-item-label">2. Stack Simulator (Array/LL)</span>
           </a>
         </div>
 
         <div class="sidebar-category">
-          <div class="sidebar-cat-title">Queue Operations</div>
+          <div class="sidebar-cat-title">🚶 Queues Sub-Topics (FIFO)</div>
+
+          <a href="#queue-intro" class="sidebar-item" data-sq-view="viewQueueFoundations" onclick="StackQueueEngine.switchSubView('viewQueueFoundations')">
+            <span class="sidebar-item-icon">📘</span>
+            <span class="sidebar-item-label">3. Queue & FIFO Principle</span>
+          </a>
+
+          <a href="#queue-sim" class="sidebar-item" data-sq-view="viewQueueSim" onclick="StackQueueEngine.switchSubView('viewQueueSim')">
+            <span class="sidebar-item-icon">🔄</span>
+            <span class="sidebar-item-label">4. Queue Simulator (Linear/Circular/LL)</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">C Programs & Assessment</div>
+
+          <a href="#programs" class="sidebar-item" data-sq-view="viewStackQueuePrograms" onclick="StackQueueEngine.switchSubView('viewStackQueuePrograms')">
+            <span class="sidebar-item-icon">💻</span>
+            <span class="sidebar-item-label">5. Full C Code & Assessment</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Quick Operations</div>
+
+          <a href="#push" class="sidebar-item" onclick="StackQueueEngine.switchSubView('viewStackSim'); StackQueueEngine.pushOp();">
+            <span class="sidebar-item-icon">⬆️</span>
+            <span class="sidebar-item-label">Stack push(val)</span>
+          </a>
+
+          <a href="#pop" class="sidebar-item" onclick="StackQueueEngine.switchSubView('viewStackSim'); StackQueueEngine.popOp();">
+            <span class="sidebar-item-icon">⬇️</span>
+            <span class="sidebar-item-label">Stack pop()</span>
+          </a>
 
           <a href="#enqueue" class="sidebar-item" onclick="StackQueueEngine.switchSubView('viewQueueSim'); StackQueueEngine.enqueueOp();">
             <span class="sidebar-item-icon">➕</span>
-            <span class="sidebar-item-label">enqueue(val) - O(1)</span>
+            <span class="sidebar-item-label">Queue enqueue(val)</span>
           </a>
 
           <a href="#dequeue" class="sidebar-item" onclick="StackQueueEngine.switchSubView('viewQueueSim'); StackQueueEngine.dequeueOp();">
             <span class="sidebar-item-icon">❌</span>
-            <span class="sidebar-item-label">dequeue() - O(1)</span>
-          </a>
-
-          <a href="#front" class="sidebar-item" onclick="StackQueueEngine.switchSubView('viewQueueSim'); StackQueueEngine.frontOp();">
-            <span class="sidebar-item-icon">👁️</span>
-            <span class="sidebar-item-label">front() / peek() - O(1)</span>
-          </a>
-
-          <a href="#rear" class="sidebar-item" onclick="StackQueueEngine.switchSubView('viewQueueSim'); StackQueueEngine.rearOp();">
-            <span class="sidebar-item-icon">🎯</span>
-            <span class="sidebar-item-label">rear() - O(1)</span>
+            <span class="sidebar-item-label">Queue dequeue()</span>
           </a>
         </div>
 
@@ -107,7 +120,7 @@
         <div class="breadcrumb-nav">
           <a href="index.html" style="color:var(--text-muted); text-decoration:none;">DS Catalog</a>
           <span>➔</span>
-          <span style="color:var(--text-main); font-weight:700;">Module 3: Stacks & Queues in C</span>
+          <span style="color:var(--text-main); font-weight:700;">Module 3: Stacks (LIFO) & Queues (FIFO)</span>
         </div>
 
         <div class="header-actions">
@@ -116,12 +129,167 @@
         </div>
       </header>
 
-      <!-- SUB-VIEW 1: QUEUE FOUNDATIONS & FIFO PRINCIPLE -->
-      <div class="view-panel active-view" id="viewQueueFoundations">
+      <!-- SUB-VIEW 1: STACK FOUNDATIONS & LIFO PRINCIPLE -->
+      <div class="view-panel active-view" id="viewStackFoundations">
         
         <!-- Module Banner Header -->
         <div class="module-header-card" style="margin-bottom:1.5rem;">
-          <h1 class="module-title">🚶 Module 3: Queues (FIFO Data Structure)</h1>
+          <h1 class="module-title">📚 Module 3A: Stacks (LIFO Data Structure)</h1>
+          <p class="module-subtitle">
+            Understand the <strong>Last-In, First-Out (LIFO)</strong> mechanism, real-world analogies, operation complexities, and C function call stack frames.
+          </p>
+        </div>
+
+        <!-- 1. What is a Stack? Section -->
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--primary); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
+            <span>💡</span> 1. What is a Stack?
+          </h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin-bottom:1.25rem;">
+            A <strong>Stack</strong> is a linear Abstract Data Type (ADT) operating on the <strong>LIFO (Last In, First Out)</strong> principle. Insertion and deletion occur strictly at a single open endpoint called the <strong>TOP</strong> of the stack.
+          </p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem;" class="matrix-layout-grid">
+            <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1.1rem; border-radius:var(--radius-md);">
+              <h4 style="color:var(--secondary); font-size:0.95rem; margin-bottom:0.4rem;">🔑 Key Rule: LIFO Access</h4>
+              <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5;">
+                The element inserted last is always the very first element to be removed. You cannot access lower elements without first popping the elements above them!
+              </p>
+            </div>
+
+            <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1.1rem; border-radius:var(--radius-md);">
+              <h4 style="color:var(--accent-green); font-size:0.95rem; margin-bottom:0.4rem;">🎯 Primary Entry Point: TOP Pointer</h4>
+              <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5;">
+                All operations (<code>push</code>, <code>pop</code>, <code>peek</code>) are performed at the <strong>Top pointer</strong> in constant <code>O(1)</code> time complexity.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Real-World Analogies Section -->
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1rem;">
+            🌎 Real-World & System Analogies of Stacks
+          </h2>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem;" class="features-row">
+            
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">🍽️</div>
+              <div class="feature-info">
+                <h3>A. Stack of Plates</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">
+                  Plates placed in a cafeteria stack. Added to top (Push), washed from top (Pop).
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">🌐</div>
+              <div class="feature-info">
+                <h3>B. Browser Back Button</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">
+                  Every URL visited is pushed onto history stack. Clicking Back pops current URL.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">↩️</div>
+              <div class="feature-info">
+                <h3>C. Text Editor Undo (Ctrl+Z)</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">
+                  Modifications stored in Undo Stack. Pressing Ctrl+Z pops recent edit action.
+                </p>
+              </div>
+            </div>
+
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">⚙️</div>
+              <div class="feature-info">
+                <h3>D. C Function Call Stack</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">
+                  CPU reserves Stack Frames for function calls. Returning pops activation records.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SUB-VIEW 2: STACK INTERACTIVE SIMULATOR -->
+      <div class="view-panel" id="viewStackSim">
+        
+        <div class="module-header-card" style="margin-bottom:1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <h1 class="module-title">📚 Interactive Stack Simulator (LIFO)</h1>
+              <p class="module-subtitle">
+                Push, Pop, and Peek operations with step-by-step playback, variable watch, and line-by-line execution tracker.
+              </p>
+            </div>
+
+            <div class="mode-toggle-group">
+              <button class="btn-toggle active" id="btnSModeArray" onclick="StackQueueEngine.setStackMode('array')">Array-Based Stack (Fixed MAX=6)</button>
+              <button class="btn-toggle" id="btnSModeLL" onclick="StackQueueEngine.setStackMode('linkedlist')">Linked List Stack (Dynamic Heap)</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="sAlertBanner" style="display:none; margin-bottom:1.25rem;"></div>
+
+        <div style="display:flex; flex-direction:column; gap:1.5rem; width:100%;">
+          
+          <div class="viz-canvas-card" style="width:100%;">
+            <div class="op-controls" style="margin-bottom:1.25rem;">
+              <div class="op-input-group">
+                <label for="sValInput">Value:</label>
+                <input type="number" id="sValInput" class="op-input" value="99" style="width:70px; text-align:center;">
+              </div>
+
+              <button class="btn btn-primary btn-sm" onclick="StackQueueEngine.pushOp()">⬆️ push(val) O(1)</button>
+              <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.popOp()">⬇️ pop() O(1)</button>
+              <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.peekStackOp()">👁️ peek() O(1)</button>
+            </div>
+
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:0.85rem 1.1rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.85rem;">
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepBack()">⏪ Back</button>
+                <button class="btn btn-primary btn-sm" id="sBtnPlayPause" onclick="StackQueueEngine.isPlaying ? StackQueueEngine.stopPlayback() : StackQueueEngine.playSteps('s')">▶️ Play</button>
+                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepForward()">⏩ Forward</button>
+              </div>
+
+              <div id="sStepDescBanner" style="font-size:0.88rem; color:var(--secondary); font-weight:600;">
+                Click ⬆️ push(val) or ⬇️ pop() above to start visualization.
+              </div>
+
+              <span class="badge badge-primary" id="sStepCounter">Ready</span>
+            </div>
+
+            <div class="array-stage" style="overflow-x:auto; padding:1.5rem 0.75rem; width:100%;">
+              <div id="sStageContainer"></div>
+            </div>
+          </div>
+
+          <div class="code-panel" style="width:100%;">
+            <div class="code-panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:700; color:var(--text-main);">⚡ GCC C Line Execution Tracker</span>
+              <div id="sVarWatchBox" style="background:rgba(0,0,0,0.3); padding:0.3rem 0.75rem; border-radius:var(--radius-sm);">No active variables</div>
+            </div>
+            <div class="code-view" id="sCCodeView"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SUB-VIEW 3: QUEUE FOUNDATIONS & FIFO PRINCIPLE -->
+      <div class="view-panel" id="viewQueueFoundations">
+        
+        <div class="module-header-card" style="margin-bottom:1.5rem;">
+          <h1 class="module-title">🚶 Module 3B: Queues (FIFO Data Structure)</h1>
           <p class="module-subtitle">
             Master the <strong>First-In, First-Out (FIFO)</strong> principle, Front & Rear pointers, linear wasted space, circular queues, and dynamic linked list queues.
           </p>
@@ -153,153 +321,61 @@
           </div>
         </div>
 
-        <!-- 2. Real-Life Examples Section -->
-        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+        <!-- 2. Real-Life Applications -->
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
           <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1rem;">
-            🌎 Real-Life & System Applications of Queues
+            🌎 Real-Life Applications of Queues
           </h2>
 
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem;" class="features-row">
-            
-            <!-- Analogy 1: Ticket Counter -->
             <div class="feature-box">
               <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">🎟️</div>
               <div class="feature-info">
                 <h3>A. Ticket Counter Line</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted);">
-                  First person arriving at the ticket window is served first. New buyers join at the back of the queue.
-                </p>
+                <p style="font-size:0.85rem; color:var(--text-muted);">First person arriving at ticket window is served first.</p>
               </div>
             </div>
 
-            <!-- Analogy 2: Printer Spooler -->
             <div class="feature-box">
               <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">🖨️</div>
               <div class="feature-info">
                 <h3>B. Printer Print Spooler</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted);">
-                  Print jobs sent from multiple computers are stored in a spooler queue and printed in exact arrival order.
-                </p>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Print jobs printed in exact arrival order.</p>
               </div>
             </div>
 
-            <!-- Analogy 3: Bank Queue -->
             <div class="feature-box">
               <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">🏦</div>
               <div class="feature-info">
                 <h3>C. Bank Teller Counter</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted);">
-                  Bank customers wait in line for the next available teller window.
-                </p>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Bank customers waiting in line for next teller window.</p>
               </div>
             </div>
 
-            <!-- Analogy 4: CPU Scheduler -->
             <div class="feature-box">
               <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">⚙️</div>
               <div class="feature-info">
                 <h3>D. CPU Process Scheduler</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted);">
-                  Operating system Ready Queue (FIFO / Round-Robin) allocates CPU execution time slots to processes.
-                </p>
+                <p style="font-size:0.85rem; color:var(--text-muted);">OS Ready Queue allocates CPU execution time slots.</p>
               </div>
             </div>
-
-            <!-- Analogy 5: Support Call Center -->
-            <div class="feature-box">
-              <div class="feature-icon-wrapper" style="background:rgba(139,92,246,0.15); color:var(--accent-purple);">🎧</div>
-              <div class="feature-info">
-                <h3>E. Customer Support Line</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted);">
-                  Incoming phone calls placed in order ("Your call is 2nd in line").
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- 3. Time Complexity Summary Table -->
-        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
-          <h2 style="font-size:1.35rem; font-weight:800; color:var(--accent-green); margin-bottom:1rem;">
-            ⚡ Queue Operations & Time Complexity Summary
-          </h2>
-
-          <div style="overflow-x:auto;">
-            <table class="mem-table" style="width:100%;">
-              <thead>
-                <tr>
-                  <th>Operation</th>
-                  <th>Description</th>
-                  <th>Array Queue</th>
-                  <th>Linked List Queue</th>
-                  <th>Time Complexity</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong style="color:var(--primary);">enqueue(x)</strong></td>
-                  <td>Insert element <code>x</code> at the Rear of queue</td>
-                  <td><code>queue[++rear] = x</code></td>
-                  <td><code>rear->next = newNode; rear = newNode</code></td>
-                  <td><span class="badge badge-primary">O(1)</span></td>
-                </tr>
-                <tr>
-                  <td><strong style="color:var(--secondary);">dequeue()</strong></td>
-                  <td>Remove & return element from Front</td>
-                  <td><code>return queue[front++]</code></td>
-                  <td><code>temp = front; front = front->next; free(temp)</code></td>
-                  <td><span class="badge badge-primary">O(1)</span></td>
-                </tr>
-                <tr>
-                  <td><strong style="color:var(--accent-green);">front() / peek()</strong></td>
-                  <td>Inspect element at Front pointer</td>
-                  <td><code>return queue[front]</code></td>
-                  <td><code>return front->data</code></td>
-                  <td><span class="badge badge-primary">O(1)</span></td>
-                </tr>
-                <tr>
-                  <td><strong style="color:var(--accent-amber);">rear()</strong></td>
-                  <td>Inspect element at Rear pointer</td>
-                  <td><code>return queue[rear]</code></td>
-                  <td><code>return rear->data</code></td>
-                  <td><span class="badge badge-primary">O(1)</span></td>
-                </tr>
-                <tr>
-                  <td><strong style="color:var(--text-main);">isEmpty()</strong></td>
-                  <td>Check if queue is empty</td>
-                  <td><code>front == -1 || front > rear</code></td>
-                  <td><code>front == NULL</code></td>
-                  <td><span class="badge badge-primary">O(1)</span></td>
-                </tr>
-                <tr>
-                  <td><strong style="color:var(--accent-red);">isFull()</strong></td>
-                  <td>Check if linear array queue is full</td>
-                  <td><code>rear == MAX - 1</code></td>
-                  <td>N/A (Dynamic Memory)</td>
-                  <td><span class="badge badge-primary">O(1)</span></td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
 
       </div>
 
-      <!-- SUB-VIEW 2: INTERACTIVE QUEUE SIMULATOR -->
+      <!-- SUB-VIEW 4: QUEUE INTERACTIVE SIMULATOR -->
       <div class="view-panel" id="viewQueueSim">
         
-        <!-- Module Header Card with Implementation Mode Selector -->
         <div class="module-header-card" style="margin-bottom:1.25rem;">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
             <div>
-              <h1 class="module-title">🚶 Interactive Queue Simulator</h1>
+              <h1 class="module-title">🚶 Interactive Queue Simulator (FIFO)</h1>
               <p class="module-subtitle">
                 Simulate Linear Array Queue, Circular Ring Queue, and Dynamic Linked List Queue.
               </p>
             </div>
 
-            <!-- Queue Mode Selector -->
             <div class="mode-toggle-group">
               <button class="btn-toggle active" id="btnQModeLinear" onclick="StackQueueEngine.setQueueMode('linear')">Linear Array Queue</button>
               <button class="btn-toggle" id="btnQModeCircular" onclick="StackQueueEngine.setQueueMode('circular')">Circular Queue Ring</button>
@@ -308,16 +384,11 @@
           </div>
         </div>
 
-        <!-- Overflow / Underflow Alert Container -->
         <div id="qAlertBanner" style="display:none; margin-bottom:1.25rem;"></div>
 
-        <!-- Full-Width Stacked Layout -->
         <div style="display:flex; flex-direction:column; gap:1.5rem; width:100%;">
-
-          <!-- Top: Full-Width Visualizer Stage Card -->
+          
           <div class="viz-canvas-card" style="width:100%;">
-            
-            <!-- Controls Toolbar -->
             <div class="op-controls" style="margin-bottom:1.25rem;">
               <div class="op-input-group">
                 <label for="qValInput">Value:</label>
@@ -330,48 +401,30 @@
               <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.rearOp()">🎯 rear() O(1)</button>
             </div>
 
-            <!-- Step Playback Animation Controls Bar -->
             <div style="background:rgba(255,255,255,0.03); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:0.85rem 1.1rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.85rem;">
-              
               <div style="display:flex; align-items:center; gap:0.5rem;">
-                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepBack()" title="Step Back">⏪ Back</button>
-                <button class="btn btn-primary btn-sm" id="qBtnPlayPause" onclick="StackQueueEngine.isPlaying ? StackQueueEngine.stopPlayback() : StackQueueEngine.playSteps()">▶️ Play</button>
-                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepForward()" title="Step Forward">⏩ Forward</button>
+                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepBack()">⏪ Back</button>
+                <button class="btn btn-primary btn-sm" id="qBtnPlayPause" onclick="StackQueueEngine.isPlaying ? StackQueueEngine.stopPlayback() : StackQueueEngine.playSteps('q')">▶️ Play</button>
+                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepForward()">⏩ Forward</button>
               </div>
 
-              <!-- Step Description Banner -->
-              <div id="qStepDescBanner" style="font-size:0.88rem; color:var(--secondary); font-weight:600; font-family:var(--font-sans);">
-                Click ➕ enqueue(val) or ❌ dequeue() above to start step-by-step visualization.
+              <div id="qStepDescBanner" style="font-size:0.88rem; color:var(--secondary); font-weight:600;">
+                Click ➕ enqueue(val) or ❌ dequeue() above to start visualization.
               </div>
 
-              <!-- Step Counter Badge -->
               <span class="badge badge-primary" id="qStepCounter">Ready</span>
             </div>
 
-            <!-- Stage Container -->
-            <div class="array-stage" style="overflow-x:auto; padding:1.5rem 0.75rem; scrollbar-width:thin; width:100%;">
+            <div class="array-stage" style="overflow-x:auto; padding:1.5rem 0.75rem; width:100%;">
               <div id="qStageContainer"></div>
             </div>
-
           </div>
 
-          <!-- Bottom: Full-Width GCC C Execution Code Panel with Variable Watch & View Mode Toggle -->
           <div class="code-panel" style="width:100%;">
-            <div class="code-panel-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
-              
-              <div style="display:flex; align-items:center; gap:0.6rem;">
-                <button class="btn btn-secondary btn-sm active" id="qBtnCodeSnippet" onclick="StackQueueEngine.toggleCodeViewMode('snippet')">⚡ Line Execution Tracker</button>
-                <button class="btn btn-secondary btn-sm" id="qBtnCodeFull" onclick="StackQueueEngine.toggleCodeViewMode('full')">💻 Complete GCC C Program</button>
-              </div>
-
-              <!-- Variable Watch Box -->
-              <div id="qVarWatchBox" style="background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.3rem 0.75rem;">
-                <span style="color:var(--text-muted); font-size:0.8rem;">No active variables</span>
-              </div>
-
-              <span class="c-badge">GCC / C99</span>
+            <div class="code-panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:700; color:var(--text-main);">⚡ GCC C Line Execution Tracker</span>
+              <div id="qVarWatchBox" style="background:rgba(0,0,0,0.3); padding:0.3rem 0.75rem; border-radius:var(--radius-sm);">No active variables</div>
             </div>
-
             <div class="code-view" id="qCCodeView"></div>
           </div>
 
@@ -379,120 +432,51 @@
 
       </div>
 
-      <!-- SUB-VIEW 3: STACK SIMULATOR VIEW (LIFO) -->
-      <div class="view-panel" id="viewStackSim">
-        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
-          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.75rem; color:var(--text-main);">
-            📚 Stack Simulator (LIFO Mode)
-          </h2>
-          <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:1.5rem;">
-            Switch to Stacks mode using the sidebar or top tab to run Push/Pop LIFO animations.
-          </p>
-        </div>
-      </div>
-
-      <!-- SUB-VIEW 4: C PROGRAMS & ASSESSMENT -->
-      <div class="view-panel" id="viewQueuePrograms">
+      <!-- SUB-VIEW 5: C PROGRAMS & ASSESSMENT FOR BOTH STACKS & QUEUES -->
+      <div class="view-panel" id="viewStackQueuePrograms">
         <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; display:flex; flex-direction:column; gap:2rem;">
           
           <div>
             <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.4rem; color:var(--text-main);">
-              💻 Essential C Programs for Queues
+              💻 Essential C Programs for Stacks & Queues
             </h2>
             <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:1.5rem;">
-              Compilable, production-ready C implementations for university exams and coding interviews.
+              Production-ready C source code for university exams and coding interviews.
             </p>
           </div>
 
-          <!-- Section 1: Linear Array Queue C Code -->
+          <!-- Array Stack C Code -->
           <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
-            <h3 style="font-size:1.2rem; font-weight:700; color:var(--secondary); margin-bottom:1rem;">
-              1. Linear Array Queue Implementation in C
-            </h3>
-            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
+            <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary); margin-bottom:0.75rem;">1. Array Implementation of Stack in C</h3>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
 #define MAX 5
+int stack[MAX], top = -1;
 
-int queue[MAX];
-int front = -1, rear = -1;
+void push(int val) {
+    if (top == MAX - 1) return;
+    stack[++top] = val;
+}
+int pop() {
+    if (top == -1) return -1;
+    return stack[top--];
+}</code></pre>
+          </div>
+
+          <!-- Linear Queue C Code -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-green); margin-bottom:0.75rem;">2. Linear Array Queue Implementation in C</h3>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
+#define MAX 5
+int queue[MAX], front = -1, rear = -1;
 
 void enqueue(int val) {
-    if (rear == MAX - 1) { printf("Queue Overflow\n"); return; }
+    if (rear == MAX - 1) return;
     if (front == -1) front = 0;
     queue[++rear] = val;
 }
-
 int dequeue() {
-    if (front == -1 || front > rear) { printf("Queue Underflow\n"); return -1; }
+    if (front == -1 || front > rear) return -1;
     return queue[front++];
-}
-
-int main() {
-    enqueue(10); enqueue(20); enqueue(30);
-    printf("Dequeued: %d\n", dequeue());
-    return 0;
-}</code></pre>
-          </div>
-
-          <!-- Section 2: Circular Queue C Code -->
-          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
-            <h3 style="font-size:1.2rem; font-weight:700; color:var(--accent-green); margin-bottom:1rem;">
-              2. Circular Queue Implementation in C (Modulo Math: (rear+1)%MAX)
-            </h3>
-            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
-#define MAX 5
-
-int cqueue[MAX];
-int front = -1, rear = -1;
-
-void enqueue(int val) {
-    if ((rear + 1) % MAX == front) { printf("Circular Queue Full!\n"); return; }
-    if (front == -1) front = 0;
-    rear = (rear + 1) % MAX;
-    cqueue[rear] = val;
-}
-
-int dequeue() {
-    if (front == -1) { printf("Circular Queue Empty!\n"); return -1; }
-    int val = cqueue[front];
-    if (front == rear) { front = -1; rear = -1; }
-    else front = (front + 1) % MAX;
-    return val;
-}</code></pre>
-          </div>
-
-          <!-- Section 3: Linked List Queue C Code -->
-          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
-            <h3 style="font-size:1.2rem; font-weight:700; color:var(--primary); margin-bottom:1rem;">
-              3. Dynamic Linked List Queue in C (Front & Rear Pointers)
-            </h3>
-            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; font-family:var(--font-code); font-size:0.82rem; color:var(--primary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-struct Node *front = NULL, *rear = NULL;
-
-void enqueue(int val) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = val;
-    newNode->next = NULL;
-    if (rear == NULL) { front = rear = newNode; return; }
-    rear->next = newNode;
-    rear = newNode;
-}
-
-int dequeue() {
-    if (front == NULL) return -1;
-    struct Node* temp = front;
-    int val = temp->data;
-    front = front->next;
-    if (front == NULL) rear = NULL;
-    free(temp);
-    return val;
 }</code></pre>
           </div>
 

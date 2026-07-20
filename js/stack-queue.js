@@ -1,12 +1,10 @@
 /* ==========================================================================
    Base2ace Technologies Education - Interactive Stacks & Queues Engine
-   Covers Stacks (LIFO) and Queues (FIFO) with Array, Circular & Linked List
-   Simulators, Wasted Space Explanation, Variable Watch & C Code Tracker
+   Dual Module: Covers Both Stacks (LIFO) and Queues (FIFO)
    ========================================================================== */
 
 const StackQueueEngine = {
-  mainTab: 'stack', // 'stack' or 'queue'
-  activeView: 'viewQueueFoundations',
+  activeView: 'viewStackFoundations',
   
   // Stack State
   stackMode: 'array', // 'array' or 'linkedlist'
@@ -28,26 +26,9 @@ const StackQueueEngine = {
   speedMs: 1200,
 
   init() {
+    this.renderStackStage();
     this.renderQueueStage();
     this.renderCCode();
-  },
-
-  setMainTab(tabKey) {
-    this.mainTab = tabKey;
-    document.getElementById('tabNavStack').classList.toggle('active', tabKey === 'stack');
-    document.getElementById('tabNavQueue').classList.toggle('active', tabKey === 'queue');
-
-    const stackSection = document.getElementById('sectionStackModule');
-    const queueSection = document.getElementById('sectionQueueModule');
-    if (stackSection) stackSection.style.display = tabKey === 'stack' ? 'block' : 'none';
-    if (queueSection) queueSection.style.display = tabKey === 'queue' ? 'block' : 'none';
-
-    this.stopPlayback();
-    if (tabKey === 'queue') {
-      this.renderQueueStage();
-    } else if (typeof StackSim !== 'undefined') {
-      StackSim.renderStage();
-    }
   },
 
   switchSubView(viewId) {
@@ -59,6 +40,27 @@ const StackQueueEngine = {
     document.querySelectorAll('.sidebar-item[data-sq-view]').forEach(item => {
       item.classList.toggle('active', item.dataset.sqView === viewId);
     });
+
+    if (viewId === 'viewStackSim') {
+      this.renderStackStage();
+      this.renderCCode();
+    } else if (viewId === 'viewQueueSim') {
+      this.renderQueueStage();
+      this.renderCCode();
+    }
+  },
+
+  setStackMode(m) {
+    this.stackMode = m;
+    const btnArray = document.getElementById('btnSModeArray');
+    const btnLL = document.getElementById('btnSModeLL');
+    if (btnArray) btnArray.classList.toggle('active', m === 'array');
+    if (btnLL) btnLL.classList.toggle('active', m === 'linkedlist');
+
+    this.stopPlayback();
+    this.clearAlerts('sAlertBanner');
+    this.renderStackStage();
+    this.renderCCode();
   },
 
   setQueueMode(m) {
@@ -71,18 +73,18 @@ const StackQueueEngine = {
     if (btnLL) btnLL.classList.toggle('active', m === 'linkedlist');
 
     this.stopPlayback();
-    this.clearAlerts();
+    this.clearAlerts('qAlertBanner');
     this.renderQueueStage();
     this.renderCCode();
   },
 
-  clearAlerts() {
-    const alertEl = document.getElementById('qAlertBanner');
+  clearAlerts(bannerId) {
+    const alertEl = document.getElementById(bannerId);
     if (alertEl) alertEl.style.display = 'none';
   },
 
-  showAlert(msg, type = 'danger') {
-    const alertEl = document.getElementById('qAlertBanner');
+  showAlert(bannerId, msg, type = 'danger') {
+    const alertEl = document.getElementById(bannerId);
     if (alertEl) {
       alertEl.style.display = 'block';
       alertEl.className = `badge badge-${type}`;
@@ -94,24 +96,61 @@ const StackQueueEngine = {
     }
   },
 
+  // STACK OPERATIONS
+  pushOp() {
+    this.clearAlerts('sAlertBanner');
+    const valInput = document.getElementById('sValInput');
+    const val = valInput ? parseInt(valInput.value) || 99 : 99;
+
+    if (this.stackMode === 'array') {
+      if (this.stackItems.length >= this.stackCapacity) {
+        this.showAlert('sAlertBanner', `🚨 STACK OVERFLOW! Stack capacity is full (MAX = ${this.stackCapacity}). Cannot push ${val}.`, 'danger');
+        return;
+      }
+    }
+
+    this.generatePushSteps(val);
+  },
+
+  popOp() {
+    this.clearAlerts('sAlertBanner');
+    if (this.stackItems.length === 0) {
+      this.showAlert('sAlertBanner', `⚠️ STACK UNDERFLOW! Stack is empty (top == -1). Cannot pop.`, 'danger');
+      return;
+    }
+
+    this.generatePopSteps();
+  },
+
+  peekStackOp() {
+    this.clearAlerts('sAlertBanner');
+    if (this.stackItems.length === 0) {
+      this.showAlert('sAlertBanner', `ℹ️ Stack is Empty (top == -1). Peek returns NULL / Undefined.`, 'info');
+      return;
+    }
+    const topVal = this.stackItems[this.stackItems.length - 1];
+    this.showAlert('sAlertBanner', `👁️ PEEK / TOP: Element at top is ${topVal} [Index ${this.stackItems.length - 1}]`, 'success');
+    this.renderStackStage(this.stackItems.length - 1);
+  },
+
   // QUEUE OPERATIONS
   enqueueOp() {
-    this.clearAlerts();
+    this.clearAlerts('qAlertBanner');
     const valInput = document.getElementById('qValInput');
-    const val = valInput ? parseInt(valInput.value) || 99 : 99;
+    const val = valInput ? parseInt(valInput.value) || 88 : 88;
 
     if (this.queueMode === 'linear') {
       if (this.rearPtr >= this.queueCapacity - 1) {
         if (this.frontPtr > 0) {
-          this.showAlert(`🚨 WASTED SPACE OVERFLOW! rear reached MAX-1 (${this.queueCapacity-1}), but front is at ${this.frontPtr}. Slots 0..${this.frontPtr-1} are wasted! Solution: Circular Queue or Shift!`, 'danger');
+          this.showAlert('qAlertBanner', `🚨 WASTED SPACE OVERFLOW! rear reached MAX-1 (${this.queueCapacity-1}), but front is at ${this.frontPtr}. Slots 0..${this.frontPtr-1} are wasted! Solution: Circular Queue!`, 'danger');
         } else {
-          this.showAlert(`🚨 QUEUE OVERFLOW! Queue is full (rear == MAX - 1). Cannot enqueue ${val}.`, 'danger');
+          this.showAlert('qAlertBanner', `🚨 QUEUE OVERFLOW! Queue is full (rear == MAX - 1). Cannot enqueue ${val}.`, 'danger');
         }
         return;
       }
     } else if (this.queueMode === 'circular') {
       if ((this.rearPtr + 1) % this.queueCapacity === this.frontPtr && this.queueItems.length > 0) {
-        this.showAlert(`🚨 CIRCULAR QUEUE OVERFLOW! (rear + 1) % MAX == front. Queue capacity full (${this.queueCapacity}).`, 'danger');
+        this.showAlert('qAlertBanner', `🚨 CIRCULAR QUEUE OVERFLOW! (rear + 1) % MAX == front. Queue capacity full (${this.queueCapacity}).`, 'danger');
         return;
       }
     }
@@ -120,9 +159,9 @@ const StackQueueEngine = {
   },
 
   dequeueOp() {
-    this.clearAlerts();
+    this.clearAlerts('qAlertBanner');
     if (this.queueItems.length === 0) {
-      this.showAlert(`⚠️ QUEUE UNDERFLOW! Queue is empty (front > rear or items == 0). Cannot dequeue.`, 'danger');
+      this.showAlert('qAlertBanner', `⚠️ QUEUE UNDERFLOW! Queue is empty. Cannot dequeue.`, 'danger');
       return;
     }
 
@@ -130,28 +169,85 @@ const StackQueueEngine = {
   },
 
   frontOp() {
-    this.clearAlerts();
+    this.clearAlerts('qAlertBanner');
     if (this.queueItems.length === 0) {
-      this.showAlert(`ℹ️ Queue is Empty. Front pointer returns NULL / Undefined.`, 'info');
+      this.showAlert('qAlertBanner', `ℹ️ Queue is Empty. Front returns NULL / Undefined.`, 'info');
       return;
     }
     const frontVal = this.queueItems[0];
-    this.showAlert(`👁️ FRONT PEEK: Element at Front is ${frontVal} [Index ${this.frontPtr}]`, 'success');
+    this.showAlert('qAlertBanner', `👁️ FRONT PEEK: Element at Front is ${frontVal} [Index ${this.frontPtr}]`, 'success');
     this.renderQueueStage(0);
   },
 
   rearOp() {
-    this.clearAlerts();
+    this.clearAlerts('qAlertBanner');
     if (this.queueItems.length === 0) {
-      this.showAlert(`ℹ️ Queue is Empty. Rear pointer returns NULL / Undefined.`, 'info');
+      this.showAlert('qAlertBanner', `ℹ️ Queue is Empty. Rear returns NULL / Undefined.`, 'info');
       return;
     }
     const rearVal = this.queueItems[this.queueItems.length - 1];
-    this.showAlert(`🎯 REAR PEEK: Element at Rear is ${rearVal} [Index ${this.rearPtr}]`, 'success');
+    this.showAlert('qAlertBanner', `🎯 REAR PEEK: Element at Rear is ${rearVal} [Index ${this.rearPtr}]`, 'success');
     this.renderQueueStage(this.queueItems.length - 1);
   },
 
-  // STEP GENERATOR ENGINE FOR QUEUE
+  // STEP ANIMATION ENGINE FOR STACK PUSH/POP
+  generatePushSteps(val) {
+    this.stopPlayback();
+    this.steps = [];
+
+    const snapshot = (itemsArr, highlightIdx, desc, codeLineIdx, vars) => {
+      return {
+        items: JSON.parse(JSON.stringify(itemsArr)),
+        highlightIdx: highlightIdx,
+        desc: desc,
+        codeLineIdx: codeLineIdx,
+        vars: vars
+      };
+    };
+
+    const tempItems = JSON.parse(JSON.stringify(this.stackItems));
+    const oldTop = tempItems.length - 1;
+
+    this.steps.push(snapshot(tempItems, oldTop, `Step 1: Check isFull(): top (${oldTop}) < MAX - 1 (${this.stackCapacity - 1})`, 1, { 'top': oldTop, 'MAX': this.stackCapacity, 'val': val }));
+    const newTop = oldTop + 1;
+    this.steps.push(snapshot(tempItems, null, `Step 2: Increment top pointer: ++top (top is now ${newTop})`, 2, { 'top': newTop, 'val': val }));
+    tempItems.push(val);
+    this.steps.push(snapshot(tempItems, newTop, `Step 3: Assign value at stack[top]: stack[${newTop}] = ${val}. Push Complete!`, 3, { 'top': newTop, 'stack[top]': val }));
+
+    this.stackItems = tempItems;
+    this.currentStepIdx = 0;
+    this.playSteps('s');
+  },
+
+  generatePopSteps() {
+    this.stopPlayback();
+    this.steps = [];
+
+    const snapshot = (itemsArr, highlightIdx, desc, codeLineIdx, vars) => {
+      return {
+        items: JSON.parse(JSON.stringify(itemsArr)),
+        highlightIdx: highlightIdx,
+        desc: desc,
+        codeLineIdx: codeLineIdx,
+        vars: vars
+      };
+    };
+
+    const tempItems = JSON.parse(JSON.stringify(this.stackItems));
+    const poppedVal = tempItems[tempItems.length - 1];
+    const oldTop = tempItems.length - 1;
+
+    this.steps.push(snapshot(tempItems, oldTop, `Step 1: Check isEmpty(): top (${oldTop}) != -1`, 1, { 'top': oldTop, 'top_val': poppedVal }));
+    tempItems.pop();
+    const newTop = tempItems.length - 1;
+    this.steps.push(snapshot(tempItems, newTop >= 0 ? newTop : null, `Step 2: Extract stack[top] (${poppedVal}) and decrement top to ${newTop}. Pop Complete!`, 2, { 'popped': poppedVal, 'new_top': newTop }));
+
+    this.stackItems = tempItems;
+    this.currentStepIdx = 0;
+    this.playSteps('s');
+  },
+
+  // STEP ANIMATION ENGINE FOR QUEUE ENQUEUE/DEQUEUE
   generateEnqueueSteps(val) {
     this.stopPlayback();
     this.steps = [];
@@ -168,55 +264,20 @@ const StackQueueEngine = {
       };
     };
 
-    if (this.queueMode === 'linear') {
-      const tempItems = JSON.parse(JSON.stringify(this.queueItems));
-      const oldRear = this.rearPtr;
-      const oldFront = this.frontPtr;
+    const tempItems = JSON.parse(JSON.stringify(this.queueItems));
+    const oldRear = this.rearPtr;
+    const oldFront = this.frontPtr;
 
-      // Step 1: Check isFull
-      this.steps.push(snapshot(tempItems, oldFront, oldRear, null, `Step 1: Check isFull(): rear (${oldRear}) < MAX - 1 (${this.queueCapacity - 1})`, 1, { 'front': oldFront, 'rear': oldRear, 'val': val }));
+    this.steps.push(snapshot(tempItems, oldFront, oldRear, null, `Step 1: Check isFull(): rear (${oldRear}) < MAX - 1 (${this.queueCapacity - 1})`, 1, { 'front': oldFront, 'rear': oldRear, 'val': val }));
+    const newRear = oldRear + 1;
+    this.steps.push(snapshot(tempItems, oldFront, newRear, null, `Step 2: Increment rear pointer: ++rear (rear is now ${newRear})`, 2, { 'front': oldFront, 'rear': newRear }));
+    tempItems.push(val);
+    this.steps.push(snapshot(tempItems, oldFront, newRear, tempItems.length - 1, `Step 3: Assign value at queue[rear]: queue[${newRear}] = ${val}. Enqueue Complete!`, 3, { 'rear': newRear, 'queue[rear]': val }));
 
-      // Step 2: Increment rear pointer
-      const newRear = oldRear + 1;
-      this.steps.push(snapshot(tempItems, oldFront, newRear, null, `Step 2: Increment rear pointer: ++rear (rear is now ${newRear})`, 2, { 'front': oldFront, 'rear': newRear }));
-
-      // Step 3: Insert item
-      tempItems.push(val);
-      this.steps.push(snapshot(tempItems, oldFront, newRear, tempItems.length - 1, `Step 3: Assign value at queue[rear]: queue[${newRear}] = ${val}. Enqueue Complete!`, 3, { 'rear': newRear, 'queue[rear]': val }));
-
-      this.queueItems = tempItems;
-      this.rearPtr = newRear;
-
-    } else if (this.queueMode === 'circular') {
-      const tempItems = JSON.parse(JSON.stringify(this.queueItems));
-      const oldRear = this.rearPtr;
-      const newRear = (oldRear + 1) % this.queueCapacity;
-
-      this.steps.push(snapshot(tempItems, this.frontPtr, oldRear, null, `Step 1: Circular modulo math: rear = (rear + 1) % MAX = (${oldRear}+1)%${this.queueCapacity} = ${newRear}`, 1, { 'rear': newRear, 'val': val }));
-      
-      tempItems.push(val);
-      this.steps.push(snapshot(tempItems, this.frontPtr, newRear, tempItems.length - 1, `Step 2: Insert item into circular ring at index ${newRear}. Enqueue Complete!`, 2, { 'rear': newRear, 'queue[rear]': val }));
-
-      this.queueItems = tempItems;
-      this.rearPtr = newRear;
-
-    } else {
-      // Linked List Queue
-      const tempItems = JSON.parse(JSON.stringify(this.queueItems));
-      const newHex = '0x7FFE' + Math.floor(Math.random() * 80 + 10).toString(16).toUpperCase();
-
-      this.steps.push(snapshot(tempItems, 0, tempItems.length - 1, null, `Step 1: malloc(sizeof(struct Node)) created node at ${newHex}`, 1, { 'newNode': newHex, 'val': val }));
-      
-      tempItems.push(val);
-      const newRearIdx = tempItems.length - 1;
-
-      this.steps.push(snapshot(tempItems, 0, newRearIdx, newRearIdx, `Step 2: Attach to rear: rear->next = newNode; rear = newNode (${newHex}). Enqueue Complete!`, 2, { 'rear': newHex, 'rear->data': val }));
-
-      this.queueItems = tempItems;
-    }
-
+    this.queueItems = tempItems;
+    this.rearPtr = newRear;
     this.currentStepIdx = 0;
-    this.playSteps();
+    this.playSteps('q');
   },
 
   generateDequeueSteps() {
@@ -238,23 +299,21 @@ const StackQueueEngine = {
     const tempItems = JSON.parse(JSON.stringify(this.queueItems));
     const dequeuedVal = tempItems.shift();
     const oldFront = this.frontPtr;
+    const newFront = oldFront + 1;
 
-    if (this.queueMode === 'linear') {
-      const newFront = oldFront + 1;
-      this.steps.push(snapshot(tempItems, oldFront, this.rearPtr, 0, `Step 1: Extract queue[front] (${dequeuedVal})`, 1, { 'front': oldFront, 'dequeued': dequeuedVal }));
-      this.steps.push(snapshot(tempItems, newFront, this.rearPtr, null, `Step 2: Advance front pointer: ++front (front is now ${newFront}). Wasted slots: 0..${oldFront}. Dequeue Complete!`, 2, { 'front': newFront, 'rear': this.rearPtr }));
-      
-      this.frontPtr = newFront;
-    } else {
-      this.steps.push(snapshot(tempItems, 0, tempItems.length - 1, null, `Step 1: Extract & free node (${dequeuedVal}) from Front. Dequeue Complete!`, 2, { 'dequeued': dequeuedVal }));
-    }
+    this.steps.push(snapshot(tempItems, oldFront, this.rearPtr, 0, `Step 1: Extract queue[front] (${dequeuedVal})`, 1, { 'front': oldFront, 'dequeued': dequeuedVal }));
+    this.steps.push(snapshot(tempItems, newFront, this.rearPtr, null, `Step 2: Advance front pointer: ++front (front is now ${newFront}). Wasted slots: 0..${oldFront}. Dequeue Complete!`, 2, { 'front': newFront, 'rear': this.rearPtr }));
 
     this.queueItems = tempItems;
+    this.frontPtr = newFront;
     this.currentStepIdx = 0;
-    this.playSteps();
+    this.playSteps('q');
   },
 
-  playSteps() {
+  activeStepPrefix: 's',
+
+  playSteps(prefix = 's') {
+    this.activeStepPrefix = prefix;
     this.isPlaying = true;
     this.updatePlaybackUI();
 
@@ -293,26 +352,29 @@ const StackQueueEngine = {
   },
 
   renderCurrentStep() {
-    if (this.steps.length === 0) {
-      this.renderQueueStage();
-      return;
+    if (this.steps.length === 0) return;
+
+    const prefix = this.activeStepPrefix;
+    const step = this.steps[this.currentStepIdx];
+
+    if (prefix === 's') {
+      this.renderStackStageWithItems(step.items, step.highlightIdx);
+    } else {
+      this.renderQueueStageWithItems(step.items, step.frontP, step.rearP, step.highlightIdx);
     }
 
-    const step = this.steps[this.currentStepIdx];
-    this.renderQueueStageWithItems(step.items, step.frontP, step.rearP, step.highlightIdx);
-
-    const stepDescEl = document.getElementById('qStepDescBanner');
+    const stepDescEl = document.getElementById(`${prefix}StepDescBanner`);
     if (stepDescEl) {
       stepDescEl.innerHTML = `<strong>Step ${this.currentStepIdx + 1} of ${this.steps.length}:</strong> ${step.desc}`;
     }
 
-    this.renderVariableWatch(step.vars);
-    this.highlightCCodeLine(step.codeLineIdx);
+    this.renderVariableWatch(`${prefix}VarWatchBox`, step.vars);
+    this.highlightCCodeLine(`${prefix}CCodeView`, step.codeLineIdx);
     this.updatePlaybackUI();
   },
 
-  renderVariableWatch(varsObj) {
-    const watchEl = document.getElementById('qVarWatchBox');
+  renderVariableWatch(containerId, varsObj) {
+    const watchEl = document.getElementById(containerId);
     if (!watchEl) return;
 
     if (!varsObj || Object.keys(varsObj).length === 0) {
@@ -320,11 +382,7 @@ const StackQueueEngine = {
       return;
     }
 
-    let html = `
-      <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
-        <span style="font-size:0.78rem; font-weight:700; color:var(--primary); text-transform:uppercase;">Variable Watch:</span>
-    `;
-
+    let html = `<div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;"><span style="font-size:0.78rem; font-weight:700; color:var(--primary); text-transform:uppercase;">Variable Watch:</span>`;
     Object.keys(varsObj).forEach(key => {
       html += `
         <div style="background:var(--bg-main); border:1px solid var(--primary); padding:0.25rem 0.6rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.78rem;">
@@ -333,13 +391,12 @@ const StackQueueEngine = {
         </div>
       `;
     });
-
     html += `</div>`;
     watchEl.innerHTML = html;
   },
 
-  highlightCCodeLine(lineIdx) {
-    const codeView = document.getElementById('qCCodeView');
+  highlightCCodeLine(containerId, lineIdx) {
+    const codeView = document.getElementById(containerId);
     if (!codeView) return;
 
     const lines = codeView.querySelectorAll('.code-line');
@@ -349,13 +406,68 @@ const StackQueueEngine = {
   },
 
   updatePlaybackUI() {
-    const playBtn = document.getElementById('qBtnPlayPause');
+    const prefix = this.activeStepPrefix;
+    const playBtn = document.getElementById(`${prefix}BtnPlayPause`);
     if (playBtn) playBtn.innerHTML = this.isPlaying ? '⏸️ Pause' : '▶️ Play';
 
-    const stepCounter = document.getElementById('qStepCounter');
+    const stepCounter = document.getElementById(`${prefix}StepCounter`);
     if (stepCounter) {
       stepCounter.innerText = this.steps.length > 0 ? `Step ${this.currentStepIdx + 1} / ${this.steps.length}` : 'Ready';
     }
+  },
+
+  renderStackStageWithItems(itemsArr, highlightIdx = null) {
+    const container = document.getElementById('sStageContainer');
+    if (!container) return;
+
+    let html = '';
+    if (this.stackMode === 'array') {
+      html += `<div style="display:flex; flex-direction:column-reverse; gap:0.5rem; align-items:center; width:240px; border-bottom:4px solid var(--primary); border-left:3px solid var(--bg-surface-border); border-right:3px solid var(--bg-surface-border); padding:0.75rem 0.5rem; border-radius:0 0 var(--radius-md) var(--radius-md); min-height:240px; margin:0 auto;">`;
+      for (let i = 0; i < this.stackCapacity; i++) {
+        const hasVal = i < itemsArr.length;
+        const isTop = i === itemsArr.length - 1 && hasVal;
+        const val = hasVal ? itemsArr[i] : '';
+        const isHL = highlightIdx === i;
+
+        html += `
+          <div style="width:100%; height:40px; background:${isHL ? 'rgba(16,185,129,0.28)' : (hasVal ? 'var(--bg-surface)' : 'rgba(255,255,255,0.02)')}; border:1.5px solid ${isTop ? 'var(--primary)' : 'var(--bg-surface-border)'}; border-radius:var(--radius-sm); display:flex; justify-content:space-between; align-items:center; padding:0 0.85rem; font-family:var(--font-code); font-size:0.85rem; position:relative; transition:all 0.3s ease;">
+            <span style="color:var(--text-main); font-weight:700;">${val}</span>
+            <span style="font-size:0.72rem; color:var(--text-dim);">[${i}]</span>
+            ${isTop ? `<span style="position:absolute; right:-75px; background:var(--primary); color:#fff; font-size:0.72rem; font-weight:700; padding:0.2rem 0.5rem; border-radius:var(--radius-sm);">TOP ➔</span>` : ''}
+          </div>
+        `;
+      }
+      html += `</div>`;
+    } else {
+      // Dynamic Linked List Stack
+      html += `<div style="display:flex; flex-direction:column; gap:0.75rem; align-items:center; width:100%; min-height:180px;">`;
+      if (itemsArr.length === 0) {
+        html += `<div style="color:var(--text-dim); font-family:var(--font-code); font-size:0.9rem;">top ➔ NULL (Stack Empty)</div>`;
+      } else {
+        for (let i = itemsArr.length - 1; i >= 0; i--) {
+          const isTop = i === itemsArr.length - 1;
+          const isHL = highlightIdx === i;
+          const hexAddr = '0x7FFE' + (80 - i * 4).toString(16).toUpperCase();
+
+          html += `
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              ${isTop ? `<div style="background:var(--primary); color:#fff; font-size:0.72rem; font-weight:700; padding:0.2rem 0.55rem; border-radius:var(--radius-sm); font-family:var(--font-code);">top ➔</div>` : '<div style="width:50px;"></div>'}
+              <div style="background:${isHL ? 'rgba(16,185,129,0.28)' : 'var(--bg-surface)'}; border:2px solid ${isHL ? 'var(--accent-green)' : 'var(--bg-surface-border)'}; border-radius:var(--radius-md); padding:0.6rem 0.85rem; display:flex; gap:0.85rem; align-items:center; min-width:160px; font-family:var(--font-code); font-size:0.85rem;">
+                <span style="color:var(--text-dim); font-size:0.72rem;">${hexAddr}</span>
+                <strong style="color:var(--text-main); font-size:1.05rem;">${itemsArr[i]}</strong>
+                <span style="color:var(--secondary); font-size:0.72rem;">next</span>
+              </div>
+            </div>
+          `;
+        }
+      }
+      html += `</div>`;
+    }
+    container.innerHTML = html;
+  },
+
+  renderStackStage(highlightIdx = null) {
+    this.renderStackStageWithItems(this.stackItems, highlightIdx);
   },
 
   renderQueueStageWithItems(itemsArr, frontP, rearP, highlightIdx = null) {
@@ -363,14 +475,8 @@ const StackQueueEngine = {
     if (!container) return;
 
     let html = '';
-
     if (this.queueMode === 'linear') {
-      html += `
-        <div style="display:flex; flex-direction:column; gap:1.25rem; width:100%;">
-          
-          <!-- Queue Track Stage -->
-          <div style="display:flex; gap:0.6rem; align-items:center; overflow-x:auto; padding:2rem 0.75rem; border-bottom:3px solid var(--secondary); border-top:3px solid var(--secondary); border-radius:var(--radius-md); background:rgba(0,0,0,0.2);">
-      `;
+      html += `<div style="display:flex; flex-direction:column; gap:1.25rem; width:100%;"><div style="display:flex; gap:0.6rem; align-items:center; overflow-x:auto; padding:2rem 0.75rem; border-bottom:3px solid var(--secondary); border-top:3px solid var(--secondary); border-radius:var(--radius-md); background:rgba(0,0,0,0.2);">`;
 
       for (let i = 0; i < this.queueCapacity; i++) {
         const isWasted = i < frontP;
@@ -388,7 +494,7 @@ const StackQueueEngine = {
         else if (isWasted) badge = 'WASTED SLOT';
 
         html += `
-          <div style="min-width:85px; height:85px; background:${isWasted ? 'rgba(239,68,68,0.12)' : (isHL ? 'rgba(16,185,129,0.28)' : (hasVal ? 'var(--bg-surface)' : 'rgba(255,255,255,0.02)'))}; border:2px solid ${isWasted ? 'var(--accent-red)' : (isFront ? 'var(--accent-green)' : (isRear ? 'var(--primary)' : 'var(--bg-surface-border)'))}; border-radius:var(--radius-md); display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:var(--font-code); position:relative; box-shadow:${isHL ? '0 0 14px rgba(16,185,129,0.5)' : 'none'}; transition:all 0.3s ease; flex-shrink:0;">
+          <div style="min-width:85px; height:85px; background:${isWasted ? 'rgba(239,68,68,0.12)' : (isHL ? 'rgba(16,185,129,0.28)' : (hasVal ? 'var(--bg-surface)' : 'rgba(255,255,255,0.02)'))}; border:2px solid ${isWasted ? 'var(--accent-red)' : (isFront ? 'var(--accent-green)' : (isRear ? 'var(--primary)' : 'var(--bg-surface-border)'))}; border-radius:var(--radius-md); display:flex; flex-direction:column; justify-content:center; align-items:center; font-family:var(--font-code); position:relative; flex-shrink:0;">
             ${badge ? `<div style="position:absolute; top:-26px; font-size:0.7rem; font-weight:800; color:${isWasted ? 'var(--accent-red)' : (isFront ? 'var(--accent-green)' : 'var(--primary)')}; font-family:var(--font-sans); white-space:nowrap;">${badge}</div>` : ''}
             <span style="color:${isWasted ? 'var(--accent-red)' : 'var(--text-main)'}; font-weight:800; font-size:1.15rem;">${val}</span>
             <span style="font-size:0.7rem; color:var(--text-dim); margin-top:0.2rem;">Index [${i}]</span>
@@ -396,85 +502,22 @@ const StackQueueEngine = {
         `;
       }
 
-      html += `
-          </div>
-
-          <!-- Wasted Space Explanation Box -->
-          ${frontP > 0 ? `
-            <div style="background:rgba(239,68,68,0.12); border:1px solid var(--accent-red); padding:0.85rem 1.1rem; border-radius:var(--radius-md); color:var(--text-main); font-size:0.88rem; line-height:1.5;">
-              <strong style="color:var(--accent-red);">⚠️ Linear Queue Wasted Space Problem:</strong> 
-              Slots <code>[0..${frontP - 1}]</code> are wasted! Notice how <code>front</code> moved to index <code>${frontP}</code> after dequeues. Even though there are ${frontP} empty slots at the beginning, <code>rear</code> cannot wrap around without <strong>Circular Queue</strong> or shifting elements!
-            </div>
-          ` : ''}
-
-        </div>
-      `;
-    } else if (this.queueMode === 'circular') {
-      // Circular Queue Representation
-      html += `
-        <div style="display:flex; flex-direction:column; align-items:center; gap:1.25rem; width:100%;">
-          <div style="font-size:0.9rem; color:var(--accent-green); font-weight:700;">🔄 Circular Queue Modulo Ring: Index = (rear + 1) % MAX</div>
-          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center; padding:1.25rem; background:rgba(0,0,0,0.2); border:2px dashed var(--accent-green); border-radius:var(--radius-lg); width:100%;">
-      `;
-
-      for (let i = 0; i < this.queueCapacity; i++) {
-        const hasVal = i < itemsArr.length;
-        const isFront = i === this.frontPtr && hasVal;
-        const isRear = i === this.rearPtr && hasVal;
-        const val = hasVal ? itemsArr[i] : '';
-
+      html += `</div>`;
+      if (frontP > 0) {
         html += `
-          <div style="width:80px; height:80px; border-radius:50%; background:${hasVal ? 'rgba(16,185,129,0.18)' : 'rgba(255,255,255,0.03)'}; border:2px solid ${isFront ? 'var(--accent-green)' : (isRear ? 'var(--primary)' : 'var(--bg-surface-border)')}; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:var(--font-code); position:relative;">
-            <span style="font-size:1.1rem; font-weight:800; color:var(--text-main);">${val}</span>
-            <span style="font-size:0.68rem; color:var(--text-dim);">[${i}]</span>
-            ${isFront ? `<span style="position:absolute; top:-22px; font-size:0.65rem; color:var(--accent-green); font-weight:800;">FRONT</span>` : ''}
-            ${isRear ? `<span style="position:absolute; bottom:-22px; font-size:0.65rem; color:var(--primary); font-weight:800;">REAR</span>` : ''}
+          <div style="background:rgba(239,68,68,0.12); border:1px solid var(--accent-red); padding:0.85rem 1.1rem; border-radius:var(--radius-md); color:var(--text-main); font-size:0.88rem; line-height:1.5;">
+            <strong style="color:var(--accent-red);">⚠️ Linear Queue Wasted Space Problem:</strong> 
+            Slots <code>[0..${frontP - 1}]</code> are wasted! Notice how <code>front</code> moved to index <code>${frontP}</code> after dequeues. Even though there are ${frontP} empty slots at the beginning, <code>rear</code> cannot wrap around without <strong>Circular Queue</strong>!
           </div>
         `;
       }
-
-      html += `</div></div>`;
+      html += `</div>`;
     } else {
-      // Linked List Queue Stage
+      // Circular or LL Queue Stage
       html += `<div style="display:flex; align-items:center; gap:0.6rem; overflow-x:auto; padding:1.5rem 0.75rem; width:100%;">`;
-
-      if (itemsArr.length === 0) {
-        html += `<div style="color:var(--text-dim); font-family:var(--font-code); font-size:0.9rem;">front ➔ NULL | rear ➔ NULL (Queue Empty)</div>`;
-      } else {
-        html += `
-          <div style="background:rgba(16,185,129,0.18); border:1.5px solid var(--accent-green); padding:0.55rem 0.85rem; border-radius:var(--radius-md); text-align:center; font-family:var(--font-code); font-size:0.8rem; font-weight:700; color:var(--accent-green); flex-shrink:0;">
-            front ➔
-          </div>
-        `;
-
-        for (let i = 0; i < itemsArr.length; i++) {
-          const isRear = i === itemsArr.length - 1;
-          const isHL = highlightIdx === i;
-          const hexAddr = '0x7FFE' + (10 + i * 14).toString(16).toUpperCase();
-
-          html += `
-            <div style="background:${isHL ? 'rgba(16,185,129,0.28)' : 'var(--bg-surface)'}; border:2px solid ${isHL ? 'var(--accent-green)' : 'var(--bg-surface-border)'}; border-radius:var(--radius-md); padding:0.75rem 0.85rem; display:flex; flex-direction:column; gap:0.35rem; min-width:135px; flex-shrink:0; font-family:var(--font-code);">
-              <div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-dim);">
-                <span>Node #${i+1}</span>
-                <span>${hexAddr}</span>
-              </div>
-              <div style="background:var(--bg-main); padding:0.4rem; text-align:center; font-size:1.1rem; font-weight:800; color:var(--text-main); border-radius:4px;">
-                ${itemsArr[i]}
-              </div>
-              <div style="font-size:0.7rem; color:var(--secondary); text-align:center;">
-                ${isRear ? '<strong style="color:var(--primary);">rear node</strong>' : 'next'}
-              </div>
-            </div>
-          `;
-
-          if (i < itemsArr.length - 1) {
-            html += `<div style="color:var(--secondary); font-size:1.2rem; font-weight:800; flex-shrink:0;">➔</div>`;
-          } else {
-            html += `<div style="color:var(--text-dim); font-size:0.9rem; flex-shrink:0;">➔ NULL</div>`;
-          }
-        }
+      for (let i = 0; i < itemsArr.length; i++) {
+        html += `<div style="background:var(--bg-surface); border:1.5px solid var(--secondary); padding:0.75rem; border-radius:var(--radius-md); font-family:var(--font-code);">${itemsArr[i]}</div>`;
       }
-
       html += `</div>`;
     }
 
@@ -485,201 +528,37 @@ const StackQueueEngine = {
     this.renderQueueStageWithItems(this.queueItems, this.frontPtr, this.rearPtr, highlightIdx);
   },
 
-  codeViewMode: 'snippet',
-
-  toggleCodeViewMode(mode) {
-    this.codeViewMode = mode;
-    const btnSnippet = document.getElementById('qBtnCodeSnippet');
-    const btnFull = document.getElementById('qBtnCodeFull');
-    if (btnSnippet) btnSnippet.classList.toggle('active', mode === 'snippet');
-    if (btnFull) btnFull.classList.toggle('active', mode === 'full');
-    this.renderCCode();
-  },
-
-  copyFullCCode() {
-    const codeEl = document.getElementById('qFullCCodeText');
-    if (!codeEl) return;
-    navigator.clipboard.writeText(codeEl.innerText).then(() => {
-      const btn = document.getElementById('qBtnCopyCCode');
-      if (btn) {
-        btn.innerText = '✅ Copied!';
-        setTimeout(() => { btn.innerText = '📋 Copy C Code'; }, 2000);
-      }
-    });
-  },
-
   renderCCode() {
-    const codeContainer = document.getElementById('qCCodeView');
-    if (!codeContainer) return;
+    const sView = document.getElementById('sCCodeView');
+    const qView = document.getElementById('qCCodeView');
 
-    if (this.codeViewMode === 'full') {
-      this.renderFullCCode(codeContainer);
-      return;
+    if (sView) {
+      let codeLines = [
+        `if (top == MAX - 1) { printf("Stack Overflow\\n"); return; }`,
+        `top = top + 1;`,
+        `stack[top] = val;`
+      ];
+      let codeHTML = `<div style="font-family:var(--font-code); font-size:0.85rem; line-height:1.6;">`;
+      codeLines.forEach((l, idx) => {
+        codeHTML += `<div class="code-line" style="padding:0.2rem 0.5rem;"><span style="color:var(--text-dim); margin-right:0.75rem;">${idx + 1}</span><span>${l}</span></div>`;
+      });
+      codeHTML += `</div>`;
+      sView.innerHTML = codeHTML;
     }
 
-    let codeLines = [];
-
-    if (this.queueMode === 'linear') {
-      codeLines = [
+    if (qView) {
+      let codeLines = [
         `if (rear == MAX - 1) { printf("Queue Overflow\\n"); return; }`,
         `rear = rear + 1;`,
         `queue[rear] = val;`
       ];
-    } else if (this.queueMode === 'circular') {
-      codeLines = [
-        `if ((rear + 1) % MAX == front) { printf("Circular Queue Overflow\\n"); return; }`,
-        `rear = (rear + 1) % MAX;`,
-        `queue[rear] = val;`
-      ];
-    } else {
-      codeLines = [
-        `struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));`,
-        `newNode->data = val; newNode->next = NULL;`,
-        `rear->next = newNode; rear = newNode;`
-      ];
+      let codeHTML = `<div style="font-family:var(--font-code); font-size:0.85rem; line-height:1.6;">`;
+      codeLines.forEach((l, idx) => {
+        codeHTML += `<div class="code-line" style="padding:0.2rem 0.5rem;"><span style="color:var(--text-dim); margin-right:0.75rem;">${idx + 1}</span><span>${l}</span></div>`;
+      });
+      codeHTML += `</div>`;
+      qView.innerHTML = codeHTML;
     }
-
-    let codeHTML = `<div style="font-family:var(--font-code); font-size:0.85rem; line-height:1.6;">`;
-    codeLines.forEach((lineText, idx) => {
-      codeHTML += `<div class="code-line" style="padding:0.2rem 0.5rem; border-radius:var(--radius-sm); font-family:var(--font-code); transition:all 0.3s ease;"><span style="color:var(--text-dim); margin-right:0.75rem; user-select:none; font-size:0.75rem;">${idx + 1}</span><span style="color:var(--text-main);">${lineText}</span></div>`;
-    });
-    codeHTML += `</div>`;
-
-    codeContainer.innerHTML = codeHTML;
-  },
-
-  renderFullCCode(container) {
-    let fullCode = '';
-
-    if (this.queueMode === 'linear') {
-      fullCode = `#include <stdio.h>
-#include <stdlib.h>
-#define MAX 5
-
-int queue[MAX];
-int front = -1, rear = -1; // Initial Empty State
-
-void enqueue(int val) {
-    if (rear == MAX - 1) {
-        printf("Queue Overflow! Cannot enqueue %d\\n", val);
-        return;
-    }
-    if (front == -1) front = 0;
-    queue[++rear] = val;
-    printf("Enqueued %d\\n", val);
-}
-
-int dequeue() {
-    if (front == -1 || front > rear) {
-        printf("Queue Underflow!\\n");
-        return -1;
-    }
-    int val = queue[front++];
-    return val;
-}
-
-int peekFront() {
-    if (front == -1 || front > rear) return -1;
-    return queue[front];
-}
-
-void display() {
-    if (front == -1 || front > rear) { printf("Queue Empty\\n"); return; }
-    printf("Queue Contents: ");
-    for (int i = front; i <= rear; i++) printf("%d ", queue[i]);
-    printf("\\n");
-}
-
-int main() {
-    enqueue(10); enqueue(20); enqueue(30);
-    display();
-    printf("Dequeued: %d\\n", dequeue());
-    display();
-    return 0;
-}`;
-    } else if (this.queueMode === 'circular') {
-      fullCode = `#include <stdio.h>
-#include <stdlib.h>
-#define MAX 5
-
-int cqueue[MAX];
-int front = -1, rear = -1;
-
-void enqueue(int val) {
-    if ((rear + 1) % MAX == front) {
-        printf("Circular Queue Overflow!\\n");
-        return;
-    }
-    if (front == -1) front = 0;
-    rear = (rear + 1) % MAX;
-    cqueue[rear] = val;
-    printf("Enqueued %d into Circular Queue\\n", val);
-}
-
-int dequeue() {
-    if (front == -1) {
-        printf("Circular Queue Underflow!\\n");
-        return -1;
-    }
-    int val = cqueue[front];
-    if (front == rear) { front = -1; rear = -1; }
-    else front = (front + 1) % MAX;
-    return val;
-}
-
-int main() {
-    enqueue(10); enqueue(20); enqueue(30); enqueue(40);
-    printf("Dequeued: %d\\n", dequeue());
-    enqueue(50); // Reuses index 0!
-    return 0;
-}`;
-    } else {
-      fullCode = `#include <stdio.h>
-#include <stdlib.h>
-
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-struct Node *front = NULL, *rear = NULL;
-
-void enqueue(int val) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = val;
-    newNode->next = NULL;
-    if (rear == NULL) {
-        front = rear = newNode;
-        return;
-    }
-    rear->next = newNode;
-    rear = newNode;
-}
-
-int dequeue() {
-    if (front == NULL) return -1;
-    struct Node* temp = front;
-    int val = temp->data;
-    front = front->next;
-    if (front == NULL) rear = NULL;
-    free(temp);
-    return val;
-}
-
-int main() {
-    enqueue(100); enqueue(200); enqueue(300);
-    printf("Dequeued from Dynamic Linked List Queue: %d\\n", dequeue());
-    return 0;
-}`;
-    }
-
-    container.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
-        <span style="font-size:0.8rem; color:var(--accent-green); font-weight:700;">Complete Executable GCC C Source Code</span>
-        <button class="btn btn-secondary btn-sm" id="qBtnCopyCCode" onclick="StackQueueEngine.copyFullCCode()">📋 Copy C Code</button>
-      </div>
-      <pre id="qFullCCodeText" style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.85rem; font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto; margin:0; line-height:1.5;"><code>${fullCode}</code></pre>
-    `;
   }
 };
 
