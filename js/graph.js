@@ -96,13 +96,13 @@ const GraphEngine = {
       svg: `
         <svg width="340" height="180" viewBox="0 0 340 180">
           <defs>
-            <marker id="modalArrCyan" viewBox="0 0 10 10" refX="32" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#06b6d4"/>
+            <marker id="modalArrCyan" viewBox="0 0 14 12" refX="14" refY="6" markerWidth="14" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M 0 0 L 14 6 L 0 12 z" fill="#06b6d4"/>
             </marker>
           </defs>
-          <line x1="70" y1="90" x2="170" y2="40" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
-          <line x1="170" y1="40" x2="270" y2="90" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
-          <line x1="270" y1="90" x2="70" y2="90" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
+          <line x1="93" y1="78" x2="147" y2="52" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
+          <line x1="193" y1="52" x2="247" y2="78" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
+          <line x1="244" y1="90" x2="96" y2="90" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
           <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#06b6d4" stroke-width="3.5"/>
           <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
           <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#06b6d4" stroke-width="3.5"/>
@@ -161,16 +161,17 @@ const GraphEngine = {
       svg: `
         <svg width="340" height="180" viewBox="0 0 340 180">
           <defs>
-            <marker id="modalArrRed" viewBox="0 0 10 10" refX="32" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"/>
+            <marker id="modalArrRed" viewBox="0 0 14 12" refX="14" refY="6" markerWidth="14" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M 0 0 L 14 6 L 0 12 z" fill="#ef4444"/>
             </marker>
           </defs>
-          <line x1="70" y1="90" x2="170" y2="40" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
-          <line x1="170" y1="40" x2="270" y2="90" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
-          <line x1="270" y1="90" x2="70" y2="90" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
+          <line x1="93" y1="78" x2="147" y2="52" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
+          <line x1="193" y1="52" x2="247" y2="78" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
+          <line x1="244" y1="90" x2="96" y2="90" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
           <text x="170" y="150" text-anchor="middle" fill="#ef4444" font-family="JetBrains Mono" font-weight="800" font-size="13">LOOP DETECTED (A ➔ B ➔ C ➔ A)</text>
           <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#ef4444" stroke-width="3.5"/>
           <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
+          <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#10b981" stroke-width="0"/>
           <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#ef4444" stroke-width="3.5"/>
           <text x="170" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">B</text>
           <circle cx="270" cy="90" r="26" fill="#1e293b" stroke="#ef4444" stroke-width="3.5"/>
@@ -207,14 +208,14 @@ const GraphEngine = {
       svg: `
         <svg width="340" height="180" viewBox="0 0 340 180">
           <defs>
-            <marker id="modalArrGreen" viewBox="0 0 10 10" refX="31" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981"/>
+            <marker id="modalArrGreen" viewBox="0 0 14 12" refX="14" refY="6" markerWidth="14" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+              <path d="M 0 0 L 14 6 L 0 12 z" fill="#10b981"/>
             </marker>
           </defs>
-          <line x1="60" y1="90" x2="170" y2="40" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
-          <line x1="60" y1="90" x2="170" y2="140" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
-          <line x1="170" y1="40" x2="280" y2="90" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
-          <line x1="170" y1="140" x2="280" y2="90" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
+          <line x1="82" y1="80" x2="148" y2="50" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
+          <line x1="82" y1="100" x2="148" y2="130" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
+          <line x1="192" y1="50" x2="258" y2="80" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
+          <line x1="192" y1="130" x2="258" y2="100" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
           <circle cx="60" cy="90" r="25" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
           <text x="60" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">A</text>
           <circle cx="170" cy="40" r="25" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
