@@ -468,3 +468,289 @@ html, body {
     margin: 0 0.5rem;
   }
 }
+
+/* ==========================================================================
+   Site Visitor Counter & Analytics Component Styles
+   ========================================================================== */
+
+/* Glowing Live Dot Animation */
+.visitor-live-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-green);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--accent-green);
+  animation: pulseGreen 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes pulseGreen {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 8px var(--accent-green);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+    box-shadow: 0 0 2px var(--accent-green);
+  }
+}
+
+/* Nav & Workspace Header Visitor Button */
+.nav-visitor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-full);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(8px);
+}
+
+.nav-visitor-btn:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+
+.nav-visitor-btn strong {
+  font-family: var(--font-code);
+  color: var(--secondary);
+}
+
+/* Hero Section Visitor Stats (Landing Page) */
+.visitor-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.visitor-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(19, 28, 46, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(12px);
+  transition: var(--transition);
+}
+
+.visitor-stat-card:hover {
+  background: rgba(26, 37, 61, 0.85);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(59, 130, 246, 0.15);
+  transform: translateY(-3px);
+}
+
+.visitor-stat-icon-bg {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.visitor-stat-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.visitor-stat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.visitor-stat-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.visitor-stat-value {
+  font-family: var(--font-code);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.visitor-stat-sub {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+/* Footer Visitor Badge */
+.footer-visitor-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.footer-visitor-counter:hover {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: var(--secondary);
+  color: var(--text-main);
+  box-shadow: 0 0 12px var(--secondary-glow);
+}
+
+.footer-visitor-counter strong {
+  font-family: var(--font-code);
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+.visitor-footer-tag {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--secondary);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+/* Visitor Modal Specific Styling */
+.visitor-modal-card {
+  max-width: 620px;
+  width: 92%;
+}
+
+.visitor-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .visitor-analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.analytics-card {
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.analytics-card.primary {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(15, 23, 42, 0.7) 100%);
+}
+
+.analytics-card.cyan {
+  border-color: rgba(6, 182, 212, 0.3);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(15, 23, 42, 0.7) 100%);
+}
+
+.analytics-card.purple {
+  border-color: rgba(139, 92, 246, 0.3);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(15, 23, 42, 0.7) 100%);
+}
+
+.analytics-card.green {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(15, 23, 42, 0.7) 100%);
+}
+
+.analytics-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.analytics-number {
+  font-family: var(--font-code);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.analytics-desc {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+}
+
+.visitor-details-table {
+  background: rgba(11, 15, 25, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+  padding-bottom: 0.4rem;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.detail-row strong {
+  color: var(--text-main);
+}
+
+.detail-row code {
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  color: var(--secondary);
+  background: rgba(6, 182, 212, 0.1);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.modal-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
