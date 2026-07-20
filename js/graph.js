@@ -541,12 +541,27 @@ const GraphEngine = {
     const container = document.getElementById('graphRepStageContainer');
     if (!container) return;
 
-    let html = '';
+    let highlightedVertices = [];
+    let highlightedEdges = [];
+    if (highlightIdx !== null && highlightIdx !== undefined) {
+      const v = this.vertices[highlightIdx];
+      highlightedVertices = [v];
+      for (let c = 0; c < this.matrix[highlightIdx].length; c++) {
+        if (this.matrix[highlightIdx][c]) {
+          highlightedVertices.push(this.vertices[c]);
+          highlightedEdges.push([v, this.vertices[c]]);
+        }
+      }
+    }
+
+    const visualGraphSVG = this.buildGraphSVG(highlightedVertices, highlightedEdges, highlightIdx !== null ? `Highlighted Vertex: ${this.vertices[highlightIdx]}` : 'Active Graph Topology G = (V, E)');
+
+    let repHTML = '';
 
     if (this.repMode === 'matrix') {
-      html += `
-        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.5rem; border-radius:var(--radius-md); max-width:480px; margin:0 auto;">
-          <h4 style="font-size:0.95rem; color:var(--secondary); margin-bottom:1rem; text-align:center;">Adjacency Matrix Representation (2D Array: adj[5][5])</h4>
+      repHTML = `
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md); width:100%;">
+          <h4 style="font-size:0.98rem; font-weight:800; color:var(--secondary); margin-bottom:1rem; text-align:center;">Adjacency Matrix (2D Array: adj[5][5])</h4>
           <table class="mem-table" style="text-align:center; width:100%;">
             <thead>
               <tr>
@@ -556,53 +571,74 @@ const GraphEngine = {
             </thead>
             <tbody>
               ${this.matrix.map((row, r) => `
-                <tr style="${highlightIdx === r ? 'background:rgba(16,185,129,0.2);' : ''}">
+                <tr onmouseenter="GraphEngine.renderRepStage(${r})" onmouseleave="GraphEngine.renderRepStage()" style="cursor:pointer; ${highlightIdx === r ? 'background:rgba(16,185,129,0.25);' : ''}">
                   <td><strong style="color:var(--primary);">${this.vertices[r]}</strong></td>
                   ${row.map(val => `<td style="${val ? 'color:var(--accent-green); font-weight:800;' : 'color:var(--text-dim);'}">${val}</td>`).join('')}
                 </tr>
               `).join('')}
             </tbody>
           </table>
+          <div style="font-size:0.8rem; color:var(--text-muted); text-align:center; margin-top:0.75rem;">
+            💡 Hover over any row to highlight that vertex & its connections in the graph!
+          </div>
         </div>
       `;
     } else if (this.repMode === 'list') {
-      html += `
-        <div style="display:flex; flex-direction:column; gap:0.75rem; max-width:500px; margin:0 auto; width:100%;">
-          <h4 style="font-size:0.95rem; color:var(--primary); margin-bottom:0.4rem; text-align:center;">Adjacency List Representation (Array of Linked Lists)</h4>
-          ${this.vertices.map((v, r) => {
-            const neighbors = [];
-            for (let c = 0; c < this.matrix[r].length; c++) {
-              if (this.matrix[r][c]) neighbors.push(this.vertices[c]);
-            }
-            return `
-              <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:0.65rem 1rem; border-radius:var(--radius-sm); display:flex; align-items:center; gap:0.5rem; font-family:var(--font-code); font-size:0.85rem;">
-                <span style="background:var(--primary); color:#fff; font-weight:700; padding:0.2rem 0.6rem; border-radius:var(--radius-sm);">${v}</span>
-                <span style="color:var(--text-muted);">➔</span>
-                ${neighbors.map(n => `<span style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:0.2rem 0.5rem; border-radius:var(--radius-sm); color:var(--accent-green); font-weight:700;">${n}</span> ➔`).join(' ')}
-                <span style="color:var(--text-dim);">NULL</span>
-              </div>
-            `;
-          }).join('')}
+      repHTML = `
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md); width:100%;">
+          <h4 style="font-size:0.98rem; font-weight:800; color:var(--primary); margin-bottom:0.85rem; text-align:center;">Adjacency List (Array of Linked Lists)</h4>
+          <div style="display:flex; flex-direction:column; gap:0.6rem;">
+            ${this.vertices.map((v, r) => {
+              const neighbors = [];
+              for (let c = 0; c < this.matrix[r].length; c++) {
+                if (this.matrix[r][c]) neighbors.push(this.vertices[c]);
+              }
+              return `
+                <div onmouseenter="GraphEngine.renderRepStage(${r})" onmouseleave="GraphEngine.renderRepStage()" style="background:${highlightIdx === r ? 'rgba(16,185,129,0.2)' : 'var(--bg-main)'}; border:1px solid var(--bg-surface-border); padding:0.5rem 0.85rem; border-radius:var(--radius-sm); display:flex; align-items:center; gap:0.4rem; font-family:var(--font-code); font-size:0.85rem; cursor:pointer; transition:all 0.2s ease;">
+                  <span style="background:var(--primary); color:#fff; font-weight:800; padding:0.15rem 0.55rem; border-radius:var(--radius-sm);">${v}</span>
+                  <span style="color:var(--text-muted);">➔</span>
+                  ${neighbors.map(n => `<span style="background:var(--bg-card); border:1px solid var(--bg-surface-border); padding:0.15rem 0.45rem; border-radius:var(--radius-sm); color:var(--accent-green); font-weight:800;">${n}</span> ➔`).join(' ')}
+                  <span style="color:var(--text-dim); font-size:0.78rem;">NULL</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+          <div style="font-size:0.8rem; color:var(--text-muted); text-align:center; margin-top:0.75rem;">
+            💡 Hover over any list node to highlight that vertex & its neighbors!
+          </div>
         </div>
       `;
     } else {
       // Edge List
-      html += `
-        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.5rem; border-radius:var(--radius-md); max-width:480px; margin:0 auto;">
-          <h4 style="font-size:0.95rem; color:var(--accent-amber); margin-bottom:0.85rem; text-align:center;">Edge List Representation (List of Tuples: (u, v))</h4>
+      repHTML = `
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md); width:100%;">
+          <h4 style="font-size:0.98rem; font-weight:800; color:var(--accent-amber); margin-bottom:0.85rem; text-align:center;">Edge List (Tuples: (u, v))</h4>
           <div style="display:flex; flex-wrap:wrap; gap:0.6rem; justify-content:center; font-family:var(--font-code);">
-            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main);">(A, B)</span>
-            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main);">(A, C)</span>
-            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main);">(B, D)</span>
-            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main);">(C, D)</span>
-            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main);">(C, E)</span>
-            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main);">(D, E)</span>
+            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main); font-weight:700;">(A, B)</span>
+            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main); font-weight:700;">(A, C)</span>
+            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main); font-weight:700;">(B, D)</span>
+            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main); font-weight:700;">(C, D)</span>
+            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main); font-weight:700;">(C, E)</span>
+            <span style="background:var(--bg-main); border:1px solid var(--primary); padding:0.4rem 0.75rem; border-radius:var(--radius-sm); color:var(--text-main); font-weight:700;">(D, E)</span>
+          </div>
+          <div style="font-size:0.8rem; color:var(--text-muted); text-align:center; margin-top:0.85rem;">
+            Array of 6 edge pairs representing all connections in G = (V, E).
           </div>
         </div>
       `;
     }
 
-    container.innerHTML = html;
+    container.innerHTML = `
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:1.5rem; align-items:center; width:100%;">
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; align-items:center;">
+          <h4 style="font-size:1rem; font-weight:800; color:var(--accent-green); margin-bottom:0.75rem;">🕸️ Corresponding Network Graph G = (V, E)</h4>
+          ${visualGraphSVG}
+        </div>
+        <div>
+          ${repHTML}
+        </div>
+      </div>
+    `;
   },
 
   // TRAVERSALS RUNNER
