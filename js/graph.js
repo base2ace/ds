@@ -1,6 +1,6 @@
 /* ==========================================================================
    Base2ace Technologies Education - Interactive Graph Algorithms Engine
-   Module 5: Graphs (Foundations, 12 Types, Matrix vs List, BFS/DFS, Cycle Detection, C Code)
+   Module 5: Graphs (Foundations, 12 Types Lightbox Modal, Matrix vs List, BFS/DFS, Cycle Detection, C Code)
    ========================================================================== */
 
 const GraphEngine = {
@@ -25,6 +25,13 @@ const GraphEngine = {
     this.renderTraversalStage();
     this.renderRepStage();
     this.renderCCode();
+    this.bindModalEvents();
+  },
+
+  bindModalEvents() {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') this.closeGraphTypeModal();
+    });
   },
 
   switchSubView(viewId) {
@@ -58,6 +65,322 @@ const GraphEngine = {
 
     this.renderRepStage();
     this.renderCCode();
+  },
+
+  // 12 GRAPH TYPES DETAILED DATA DICTIONARY FOR LIGHTBOX MODAL
+  graphTypeDetails: {
+    'undirected': {
+      title: '1. Undirected Graph ↔️',
+      badge: 'Bidirectional Links',
+      desc: 'An Undirected Graph is a graph in which edges have no orientation or direction. If an edge exists between vertex u and vertex v, traversal is bidirectional: (u, v) is identical to (v, u).',
+      apps: 'Facebook Friendships, Two-way road networks, Physical ethernet network cables.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="70" y1="90" x2="170" y2="40" stroke="#3b82f6" stroke-width="4"/>
+          <line x1="170" y1="40" x2="270" y2="90" stroke="#3b82f6" stroke-width="4"/>
+          <line x1="70" y1="90" x2="270" y2="90" stroke="#3b82f6" stroke-width="4"/>
+          <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
+          <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="170" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">B</text>
+          <circle cx="270" cy="90" r="26" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="270" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">C</text>
+        </svg>
+      `
+    },
+    'directed': {
+      title: '2. Directed Graph (Digraph) ➔',
+      badge: 'One-Way Arrows',
+      desc: 'A Directed Graph (Digraph) contains edges that have a specific direction pointing from a source vertex u to a destination vertex v (u ➔ v). Traversal from v to u is only possible if an explicit reverse edge exists.',
+      apps: 'Twitter/Instagram Followers, Web page hyperlinks (Google PageRank), One-way traffic streets.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <defs>
+            <marker id="modalArrCyan" viewBox="0 0 10 10" refX="32" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#06b6d4"/>
+            </marker>
+          </defs>
+          <line x1="70" y1="90" x2="170" y2="40" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
+          <line x1="170" y1="40" x2="270" y2="90" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
+          <line x1="270" y1="90" x2="70" y2="90" stroke="#06b6d4" stroke-width="4" marker-end="url(#modalArrCyan)"/>
+          <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#06b6d4" stroke-width="3.5"/>
+          <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
+          <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#06b6d4" stroke-width="3.5"/>
+          <text x="170" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">B</text>
+          <circle cx="270" cy="90" r="26" fill="#1e293b" stroke="#06b6d4" stroke-width="3.5"/>
+          <text x="270" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">C</text>
+        </svg>
+      `
+    },
+    'weighted': {
+      title: '3. Weighted Graph ⚖️',
+      badge: 'Edge Costs & Distances',
+      desc: 'A Weighted Graph assigns a numerical weight to every edge. The weight represents distance, duration, monetary cost, or network latency between connected vertices.',
+      apps: 'Google Maps GPS navigation (Dijkstra algorithm), Airline ticket pricing, Network bandwidth routing.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="70" y1="90" x2="170" y2="40" stroke="#f59e0b" stroke-width="4"/>
+          <text x="105" y="55" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="14">w=5</text>
+          <line x1="170" y1="40" x2="270" y2="90" stroke="#f59e0b" stroke-width="4"/>
+          <text x="235" y="55" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="14">w=12</text>
+          <line x1="70" y1="90" x2="270" y2="90" stroke="#f59e0b" stroke-width="4"/>
+          <text x="170" y="122" text-anchor="middle" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="14">w=8</text>
+          <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#f59e0b" stroke-width="3.5"/>
+          <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
+          <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#f59e0b" stroke-width="3.5"/>
+          <text x="170" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">B</text>
+          <circle cx="270" cy="90" r="26" fill="#1e293b" stroke="#f59e0b" stroke-width="3.5"/>
+          <text x="270" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">C</text>
+        </svg>
+      `
+    },
+    'unweighted': {
+      title: '4. Unweighted Graph ⚪',
+      badge: 'Uniform Unit Weights',
+      desc: 'An Unweighted Graph treats all edges as having equal unit weight (weight = 1). The shortest path between any two vertices in an unweighted graph is computed efficiently using Breadth-First Search (BFS).',
+      apps: 'Degrees of separation games, Unweighted mazes, Peer-to-peer contact lists.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="70" y1="90" x2="170" y2="40" stroke="#10b981" stroke-width="4"/>
+          <line x1="170" y1="40" x2="270" y2="90" stroke="#10b981" stroke-width="4"/>
+          <line x1="70" y1="90" x2="270" y2="90" stroke="#10b981" stroke-width="4"/>
+          <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
+          <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="170" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">B</text>
+          <circle cx="270" cy="90" r="26" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="270" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">C</text>
+        </svg>
+      `
+    },
+    'cyclic': {
+      title: '5. Cyclic Graph 🔄',
+      badge: 'Contains Closed Loops',
+      desc: 'A Cyclic Graph contains at least one cycle — a path sequence starting and ending at the exact same vertex without repeating any edge.',
+      apps: 'Circular routing loops, Deadlock detection in OS process graphs, Chemical molecular ring bonds.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <defs>
+            <marker id="modalArrRed" viewBox="0 0 10 10" refX="32" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"/>
+            </marker>
+          </defs>
+          <line x1="70" y1="90" x2="170" y2="40" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
+          <line x1="170" y1="40" x2="270" y2="90" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
+          <line x1="270" y1="90" x2="70" y2="90" stroke="#ef4444" stroke-width="4" marker-end="url(#modalArrRed)"/>
+          <text x="170" y="150" text-anchor="middle" fill="#ef4444" font-family="JetBrains Mono" font-weight="800" font-size="13">LOOP DETECTED (A ➔ B ➔ C ➔ A)</text>
+          <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#ef4444" stroke-width="3.5"/>
+          <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
+          <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#ef4444" stroke-width="3.5"/>
+          <text x="170" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">B</text>
+          <circle cx="270" cy="90" r="26" fill="#1e293b" stroke="#ef4444" stroke-width="3.5"/>
+          <text x="270" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">C</text>
+        </svg>
+      `
+    },
+    'acyclic': {
+      title: '6. Acyclic Graph ➡️',
+      badge: 'Loop-Free Network',
+      desc: 'An Acyclic Graph is completely free of cycles or closed paths. In an acyclic graph, there is at most one simple path connecting any pair of vertices.',
+      apps: 'Decision trees, Family genealogy trees, File system directory trees.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="60" y1="90" x2="170" y2="40" stroke="#8b5cf6" stroke-width="4"/>
+          <line x1="60" y1="90" x2="170" y2="140" stroke="#8b5cf6" stroke-width="4"/>
+          <line x1="170" y1="40" x2="280" y2="90" stroke="#8b5cf6" stroke-width="4"/>
+          <circle cx="60" cy="90" r="25" fill="#1e293b" stroke="#8b5cf6" stroke-width="3.5"/>
+          <text x="60" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">A</text>
+          <circle cx="170" cy="40" r="25" fill="#1e293b" stroke="#8b5cf6" stroke-width="3.5"/>
+          <text x="170" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">B</text>
+          <circle cx="170" cy="140" r="25" fill="#1e293b" stroke="#8b5cf6" stroke-width="3.5"/>
+          <text x="170" y="146" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">C</text>
+          <circle cx="280" cy="90" r="25" fill="#1e293b" stroke="#8b5cf6" stroke-width="3.5"/>
+          <text x="280" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">D</text>
+        </svg>
+      `
+    },
+    'dag': {
+      title: '7. Directed Acyclic Graph (DAG) ⚡',
+      badge: 'Topological Order & Build Systems',
+      desc: 'A Directed Acyclic Graph (DAG) is a directed graph containing zero directed cycles. DAGs are essential because they admit a Topological Sorting — a linear ordering of vertices such that for every directed edge u ➔ v, vertex u comes before v.',
+      apps: 'Build systems (Bazel, Webpack, Makefiles), Course prerequisite chains, Git commit history graphs.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <defs>
+            <marker id="modalArrGreen" viewBox="0 0 10 10" refX="31" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981"/>
+            </marker>
+          </defs>
+          <line x1="60" y1="90" x2="170" y2="40" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
+          <line x1="60" y1="90" x2="170" y2="140" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
+          <line x1="170" y1="40" x2="280" y2="90" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
+          <line x1="170" y1="140" x2="280" y2="90" stroke="#10b981" stroke-width="4" marker-end="url(#modalArrGreen)"/>
+          <circle cx="60" cy="90" r="25" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="60" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">A</text>
+          <circle cx="170" cy="40" r="25" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="170" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">B</text>
+          <circle cx="170" cy="140" r="25" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="170" y="146" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">C</text>
+          <circle cx="280" cy="90" r="25" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="280" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">D</text>
+        </svg>
+      `
+    },
+    'connected': {
+      title: '8. Connected Graph 🌐',
+      badge: 'Unbroken Network',
+      desc: 'A Connected Graph is an undirected graph where a path exists between every single pair of vertices. No vertex or sub-network is isolated.',
+      apps: 'Electrical power grids, Fully integrated computer networks, Interstate highway grids.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="70" y1="45" x2="270" y2="45" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="70" y1="135" x2="270" y2="135" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="70" y1="45" x2="70" y2="135" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="270" y1="45" x2="270" y2="135" stroke="#38bdf8" stroke-width="4"/>
+          <line x1="70" y1="45" x2="270" y2="135" stroke="#38bdf8" stroke-width="4"/>
+          <circle cx="70" cy="45" r="24" fill="#1e293b" stroke="#38bdf8" stroke-width="3.5"/>
+          <text x="70" y="51" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">A</text>
+          <circle cx="270" cy="45" r="24" fill="#1e293b" stroke="#38bdf8" stroke-width="3.5"/>
+          <text x="270" y="51" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">B</text>
+          <circle cx="70" cy="135" r="24" fill="#1e293b" stroke="#38bdf8" stroke-width="3.5"/>
+          <text x="70" y="141" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">C</text>
+          <circle cx="270" cy="135" r="24" fill="#1e293b" stroke="#38bdf8" stroke-width="3.5"/>
+          <text x="270" y="141" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">D</text>
+        </svg>
+      `
+    },
+    'disconnected': {
+      title: '9. Disconnected Graph 🧩',
+      badge: 'Isolated Sub-networks',
+      desc: 'A Disconnected Graph consists of two or more separate connected components. Vertices in one component have zero paths connecting them to vertices in another component.',
+      apps: 'Island archipelago ferry routes, Partitioned database clusters during network splits.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="50" y1="90" x2="125" y2="90" stroke="#f59e0b" stroke-width="4"/>
+          <circle cx="50" cy="90" r="24" fill="#1e293b" stroke="#f59e0b" stroke-width="3.5"/>
+          <text x="50" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">A</text>
+          <circle cx="125" cy="90" r="24" fill="#1e293b" stroke="#f59e0b" stroke-width="3.5"/>
+          <text x="125" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">B</text>
+
+          <line x1="170" y1="20" x2="170" y2="160" stroke="rgba(255,255,255,0.3)" stroke-dasharray="6,6" stroke-width="2.5"/>
+
+          <line x1="215" y1="90" x2="290" y2="90" stroke="#f59e0b" stroke-width="4"/>
+          <circle cx="215" cy="90" r="24" fill="#1e293b" stroke="#f59e0b" stroke-width="3.5"/>
+          <text x="215" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">C</text>
+          <circle cx="290" cy="90" r="24" fill="#1e293b" stroke="#f59e0b" stroke-width="3.5"/>
+          <text x="290" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">D</text>
+        </svg>
+      `
+    },
+    'complete': {
+      title: '10. Complete Graph (Kn) 🕸️',
+      badge: 'Maximum Density (E = V*(V-1)/2)',
+      desc: 'A Complete Graph Kn is a graph where every vertex is connected directly to every other vertex by a unique edge. A complete graph with V vertices has exactly V*(V-1)/2 edges.',
+      apps: 'Peer-to-peer (P2P) mesh networks, All-pairs shortest path benchmarking, Traveling Salesperson Problem (TSP).',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="80" y1="40" x2="260" y2="40" stroke="#3b82f6" stroke-width="3.5"/>
+          <line x1="80" y1="140" x2="260" y2="140" stroke="#3b82f6" stroke-width="3.5"/>
+          <line x1="80" y1="40" x2="80" y2="140" stroke="#3b82f6" stroke-width="3.5"/>
+          <line x1="260" y1="40" x2="260" y2="140" stroke="#3b82f6" stroke-width="3.5"/>
+          <line x1="80" y1="40" x2="260" y2="140" stroke="#3b82f6" stroke-width="3.5"/>
+          <line x1="260" y1="40" x2="80" y2="140" stroke="#3b82f6" stroke-width="3.5"/>
+          <circle cx="80" cy="40" r="24" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="80" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">A</text>
+          <circle cx="260" cy="40" r="24" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="260" y="46" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">B</text>
+          <circle cx="80" cy="140" r="24" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="80" y="146" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">C</text>
+          <circle cx="260" cy="140" r="24" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="260" y="146" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">D</text>
+        </svg>
+      `
+    },
+    'bipartite': {
+      title: '11. Bipartite Graph 🎨',
+      badge: '2-Colorable Graph',
+      desc: 'A Bipartite Graph is a graph whose vertices can be divided into two disjoint sets U and V such that every edge connects a vertex in U to a vertex in V. No edge connects two vertices in the same set.',
+      apps: 'Job-applicant matching, Recommendation systems (User-Movie recommendations), Doctor-hospital matching.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="80" y1="45" x2="260" y2="45" stroke="#06b6d4" stroke-width="4"/>
+          <line x1="80" y1="45" x2="260" y2="135" stroke="#06b6d4" stroke-width="4"/>
+          <line x1="80" y1="135" x2="260" y2="45" stroke="#06b6d4" stroke-width="4"/>
+          <line x1="80" y1="135" x2="260" y2="135" stroke="#06b6d4" stroke-width="4"/>
+          <circle cx="80" cy="45" r="24" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="80" y="51" text-anchor="middle" fill="#3b82f6" font-family="JetBrains Mono" font-weight="800" font-size="15">U1</text>
+          <circle cx="80" cy="135" r="24" fill="#1e293b" stroke="#3b82f6" stroke-width="3.5"/>
+          <text x="80" y="141" text-anchor="middle" fill="#3b82f6" font-family="JetBrains Mono" font-weight="800" font-size="15">U2</text>
+          <circle cx="260" cy="45" r="24" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="260" y="51" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-weight="800" font-size="15">V1</text>
+          <circle cx="260" cy="135" r="24" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="260" y="141" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-weight="800" font-size="15">V2</text>
+        </svg>
+      `
+    },
+    'tree': {
+      title: '12. Tree (Special Graph) 🌲',
+      badge: 'Connected Acyclic (E = V - 1)',
+      desc: 'A Tree is a connected, acyclic undirected graph with exactly V - 1 edges. Adding any single edge creates a cycle, while removing any single edge disconnects the graph into a forest.',
+      apps: 'Organizational hierarchy, DOM tree in web browsers, Abstract Syntax Trees (AST) in compilers.',
+      svg: `
+        <svg width="340" height="180" viewBox="0 0 340 180">
+          <line x1="170" y1="35" x2="90" y2="90" stroke="#10b981" stroke-width="4"/>
+          <line x1="170" y1="35" x2="250" y2="90" stroke="#10b981" stroke-width="4"/>
+          <line x1="90" y1="90" x2="50" y2="145" stroke="#10b981" stroke-width="4"/>
+          <line x1="90" y1="90" x2="130" y2="145" stroke="#10b981" stroke-width="4"/>
+          <circle cx="170" cy="35" r="22" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="170" y="41" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">R</text>
+          <circle cx="90" cy="90" r="20" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="90" y="95" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">A</text>
+          <circle cx="250" cy="90" r="20" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
+          <text x="250" y="95" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">B</text>
+          <circle cx="50" cy="145" r="18" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+          <text x="50" y="149" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="12">C</text>
+          <circle cx="130" cy="145" r="18" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+          <text x="130" y="149" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="12">D</text>
+        </svg>
+      `
+    }
+  },
+
+  openGraphTypeModal(typeKey) {
+    const details = this.graphTypeDetails[typeKey];
+    if (!details) return;
+
+    const modal = document.getElementById('graphTypeModal');
+    const content = document.getElementById('graphTypeModalBody');
+    if (!modal || !content) return;
+
+    content.innerHTML = `
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <span class="badge badge-primary" style="font-size:0.85rem; padding:0.4rem 1rem; text-transform:uppercase; margin-bottom:0.75rem; display:inline-block;">${details.badge}</span>
+        <h2 style="font-size:1.75rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem;">${details.title}</h2>
+      </div>
+
+      <div style="background:rgba(0,0,0,0.55); border:1.5px solid var(--primary); border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1.5rem; display:flex; justify-content:center; align-items:center; box-shadow:0 0 30px rgba(59,130,246,0.25);">
+        ${details.svg}
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md);">
+          <h4 style="font-size:1rem; font-weight:800; color:var(--primary); margin-bottom:0.4rem;">💡 Comprehensive Technical Overview</h4>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin:0;">${details.desc}</p>
+        </div>
+
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md);">
+          <h4 style="font-size:1rem; font-weight:800; color:var(--accent-green); margin-bottom:0.4rem;">🌍 Real-World Industry Applications</h4>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin:0;">${details.apps}</p>
+        </div>
+      </div>
+    `;
+
+    modal.style.display = 'flex';
+  },
+
+  closeGraphTypeModal() {
+    const modal = document.getElementById('graphTypeModal');
+    if (modal) modal.style.display = 'none';
   },
 
   // TERMINOLOGY INTERACTIVE HIGHLIGHTING ENGINE
