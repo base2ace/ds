@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binary Search Trees (BST) in C Hub | base2ace Academy</title>
+  <meta name="description" content="Master Binary Search Trees (BST) in C with interactive node visualizer, recursive Inorder/Preorder/Postorder traversals, and GCC C code execution. Created by base2ace Academy.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/visualizer.css">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- Collapsible Sidebar Panel -->
+    <aside class="sidebar" id="sidebarNav">
+
+      <!-- Sidebar Header & Toggle -->
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <img src="B2A_3D_logo.png" alt="Base2ace Technologies Logo" class="brand-logo-img" style="height:32px;">
+          <div class="brand-text sidebar-brand-text">
+            <span class="brand-name" style="font-size:1.05rem;">Base2ace Technologies</span>
+            <span class="brand-sub" style="font-size:0.65rem;">Education</span>
+          </div>
+        </a>
+
+        <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar Width (Collapse/Expand)">◀</button>
+      </div>
+
+      <!-- Scrollable Course Menu Body -->
+      <nav class="sidebar-nav">
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Navigation</div>
+          <a href="index.html" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span class="sidebar-item-label">DS Catalog Home</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Binary Trees Sub-Modules</div>
+
+          <a href="#visualizer" class="sidebar-item active" data-tree-view="viewTreeSim" onclick="TreeSim.switchSubView('viewTreeSim')">
+            <span class="sidebar-item-icon">🌲</span>
+            <span class="sidebar-item-label">1. BST Node Visualizer</span>
+          </a>
+
+          <a href="#traversals" class="sidebar-item" data-tree-view="viewTreeTraversals" onclick="TreeSim.switchSubView('viewTreeTraversals')">
+            <span class="sidebar-item-icon">🔄</span>
+            <span class="sidebar-item-label">2. Tree Traversals Engine</span>
+          </a>
+
+          <a href="#programs" class="sidebar-item" data-tree-view="viewTreePrograms" onclick="TreeSim.switchSubView('viewTreePrograms')">
+            <span class="sidebar-item-icon">💻</span>
+            <span class="sidebar-item-label">3. C Code & Assessment</span>
+          </a>
+        </div>
+
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div>Base2ace Technologies</div>
+        <div style="font-size:0.68rem; color:var(--text-dim); margin-top:0.2rem;">Education</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Workspace -->
+    <main class="main-workspace">
+
+      <!-- Workspace Top Sticky Header -->
+      <header class="workspace-header">
+        <div class="breadcrumb-nav">
+          <a href="index.html" style="color:var(--text-muted); text-decoration:none;">DS Catalog</a>
+          <span>➔</span>
+          <span class="breadcrumb-active" id="breadcrumbActiveTitle">Binary Search Trees in C</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <button class="btn btn-accent btn-sm" onclick="openMemoryModal()" id="btnOpenMemoryModalNav">🧠 Memory Inspector</button>
+          <a href="https://base2ace.com" target="_blank" class="btn btn-secondary btn-sm">Main Site ↗</a>
+        </div>
+      </header>
+
+      <!-- VIEW 1: TREE VISUALIZER -->
+      <div class="view-panel active-view" id="viewTreeSim">
+        
+        <div class="viz-header">
+          <div class="viz-title-group">
+            <h1>
+              <span>🌲 Binary Search Tree (BST) Visualizer</span>
+              <span class="badge badge-primary">O(log N) Average Search</span>
+            </h1>
+            <p>Step through BST node insertion, recursive left/right child pointers, and tree traversals.</p>
+          </div>
+        </div>
+
+        <!-- Visualizer Layout -->
+        <div class="viz-layout">
+
+          <!-- Left Stage Card -->
+          <div class="viz-canvas-card">
+            
+            <div class="op-controls">
+              <div class="op-input-group">
+                <label for="treeValInput">Node Key:</label>
+                <input type="number" id="treeValInput" class="op-input" value="45" style="width:70px; text-align:center;">
+              </div>
+
+              <button class="btn btn-primary btn-sm" onclick="TreeSim.insert()">➕ Insert Node O(log N)</button>
+              <button class="btn btn-secondary btn-sm" onclick="TreeSim.inorder()">🔄 Inorder Traversal</button>
+            </div>
+
+            <!-- Stage Area -->
+            <div class="array-stage" style="min-height:260px;">
+              <div id="treeStageContainer"></div>
+            </div>
+
+          </div>
+
+          <!-- Right C Code View -->
+          <div class="code-panel">
+            <div class="code-panel-header">
+              <div class="code-panel-title">
+                <span>💻 GCC C Execution Code</span>
+              </div>
+              <span class="c-badge">GCC / C99</span>
+            </div>
+
+            <div class="code-view" id="treeCCodeView"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- VIEW 2: TRAVERSALS ENGINE -->
+      <div class="view-panel" id="viewTreeTraversals">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.75rem; color:var(--text-main);">
+            🔄 Depth-First Tree Traversals: Inorder, Preorder, Postorder
+          </h2>
+          <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6; margin-bottom:1.5rem;">
+            Because trees are non-linear data structures, visiting every node requires systematic recursion:
+          </p>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem;">
+            <div style="background:var(--bg-surface); padding:1.1rem; border-radius:var(--radius-md); border:1px solid var(--bg-surface-border);">
+              <h4 style="color:var(--secondary); margin-bottom:0.4rem;">Inorder (Left, Root, Right)</h4>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Visits nodes in ascending sorted order on a Binary Search Tree.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); padding:1.1rem; border-radius:var(--radius-md); border:1px solid var(--bg-surface-border);">
+              <h4 style="color:var(--primary); margin-bottom:0.4rem;">Preorder (Root, Left, Right)</h4>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Used to copy trees or construct expression tree prefix notation.</p>
+            </div>
+
+            <div style="background:var(--bg-surface); padding:1.1rem; border-radius:var(--radius-md); border:1px solid var(--bg-surface-border);">
+              <h4 style="color:var(--accent-green); margin-bottom:0.4rem;">Postorder (Left, Right, Root)</h4>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Used for deleting trees safely bottom-up without memory leaks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: C PROGRAMS -->
+      <div class="view-panel" id="viewTreePrograms">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:1rem; color:var(--text-main);">
+            💻 C Binary Tree Implementation Code
+          </h2>
+          <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; font-family:var(--font-code); font-size:0.83rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct TreeNode {
+    int key;
+    struct TreeNode* left;
+    struct TreeNode* right;
+};
+
+struct TreeNode* createNode(int item) {
+    struct TreeNode* temp = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    temp->key = item;
+    temp->left = temp->right = NULL;
+    return temp;
+}</code></pre>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer" style="margin-top:auto;">
+        <div class="footer-content">
+          <div class="brand-text">
+            <span class="brand-name">Base2ace Technologies</span>
+            <span class="brand-sub">Education</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html">DS Catalog</a>
+            <a href="intro-ds.html">Intro to DS</a>
+            <a href="array.html">Arrays</a>
+            <a href="linked-list.html">Linked Lists</a>
+            <a href="stack-queue.html">Stacks & Queues</a>
+            <a href="https://base2ace.com" target="_blank">Main Website</a>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- Memory Layout Inspector Modal Overlay -->
+  <div class="modal-overlay" id="memoryModalOverlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <span>🧠</span> Detailed C Memory Layout Inspector
+        </h3>
+        <button class="modal-close" aria-label="Close Modal">&times;</button>
+      </div>
+
+      <div id="memoryInspectorContent"></div>
+
+      <div style="margin-top:1.5rem; text-align:right;">
+        <button class="btn btn-secondary btn-sm" onclick="closeModal('memoryModalOverlay')">Close Inspector</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/sidebar.js"></script>
+  <script src="js/memory-inspector.js"></script>
+  <script src="js/tree.js"></script>
+</body>
+</html>

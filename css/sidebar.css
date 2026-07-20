@@ -1,0 +1,230 @@
+/* ==========================================================================
+   base2ace Academy - Collapsible Sidebar Layout Styles
+   ========================================================================== */
+
+/* Main Layout Grid with Sidebar */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Collapsible Left Sidebar */
+.sidebar {
+  width: 280px;
+  background: rgba(11, 15, 25, 0.95);
+  border-right: 1px solid var(--bg-surface-border);
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 90;
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed {
+  width: 68px;
+}
+
+/* Sidebar Brand Header */
+.sidebar-header {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid var(--bg-surface-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+.sidebar.collapsed .sidebar-brand-text {
+  display: none;
+}
+
+.toggle-sidebar-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-surface-border);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.toggle-sidebar-btn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+/* Sidebar Scrollable Menu Body */
+.sidebar-nav {
+  padding: 1.25rem 0.75rem;
+  overflow-y: auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sidebar-cat-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.6rem;
+  white-space: nowrap;
+}
+
+.sidebar.collapsed .sidebar-cat-title {
+  display: none;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+}
+
+.sidebar-item:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-item.active {
+  color: var(--primary);
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.sidebar-item-icon {
+  font-size: 1.15rem;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar.collapsed .sidebar-item-label {
+  display: none;
+}
+
+/* Sidebar Footer / Academy Seal */
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--bg-surface-border);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  display: none;
+}
+
+/* Main Content Workspace */
+.main-workspace {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--bg-main);
+}
+
+/* Workspace Header Bar */
+.workspace-header {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--bg-surface-border);
+  padding: 0.85rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.breadcrumb-active {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* Dynamic Content Views */
+.view-panel {
+  display: none;
+  padding: 1.75rem;
+  animation: fadeInView 0.3s ease;
+}
+
+.view-panel.active-view {
+  display: block;
+}
+
+@keyframes fadeInView {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments for mobile drawer */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100% !important;
+    height: auto;
+    position: relative;
+  }
+  .sidebar.collapsed .sidebar-nav {
+    display: none;
+  }
+}

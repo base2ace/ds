@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linked Lists in C Hub | base2ace Academy</title>
+  <meta name="description" content="Master Singly and Doubly Linked Lists in C with interactive multiline node animations, malloc/free heap inspector, and C code execution. Created by base2ace Academy.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/visualizer.css">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- Collapsible Sidebar Panel -->
+    <aside class="sidebar" id="sidebarNav">
+
+      <!-- Sidebar Header & Toggle -->
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <img src="B2A_3D_logo.png" alt="Base2ace Technologies Logo" class="brand-logo-img" style="height:32px;">
+          <div class="brand-text sidebar-brand-text">
+            <span class="brand-name" style="font-size:1.05rem;">Base2ace Technologies</span>
+            <span class="brand-sub" style="font-size:0.65rem;">Education</span>
+          </div>
+        </a>
+
+        <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar Width (Collapse/Expand)">◀</button>
+      </div>
+
+      <!-- Scrollable Course Menu Body -->
+      <nav class="sidebar-nav">
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Navigation</div>
+          <a href="index.html" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span class="sidebar-item-label">DS Catalog Home</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Linked Lists Sub-Modules</div>
+
+          <a href="#visualizer" class="sidebar-item active" data-ll-view="viewLinkedListSim" onclick="LinkedListSim.switchSubView('viewLinkedListSim')">
+            <span class="sidebar-item-icon">🔗</span>
+            <span class="sidebar-item-label">1. Node Visualizer & Ops</span>
+          </a>
+
+          <a href="#malloc" class="sidebar-item" data-ll-view="viewLinkedListMalloc" onclick="LinkedListSim.switchSubView('viewLinkedListMalloc')">
+            <span class="sidebar-item-icon">🧠</span>
+            <span class="sidebar-item-label">2. Heap RAM & malloc()</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Insert Operations</div>
+
+          <a href="#insertHead" class="sidebar-item" data-ll-op="insertHead" onclick="LinkedListSim.selectOpFromSidebar('insertHead')">
+            <span class="sidebar-item-icon">➕</span>
+            <span class="sidebar-item-label">Insert at Beginning</span>
+          </a>
+
+          <a href="#insertPos" class="sidebar-item" data-ll-op="insertPos" onclick="LinkedListSim.selectOpFromSidebar('insertPos')">
+            <span class="sidebar-item-icon">➕</span>
+            <span class="sidebar-item-label">Insert at Middle (Pos K)</span>
+          </a>
+
+          <a href="#insertTail" class="sidebar-item" data-ll-op="insertTail" onclick="LinkedListSim.selectOpFromSidebar('insertTail')">
+            <span class="sidebar-item-icon">➕</span>
+            <span class="sidebar-item-label">Insert at End (Tail)</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Delete Operations</div>
+
+          <a href="#deleteHead" class="sidebar-item" data-ll-op="deleteHead" onclick="LinkedListSim.selectOpFromSidebar('deleteHead')">
+            <span class="sidebar-item-icon">❌</span>
+            <span class="sidebar-item-label">Delete at Beginning</span>
+          </a>
+
+          <a href="#deletePos" class="sidebar-item" data-ll-op="deletePos" onclick="LinkedListSim.selectOpFromSidebar('deletePos')">
+            <span class="sidebar-item-icon">❌</span>
+            <span class="sidebar-item-label">Delete at Middle (Pos K)</span>
+          </a>
+
+          <a href="#deleteTail" class="sidebar-item" data-ll-op="deleteTail" onclick="LinkedListSim.selectOpFromSidebar('deleteTail')">
+            <span class="sidebar-item-icon">❌</span>
+            <span class="sidebar-item-label">Delete at End (Tail)</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Search & Utilities</div>
+
+          <a href="#updatePos" class="sidebar-item" data-ll-op="updatePos" onclick="LinkedListSim.selectOpFromSidebar('updatePos')">
+            <span class="sidebar-item-icon">✏️</span>
+            <span class="sidebar-item-label">Update Node Value</span>
+          </a>
+
+          <a href="#searchVal" class="sidebar-item" data-ll-op="searchVal" onclick="LinkedListSim.selectOpFromSidebar('searchVal')">
+            <span class="sidebar-item-icon">🔍</span>
+            <span class="sidebar-item-label">Search Value</span>
+          </a>
+
+          <a href="#reverse" class="sidebar-item" data-ll-op="reverse" onclick="LinkedListSim.selectOpFromSidebar('reverse')">
+            <span class="sidebar-item-icon">🔄</span>
+            <span class="sidebar-item-label">Reverse Linked List</span>
+          </a>
+
+          <a href="#traverse" class="sidebar-item" data-ll-op="traverse" onclick="LinkedListSim.selectOpFromSidebar('traverse')">
+            <span class="sidebar-item-icon">🔄</span>
+            <span class="sidebar-item-label">Step Traversal</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Full Programs & Assessment</div>
+
+          <a href="#programs" class="sidebar-item" data-ll-view="viewLinkedListPrograms" onclick="LinkedListSim.switchSubView('viewLinkedListPrograms')">
+            <span class="sidebar-item-icon">💻</span>
+            <span class="sidebar-item-label">3. Full C Code & Quiz</span>
+          </a>
+        </div>
+
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div>Base2ace Technologies</div>
+        <div style="font-size:0.68rem; color:var(--text-dim); margin-top:0.2rem;">Education</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Workspace -->
+    <main class="main-workspace">
+
+      <!-- Workspace Top Sticky Header -->
+      <header class="workspace-header">
+        <div class="breadcrumb-nav">
+          <a href="index.html" style="color:var(--text-muted); text-decoration:none;">DS Catalog</a>
+          <span>➔</span>
+          <span style="color:var(--text-main); font-weight:700;">Module 2: Linked Lists (Singly & Doubly)</span>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-sm" onclick="location.href='array.html'">⬅️ Prev: Arrays</button>
+          <button class="btn btn-primary btn-sm" onclick="location.href='stack-queue.html'">Next: Stacks & Queues ➡️</button>
+        </div>
+      </header>
+
+      <!-- VIEW 1: LINKED LIST VISUALIZER -->
+      <div class="view-panel active-view" id="viewLinkedListSim">
+        
+        <!-- Module Banner Header -->
+        <div class="module-header-card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <h1 class="module-title">🔗 Singly & Doubly Linked Lists Visualizer</h1>
+              <p class="module-subtitle">
+                Interactive C dynamic memory allocation simulator. Perform 10+ node operations on Heap RAM.
+              </p>
+            </div>
+
+            <!-- List Mode Selector (Singly vs Doubly) -->
+            <div class="mode-toggle-group">
+              <button class="btn-toggle active" id="btnModeSingly" onclick="LinkedListSim.setMode('singly')">Singly Linked List</button>
+              <button class="btn-toggle" id="btnModeDoubly" onclick="LinkedListSim.setMode('doubly')">Doubly Linked List</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic C Struct & Memory Layout Card Container -->
+        <div id="llStructInfoCardContainer"></div>
+
+        <!-- Categorized Operations Toolbar -->
+        <div class="op-nav-bar" style="margin-bottom:1.25rem;">
+          <div style="display:flex; align-items:center; gap:0.85rem; flex-wrap:wrap; width:100%;">
+            
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <span style="font-size:0.82rem; color:var(--text-muted); font-weight:600; white-space:nowrap;">Select Operation:</span>
+              <select id="llOpDropdownSelect" class="op-dropdown-select" onchange="LinkedListSim.selectOperation(this.value)" aria-label="Select Linked List Operation">
+                
+                <optgroup label="➕ Insertion Operations">
+                  <option value="insertHead">➕ Insert at Beginning (Head) - O(1)</option>
+                  <option value="insertPos">➕ Insert at Middle (Position K) - O(N)</option>
+                  <option value="insertTail">➕ Insert at End (Tail) - O(N)</option>
+                </optgroup>
+
+                <optgroup label="❌ Deletion Operations">
+                  <option value="deleteHead">❌ Delete at Beginning (Head) - O(1)</option>
+                  <option value="deletePos">❌ Delete at Middle (Position K) - O(N)</option>
+                  <option value="deleteTail">❌ Delete at End (Tail) - O(N)</option>
+                </optgroup>
+
+                <optgroup label="✏️ Search, Update & Traversal">
+                  <option value="updatePos">✏️ Update Node Value at Position K</option>
+                  <option value="searchVal">🔍 Search Value (Linear Search) - O(N)</option>
+                  <option value="reverse">🔄 Reverse Linked List - O(N)</option>
+                  <option value="traverse">🔄 Step Traversal - O(N)</option>
+                </optgroup>
+
+              </select>
+            </div>
+
+            <!-- Category Pills -->
+            <div class="op-category-pills">
+              <button class="op-cat-pill active" id="llCatPillAll" onclick="LinkedListSim.filterOpCategory('all')">All (10)</button>
+              <button class="op-cat-pill" id="llCatPillInsert" onclick="LinkedListSim.filterOpCategory('insert')">➕ Insertions (3)</button>
+              <button class="op-cat-pill" id="llCatPillDelete" onclick="LinkedListSim.filterOpCategory('delete')">❌ Deletions (3)</button>
+              <button class="op-cat-pill" id="llCatPillSearch" onclick="LinkedListSim.filterOpCategory('search')">✏️ Search & Update (4)</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Full-Width Stacked Layout -->
+        <div style="display:flex; flex-direction:column; gap:1.5rem; width:100%;">
+
+          <!-- Top: Full-Width Visualizer Stage Card -->
+          <div class="viz-canvas-card" style="width:100%;">
+            
+            <!-- Dynamic Controls Container -->
+            <div class="op-controls" id="llOpControlsContainer"></div>
+
+            <!-- Step Playback Animation Controls Bar -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:0.85rem 1.1rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.85rem;">
+              
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <button class="btn btn-secondary btn-sm" onclick="LinkedListSim.stepBack()" title="Step Back">⏪ Back</button>
+                <button class="btn btn-primary btn-sm" id="llBtnPlayPause" onclick="LinkedListSim.isPlaying ? LinkedListSim.stopPlayback() : LinkedListSim.playSteps()">▶️ Play</button>
+                <button class="btn btn-secondary btn-sm" onclick="LinkedListSim.stepForward()" title="Step Forward">⏩ Forward</button>
+              </div>
+
+              <!-- Step Description Banner -->
+              <div id="llStepDescBanner" style="font-size:0.88rem; color:var(--secondary); font-weight:600; font-family:var(--font-sans);">
+                Select an operation above and click ▶️ Animated to start step-by-step memory visualization.
+              </div>
+
+              <!-- Step Counter Badge -->
+              <span class="badge badge-primary" id="llStepCounter">Ready</span>
+            </div>
+
+            <!-- Full-Width Horizontal Nodes Stage -->
+            <div class="array-stage" style="overflow-x:auto; padding:1.25rem 0.75rem; scrollbar-width:thin; width:100%;">
+              <div id="llNodesContainer"></div>
+            </div>
+
+          </div>
+
+          <!-- Bottom: Full-Width GCC C Execution Code Panel with Variable Watch & View Mode Toggle -->
+          <div class="code-panel" style="width:100%;">
+            <div class="code-panel-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+              
+              <div style="display:flex; align-items:center; gap:0.6rem;">
+                <button class="btn btn-secondary btn-sm active" id="llBtnCodeSnippet" onclick="LinkedListSim.toggleCodeViewMode('snippet')">⚡ Line-by-Line Execution Tracker</button>
+                <button class="btn btn-secondary btn-sm" id="llBtnCodeFull" onclick="LinkedListSim.toggleCodeViewMode('full')">💻 Complete GCC C Program</button>
+              </div>
+
+              <!-- Variable Watch Box -->
+              <div id="llVarWatchBox" style="background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.3rem 0.75rem;">
+                <span style="color:var(--text-muted); font-size:0.8rem;">No active variables</span>
+              </div>
+
+              <span class="c-badge">GCC / C99</span>
+            </div>
+
+            <div class="code-view" id="llCCodeView"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- VIEW 2: MALLOC HEAP INSPECTOR -->
+      <div class="view-panel" id="viewLinkedListMalloc">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.75rem; color:var(--text-main);">
+            🧠 Dynamic Memory Allocation: <code>malloc()</code> and <code>free()</code>
+          </h2>
+          <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6; margin-bottom:1.5rem;">
+            Unlike contiguous arrays in Stack memory, Linked Lists use C standard library functions <code>malloc()</code> to reserve node memory blocks dynamically in Heap RAM and <code>free()</code> to release them back to the operating system.
+          </p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;" class="matrix-layout-grid">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md);">
+              <h4 style="color:var(--secondary); margin-bottom:0.5rem;">Singly Node Structure</h4>
+              <pre style="background:var(--bg-main); padding:0.85rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--text-main);"><code>struct Node {
+    int data;            // 4 bytes
+    struct Node* next;   // 8 bytes (64-bit pointer)
+};                       // Total = 16 bytes</code></pre>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md);">
+              <h4 style="color:var(--primary); margin-bottom:0.5rem;">Doubly Node Structure</h4>
+              <pre style="background:var(--bg-main); padding:0.85rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--text-main);"><code>struct Node {
+    int data;            // 4 bytes
+    struct Node* prev;   // 8 bytes
+    struct Node* next;   // 8 bytes
+};                       // Total = 24 bytes</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: C PROGRAMS & ASSESSMENT -->
+      <div class="view-panel" id="viewLinkedListPrograms">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; display:flex; flex-direction:column; gap:2rem;">
+          
+          <div>
+            <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.4rem; color:var(--text-main);">
+              💻 Essential C Programs & Algorithms Suite
+            </h2>
+            <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:1.5rem;">
+              Compilable, production-ready C implementations for standard university exams and technical coding interviews.
+            </p>
+          </div>
+
+          <!-- Section 1: Singly Linked List Programs -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--primary); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+              <span>🔗</span> 1. Singly Linked List Standard Operations & Interview Programs
+            </h3>
+
+            <div style="display:flex; flex-direction:column; gap:1.5rem;">
+              
+              <!-- Program 1.1: Complete SLL Implementation -->
+              <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+                  <strong style="color:var(--text-main); font-size:0.95rem;">A. Complete Singly Linked List Operations (Insert, Delete, Reverse, Print)</strong>
+                  <span class="badge badge-primary">Standard C Implementation</span>
+                </div>
+                <pre style="font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto; margin:0; line-height:1.5;"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Insert at Head - O(1)
+void insertHead(struct Node** head, int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->next = *head;
+    *head = newNode;
+}
+
+// Insert at Tail - O(N)
+void insertTail(struct Node** head, int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->next = NULL;
+    if (*head == NULL) { *head = newNode; return; }
+    struct Node* temp = *head;
+    while (temp->next != NULL) temp = temp->next;
+    temp->next = newNode;
+}
+
+// Reverse Linked List - O(N)
+void reverseList(struct Node** head) {
+    struct Node *prev = NULL, *curr = *head, *next = NULL;
+    while (curr != NULL) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    *head = prev;
+}
+
+// Print List
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    insertHead(&head, 30);
+    insertHead(&head, 20);
+    insertHead(&head, 10);
+    insertTail(&head, 40);
+    printf("Original List: "); printList(head);
+    reverseList(&head);
+    printf("Reversed List: "); printList(head);
+    return 0;
+}</code></pre>
+              </div>
+
+              <!-- Program 1.2: Find Middle Node (Floyd's Algorithm) -->
+              <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+                  <strong style="color:var(--accent-amber); font-size:0.95rem;">B. Find Middle Node (Floyd's Fast & Slow Pointers - O(N))</strong>
+                  <span class="badge badge-amber">Interview Classic</span>
+                </div>
+                <pre style="font-family:var(--font-code); font-size:0.82rem; color:var(--text-main); overflow-x:auto; margin:0; line-height:1.5;"><code>// Finds middle element in single traversal pass
+struct Node* findMiddle(struct Node* head) {
+    if (head == NULL) return NULL;
+    struct Node* slow = head;
+    struct Node* fast = head;
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;       // Moves 1 step
+        fast = fast->next->next; // Moves 2 steps
+    }
+    return slow; // Slow pointer sits on exact middle node!
+}</code></pre>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Section 2: Doubly Linked List Programs -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--accent-green); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+              <span>⇄</span> 2. Doubly Linked List Standard Operations & Interview Programs
+            </h3>
+
+            <div style="display:flex; flex-direction:column; gap:1.5rem;">
+              
+              <!-- Program 2.1: Complete DLL Implementation -->
+              <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+                  <strong style="color:var(--text-main); font-size:0.95rem;">A. Complete Doubly Linked List (Insert, Delete, Forward & Backward Print)</strong>
+                  <span class="badge badge-green">Compilable C Code</span>
+                </div>
+                <pre style="font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto; margin:0; line-height:1.5;"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node {
+    int data;
+    struct Node* prev;
+    struct Node* next;
+};
+
+// Insert at Head - O(1)
+void insertHeadDLL(struct Node** head, int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->prev = NULL;
+    newNode->next = *head;
+    if (*head != NULL) (*head)->prev = newNode;
+    *head = newNode;
+}
+
+// Print Forward & Backward
+void printDLL(struct Node* head) {
+    struct Node* temp = head;
+    struct Node* last = NULL;
+    printf("Forward Traversal: ");
+    while (temp != NULL) {
+        printf("%d ⇄ ", temp->data);
+        last = temp;
+        temp = temp->next;
+    }
+    printf("NULL\n");
+
+    printf("Backward Traversal: ");
+    while (last != NULL) {
+        printf("%d ⇄ ", last->data);
+        last = last->prev;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    insertHeadDLL(&head, 50);
+    insertHeadDLL(&head, 40);
+    insertHeadDLL(&head, 30);
+    printDLL(head);
+    return 0;
+}</code></pre>
+              </div>
+
+              <!-- Program 2.2: Reverse Doubly Linked List -->
+              <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+                  <strong style="color:var(--primary); font-size:0.95rem;">B. Reverse Doubly Linked List (Swapping prev & next pointers - O(N))</strong>
+                  <span class="badge badge-primary">Pointer Swap Algorithm</span>
+                </div>
+                <pre style="font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto; margin:0; line-height:1.5;"><code>// Reverses a Doubly Linked List in-place by swapping prev and next pointers
+void reverseDLL(struct Node** head) {
+    struct Node* temp = NULL;
+    struct Node* curr = *head;
+
+    while (curr != NULL) {
+        // Swap prev and next pointers
+        temp = curr->prev;
+        curr->prev = curr->next;
+        curr->next = temp;
+
+        // Move to next node (which is now curr->prev due to swap)
+        curr = curr->prev;
+    }
+
+    if (temp != NULL) {
+        *head = temp->prev;
+    }
+}</code></pre>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer" style="margin-top:auto;">
+        <div class="footer-content">
+          <div class="brand-text">
+            <span class="brand-name">Base2ace Technologies</span>
+            <span class="brand-sub">Education</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html">DS Catalog</a>
+            <a href="intro-ds.html">Intro to DS</a>
+            <a href="array.html">Arrays</a>
+            <a href="https://base2ace.com" target="_blank">Main Website</a>
+          </div>
+        </div>
+      </footer>
+
+    </main>
+
+  </div>
+
+  <!-- Memory Layout Inspector Modal Overlay -->
+  <div class="modal-overlay" id="memoryModalOverlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <span>🧠</span> Detailed C Memory Layout Inspector
+        </h3>
+        <button class="modal-close" aria-label="Close Modal">&times;</button>
+      </div>
+
+      <div id="memoryInspectorContent"></div>
+
+      <div style="margin-top:1.5rem; text-align:right;">
+        <button class="btn btn-secondary btn-sm" onclick="closeModal('memoryModalOverlay')">Close Inspector</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/sidebar.js"></script>
+  <script src="js/memory-inspector.js"></script>
+  <script src="js/linked-list.js"></script>
+</body>
+</html>

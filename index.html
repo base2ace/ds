@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>base2ace Academy | Interactive Data Structures & Complexity</title>
+  <meta name="description" content="Master Data Structures & Complexity Analysis in C language through interactive step-by-step visualizations, memory layouts, and C code execution. Created by base2ace Academy.">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo" id="brandLogoLink">
+        <img src="B2A_3D_logo.png" alt="Base2ace Technologies Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-name">Base2ace Technologies</span>
+          <span class="brand-sub">Education</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active" id="navHome">Catalog</a></li>
+        <li><a href="intro-ds.html" class="nav-link" id="navIntro">Intro to DS</a></li>
+        <li><a href="array.html" class="nav-link" id="navArray">Arrays</a></li>
+        <li><a href="linked-list.html" class="nav-link" id="navLL">Linked Lists</a></li>
+        <li>
+          <div class="ds-dropdown">
+            <select class="ds-dropdown-select" id="dsSelectNav" aria-label="Select Data Structure">
+              <option value="index.html">🗺️ Select DS Topic</option>
+              <option value="intro-ds.html">📘 Intro to DS & Complexity</option>
+              <option value="array.html">⚡ Arrays (Interactive)</option>
+              <option value="linked-list.html">🔗 Linked Lists (Interactive)</option>
+              <option value="stack-queue.html">📚 Stacks & Queues (Interactive)</option>
+              <option value="tree.html">🌲 Binary Trees / BST (Interactive)</option>
+              <option value="graph.html">🕸️ Graph Algorithms (Interactive)</option>
+            </select>
+          </div>
+        </li>
+        <li><a href="https://base2ace.com" target="_blank" class="btn btn-secondary btn-sm" id="btnMainWebsite">Main Website ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-pill">
+        <span>✨ Engineering Data Structures Platform</span>
+        <span class="badge badge-primary">v1.0</span>
+      </div>
+
+      <h1 class="hero-title">
+        Master Data Structures & <span class="highlight">Complexity Analysis</span> Through Visual Intuition
+      </h1>
+
+      <p class="hero-description">
+        Learn memory addresses, pointer arithmetic, contiguous blocks, Asymptotic Notations (Big-O, Omega, Theta), and algorithm execution in C with step-by-step interactive playback.
+      </p>
+
+      <div class="hero-cta">
+        <a href="intro-ds.html" class="btn btn-primary" id="btnStartIntro">
+          📘 Launch Intro to DS & Complexity
+        </a>
+        <a href="array.html" class="btn btn-secondary" id="btnStartArray">
+          ⚡ Launch Array Visualizer (C)
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Key Learning Features Row -->
+  <section class="container">
+    <div class="features-row">
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">📘</div>
+        <div class="feature-info">
+          <h3>Asymptotic & ADT Theory</h3>
+          <p>Formal definitions for Big-O, Omega (Ω), Theta (Θ), Abstract Data Types (ADT axioms), and Linear vs Non-Linear structures.</p>
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">🧠</div>
+        <div class="feature-info">
+          <h3>C Memory Layout Inspector</h3>
+          <p>Visualize exact 32-bit hex addresses (<code>0x7FFE00</code>) and byte offset math <code>Base + (i * sizeof(int))</code>.</p>
+        </div>
+      </div>
+
+      <div class="feature-box">
+        <div class="feature-icon-wrapper">⚡</div>
+        <div class="feature-info">
+          <h3>Line-by-Line Synchronized Code</h3>
+          <p>Watch standard C code highlight in real-time as memory blocks shift, insert, or delete.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Structure Catalog Grid -->
+  <section class="container catalog-section" id="catalog">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Data Structure Learning Catalog</h2>
+        <p class="section-subtitle">Choose a module below to start your visual learning journey in computer engineering.</p>
+      </div>
+      <span class="badge badge-success">6 Active Modules</span>
+    </div>
+
+    <div class="ds-grid">
+
+      <!-- Card 1: Intro to DS & Complexity (Active - First Item) -->
+      <div class="ds-card active-card" id="dsCardIntroDS">
+        <div>
+          <div class="ds-card-header">
+            <div class="ds-card-icon">📘</div>
+            <span class="badge badge-success">Foundation Module</span>
+          </div>
+
+          <h3 class="ds-card-title">Introduction to Data Structures & Complexity</h3>
+          <p class="ds-card-desc">
+            Linear vs non-linear classification, Abstract Data Types (ADT), formal mathematical Big-O (O), Big-Omega (Ω), and Big-Theta (Θ) asymptotic analysis, space-time trade-offs, and master algorithm matrix.
+          </p>
+
+          <div class="ds-tags">
+            <span class="ds-tag">Linear vs Non-Linear</span>
+            <span class="ds-tag">ADT Interface</span>
+            <span class="ds-tag">Big-O / Ω / Θ</span>
+            <span class="ds-tag">Searching & Sorting</span>
+          </div>
+        </div>
+
+        <div class="ds-card-footer">
+          <span style="font-size:0.82rem; color:var(--text-muted);">5 Engineering Topics</span>
+          <a href="intro-ds.html" class="btn btn-primary btn-sm" id="cardLaunchIntroDS">Launch Module ➔</a>
+        </div>
+      </div>
+
+      <!-- Card 2: Arrays Card (Active) -->
+      <div class="ds-card active-card" id="dsCardArray">
+        <div>
+          <div class="ds-card-header">
+            <div class="ds-card-icon">📊</div>
+            <span class="badge badge-success">Active Module</span>
+          </div>
+
+          <h3 class="ds-card-title">Arrays in C</h3>
+          <p class="ds-card-desc">
+            Contiguous memory allocation, O(1) index access, pointer arithmetic, element shifting on insertion/deletion, linear and binary search algorithms, and sorting algorithms.
+          </p>
+
+          <div class="ds-tags">
+            <span class="ds-tag">int arr[N]</span>
+            <span class="ds-tag">Contiguous RAM</span>
+            <span class="ds-tag">O(1) Access</span>
+            <span class="ds-tag">Pointers</span>
+          </div>
+        </div>
+
+        <div class="ds-card-footer">
+          <span style="font-size:0.82rem; color:var(--text-muted);">10 Operations • C Code</span>
+          <a href="array.html" class="btn btn-secondary btn-sm" id="cardLaunchArray">Launch Visualizer ➔</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Linked List Card (Active) -->
+      <div class="ds-card active-card" id="dsCardLinkedList">
+        <div>
+          <div class="ds-card-header">
+            <div class="ds-card-icon">🔗</div>
+            <span class="badge badge-success">Active Module</span>
+          </div>
+
+          <h3 class="ds-card-title">Singly & Doubly Linked Lists</h3>
+          <p class="ds-card-desc">
+            Dynamic node allocation using <code>malloc()</code>, heap memory pointers, head/tail pointers, node insertion, and linear traversal.
+          </p>
+
+          <div class="ds-tags">
+            <span class="ds-tag">struct Node</span>
+            <span class="ds-tag">malloc()</span>
+            <span class="ds-tag">Node* next</span>
+            <span class="ds-tag">Heap RAM</span>
+          </div>
+        </div>
+
+        <div class="ds-card-footer">
+          <span style="font-size:0.82rem; color:var(--text-muted);">Dynamic Memory</span>
+          <a href="linked-list.html" class="btn btn-secondary btn-sm" id="cardLaunchLL">Launch Visualizer ➔</a>
+        </div>
+      </div>
+
+      <!-- Card 4: Stacks & Queues Card (Active) -->
+      <div class="ds-card active-card" id="dsCardStacks">
+        <div>
+          <div class="ds-card-header">
+            <div class="ds-card-icon">📚</div>
+            <span class="badge badge-success">Active Module</span>
+          </div>
+
+          <h3 class="ds-card-title">Stacks & Queues</h3>
+          <p class="ds-card-desc">
+            LIFO (Last In First Out) push/pop stack operations and FIFO queue enqueue/dequeue using array & linked list implementations in C.
+          </p>
+
+          <div class="ds-tags">
+            <span class="ds-tag">LIFO / FIFO</span>
+            <span class="ds-tag">push() / pop()</span>
+            <span class="ds-tag">top pointer</span>
+          </div>
+        </div>
+
+        <div class="ds-card-footer">
+          <span style="font-size:0.82rem; color:var(--text-muted);">Call Stack & Queues</span>
+          <a href="stack-queue.html" class="btn btn-secondary btn-sm" id="cardLaunchSQ">Launch Visualizer ➔</a>
+        </div>
+      </div>
+
+      <!-- Card 5: Binary Trees Card (Active) -->
+      <div class="ds-card active-card" id="dsCardTrees">
+        <div>
+          <div class="ds-card-header">
+            <div class="ds-card-icon">🌲</div>
+            <span class="badge badge-success">Active Module</span>
+          </div>
+
+          <h3 class="ds-card-title">Binary Search Trees (BST)</h3>
+          <p class="ds-card-desc">
+            Hierarchical data structure, root nodes, left/right pointers, BST insertion, search, and Inorder/Preorder/Postorder tree traversals.
+          </p>
+
+          <div class="ds-tags">
+            <span class="ds-tag">Node* left</span>
+            <span class="ds-tag">Node* right</span>
+            <span class="ds-tag">O(log n)</span>
+          </div>
+        </div>
+
+        <div class="ds-card-footer">
+          <span style="font-size:0.82rem; color:var(--text-muted);">Hierarchical Memory</span>
+          <a href="tree.html" class="btn btn-secondary btn-sm" id="cardLaunchTree">Launch Visualizer ➔</a>
+        </div>
+      </div>
+
+      <!-- Card 6: Graphs Card (Active) -->
+      <div class="ds-card active-card" id="dsCardGraphs">
+        <div>
+          <div class="ds-card-header">
+            <div class="ds-card-icon">🕸️</div>
+            <span class="badge badge-success">Active Module</span>
+          </div>
+
+          <h3 class="ds-card-title">Graph Algorithms</h3>
+          <p class="ds-card-desc">
+            Adjacency matrix vs. adjacency list representations in C, Breadth-First Search (BFS), Depth-First Search (DFS), and shortest path.
+          </p>
+
+          <div class="ds-tags">
+            <span class="ds-tag">Vertices & Edges</span>
+            <span class="ds-tag">BFS / DFS</span>
+            <span class="ds-tag">Adjacency List</span>
+          </div>
+        </div>
+
+        <div class="ds-card-footer">
+          <span style="font-size:0.82rem; color:var(--text-muted);">Complex Networks</span>
+          <a href="graph.html" class="btn btn-secondary btn-sm" id="cardLaunchGraph">Launch Visualizer ➔</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="brand-text">
+        <span class="brand-name">Base2ace Technologies</span>
+        <span class="brand-sub">Education</span>
+      </div>
+      <p style="font-size:0.85rem;">Designed for students learning Data Structures & C Language worldwide.</p>
+      <div class="footer-links">
+        <a href="https://base2ace.com" target="_blank" id="footMainWeb">Main Website</a>
+        <a href="intro-ds.html" id="footIntroDS">Intro to DS</a>
+        <a href="array.html" id="footArray">Array Visualizer</a>
+        <a href="linked-list.html" id="footLL">Linked Lists</a>
+        <a href="stack-queue.html" id="footSQ">Stacks & Queues</a>
+        <a href="tree.html" id="footTree">Trees</a>
+        <a href="graph.html" id="footGraph">Graphs</a>
+      </div>
+      <p style="font-size:0.75rem; color:var(--text-dim);">© 2026 Base2ace Technologies Education. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
