@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stacks & Queues in C Hub | base2ace Academy</title>
-  <meta name="description" content="Master LIFO Stacks and FIFO Queues in C with interactive push/pop animations, top/front/rear pointers, and GCC C code execution. Created by base2ace Academy.">
+  <title>Module 3: Stacks (LIFO) & Memory | Base2ace Academy</title>
+  <meta name="description" content="Master Stacks (LIFO Data Structure) in C language with interactive push/pop animations, array & linked list implementations, call stack inspection, and C programs. Created by Base2ace Technologies.">
   <link rel="icon" type="image/png" href="B2A_3D_logo.png">
   <link rel="apple-touch-icon" href="B2A_3D_logo.png">
   <link rel="stylesheet" href="css/main.css">
@@ -28,7 +28,7 @@
           </div>
         </a>
 
-        <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar Width (Collapse/Expand)">◀</button>
+        <button class="toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar Width">◀</button>
       </div>
 
       <!-- Scrollable Course Menu Body -->
@@ -43,21 +43,45 @@
         </div>
 
         <div class="sidebar-category">
-          <div class="sidebar-cat-title">Stacks & Queues Sub-Modules</div>
+          <div class="sidebar-cat-title">Stack Sub-Modules</div>
 
-          <a href="#visualizer" class="sidebar-item active" data-sq-view="viewStackQueueSim" onclick="StackQueueSim.switchSubView('viewStackQueueSim')">
+          <a href="#foundations" class="sidebar-item active" data-sq-view="viewStackFoundations" onclick="StackSim.switchSubView('viewStackFoundations')">
+            <span class="sidebar-item-icon">📘</span>
+            <span class="sidebar-item-label">1. Stack & LIFO Principle</span>
+          </a>
+
+          <a href="#simulator" class="sidebar-item" data-sq-view="viewStackSim" onclick="StackSim.switchSubView('viewStackSim')">
             <span class="sidebar-item-icon">📚</span>
-            <span class="sidebar-item-label">1. Stack & Queue Visualizer</span>
+            <span class="sidebar-item-label">2. Stack Simulator (Array/LL)</span>
           </a>
 
-          <a href="#callstack" class="sidebar-item" data-sq-view="viewStackQueueCallStack" onclick="StackQueueSim.switchSubView('viewStackQueueCallStack')">
-            <span class="sidebar-item-icon">🔄</span>
-            <span class="sidebar-item-label">2. Call Stack & CPU Queues</span>
+          <a href="#callstack" class="sidebar-item" data-sq-view="viewStackCallStack" onclick="StackSim.switchSubView('viewStackCallStack')">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span class="sidebar-item-label">3. Function Call Stack</span>
           </a>
 
-          <a href="#programs" class="sidebar-item" data-sq-view="viewStackQueuePrograms" onclick="StackQueueSim.switchSubView('viewStackQueuePrograms')">
+          <a href="#programs" class="sidebar-item" data-sq-view="viewStackPrograms" onclick="StackSim.switchSubView('viewStackPrograms')">
             <span class="sidebar-item-icon">💻</span>
-            <span class="sidebar-item-label">3. C Code & Assessment</span>
+            <span class="sidebar-item-label">4. Full C Code & Quiz</span>
+          </a>
+        </div>
+
+        <div class="sidebar-category">
+          <div class="sidebar-cat-title">Stack Operations</div>
+
+          <a href="#push" class="sidebar-item" onclick="StackSim.switchSubView('viewStackSim'); StackSim.pushOp();">
+            <span class="sidebar-item-icon">⬆️</span>
+            <span class="sidebar-item-label">push(val) - O(1)</span>
+          </a>
+
+          <a href="#pop" class="sidebar-item" onclick="StackSim.switchSubView('viewStackSim'); StackSim.popOp();">
+            <span class="sidebar-item-icon">⬇️</span>
+            <span class="sidebar-item-label">pop() - O(1)</span>
+          </a>
+
+          <a href="#peek" class="sidebar-item" onclick="StackSim.switchSubView('viewStackSim'); StackSim.peekOp();">
+            <span class="sidebar-item-icon">👁️</span>
+            <span class="sidebar-item-label">peek() / top() - O(1)</span>
           </a>
         </div>
 
@@ -78,62 +102,248 @@
         <div class="breadcrumb-nav">
           <a href="index.html" style="color:var(--text-muted); text-decoration:none;">DS Catalog</a>
           <span>➔</span>
-          <span class="breadcrumb-active" id="breadcrumbActiveTitle">Stacks & Queues in C</span>
+          <span style="color:var(--text-main); font-weight:700;">Module 3: Stacks (LIFO) in C</span>
         </div>
 
-        <div style="display:flex; align-items:center; gap:0.75rem;">
-          <button class="btn btn-accent btn-sm" onclick="openMemoryModal()" id="btnOpenMemoryModalNav">🧠 Memory Inspector</button>
-          <a href="https://base2ace.com" target="_blank" class="btn btn-secondary btn-sm">Main Site ↗</a>
+        <div class="header-actions">
+          <button class="btn btn-secondary btn-sm" onclick="location.href='linked-list.html'">⬅️ Prev: Linked Lists</button>
+          <button class="btn btn-primary btn-sm" onclick="location.href='tree.html'">Next: Binary Search Trees ➡️</button>
         </div>
       </header>
 
-      <!-- VIEW 1: STACK & QUEUE VISUALIZER -->
-      <div class="view-panel active-view" id="viewStackQueueSim">
+      <!-- SUB-VIEW 1: STACK FOUNDATIONS & LIFO PRINCIPLE -->
+      <div class="view-panel active-view" id="viewStackFoundations">
         
-        <div class="viz-header">
-          <div class="viz-title-group">
-            <h1>
-              <span>📚 Stacks (LIFO) & Queues (FIFO) Visualizer</span>
-              <span class="badge badge-primary">Abstract Data Types</span>
-            </h1>
-            <p>Step through Push/Pop and Enqueue/Dequeue operations with real-time C code execution.</p>
-          </div>
+        <!-- Module Banner Header -->
+        <div class="module-header-card" style="margin-bottom:1.5rem;">
+          <h1 class="module-title">📚 Module 3: Stacks (LIFO Data Structure)</h1>
+          <p class="module-subtitle">
+            Understand the <strong>Last-In, First-Out (LIFO)</strong> mechanism, real-world analogies, time complexities, and function call stack mechanics in C.
+          </p>
+        </div>
 
-          <div class="viz-config-bar">
-            <button class="btn btn-secondary btn-sm active" id="btnTypeStack" onclick="StackQueueSim.setType('stack')">📚 Stack (LIFO)</button>
-            <button class="btn btn-secondary btn-sm" id="btnTypeQueue" onclick="StackQueueSim.setType('queue')">🚶 Queue (FIFO)</button>
+        <!-- 1. What is a Stack? Section -->
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--primary); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
+            <span>💡</span> 1. What is a Stack?
+          </h2>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7; margin-bottom:1.25rem;">
+            A <strong>Stack</strong> is a linear Abstract Data Type (ADT) operating on the <strong>LIFO (Last In, First Out)</strong> principle. Insertion and deletion occur strictly at a single open endpoint called the <strong>TOP</strong> of the stack.
+          </p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem;" class="matrix-layout-grid">
+            <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1.1rem; border-radius:var(--radius-md);">
+              <h4 style="color:var(--secondary); font-size:0.95rem; margin-bottom:0.4rem;">🔑 Key Rule: LIFO Access</h4>
+              <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5;">
+                The element inserted last is always the very first element to be removed. You cannot access lower elements without first popping the elements above them!
+              </p>
+            </div>
+
+            <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1.1rem; border-radius:var(--radius-md);">
+              <h4 style="color:var(--accent-green); font-size:0.95rem; margin-bottom:0.4rem;">🎯 Primary Entry Point: TOP Pointer</h4>
+              <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.5;">
+                All operations (<code>push</code>, <code>pop</code>, <code>peek</code>) are performed at the <strong>Top pointer</strong> in constant <code>O(1)</code> time complexity.
+              </p>
+            </div>
           </div>
         </div>
 
-        <!-- Visualizer Layout -->
-        <div class="viz-layout">
+        <!-- 2. Real-World Analogies Cards Section -->
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; margin-bottom:1.5rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1rem;">
+            🌎 Real-World & System Analogies of Stacks
+          </h2>
 
-          <!-- Left Stage Card -->
-          <div class="viz-canvas-card">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.25rem;" class="features-row">
             
-            <div class="op-controls">
-              <div class="op-input-group">
-                <label for="sqValInput">Value:</label>
-                <input type="number" id="sqValInput" class="op-input" value="50" style="width:70px; text-align:center;">
+            <!-- Analogy 1: Stack of Plates -->
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(59,130,246,0.15); color:var(--primary);">🍽️</div>
+              <div class="feature-info">
+                <h3>A. Stack of Plates</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">
+                  Plates placed in a cafeteria stack. New plates are added to the top (Push) and washed from the top (Pop).
+                </p>
               </div>
-
-              <button class="btn btn-primary btn-sm" onclick="StackQueueSim.push()">➕ Push / Enqueue O(1)</button>
-              <button class="btn btn-secondary btn-sm" onclick="StackQueueSim.pop()">❌ Pop / Dequeue O(1)</button>
             </div>
 
-            <!-- Stage Area -->
-            <div class="array-stage">
+            <!-- Analogy 2: Browser History -->
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(6,182,212,0.15); color:var(--secondary);">🌐</div>
+              <div class="feature-info">
+                <h3>B. Browser Back Button</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">
+                  Every new URL visited is pushed onto the history stack. Clicking "Back" pops the current URL to reveal the previous page.
+                </p>
+              </div>
+            </div>
+
+            <!-- Analogy 3: Undo / Redo -->
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(245,158,11,0.15); color:var(--accent-amber);">↩️</div>
+              <div class="feature-info">
+                <h3>C. Text Editor Undo (Ctrl+Z)</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">
+                  Text modifications are stored in an Undo Stack. Pressing Ctrl+Z pops the most recent edit action.
+                </p>
+              </div>
+            </div>
+
+            <!-- Analogy 4: C Function Call Stack -->
+            <div class="feature-box">
+              <div class="feature-icon-wrapper" style="background:rgba(16,185,129,0.15); color:var(--accent-green);">⚙️</div>
+              <div class="feature-info">
+                <h3>D. C Function Call Stack</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">
+                  CPU reserves Stack Frames for function calls. Returning from a function pops its activation record.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3. Time Complexity Summary Table -->
+        <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--accent-green); margin-bottom:1rem;">
+            ⚡ Stack Operations & Time Complexity Summary
+          </h2>
+
+          <div style="overflow-x:auto;">
+            <table class="mem-table" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Operation</th>
+                  <th>Description</th>
+                  <th>Array Stack</th>
+                  <th>Linked List Stack</th>
+                  <th>Time Complexity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style="color:var(--primary);">push(x)</strong></td>
+                  <td>Add element <code>x</code> to the top of the stack</td>
+                  <td><code>stack[++top] = x</code></td>
+                  <td><code>newNode->next = top; top = newNode</code></td>
+                  <td><span class="badge badge-primary">O(1)</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--secondary);">pop()</strong></td>
+                  <td>Remove & return top element</td>
+                  <td><code>return stack[top--]</code></td>
+                  <td><code>temp = top; top = top->next; free(temp)</code></td>
+                  <td><span class="badge badge-primary">O(1)</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--accent-amber);">peek() / top()</strong></td>
+                  <td>Return top element without removing it</td>
+                  <td><code>return stack[top]</code></td>
+                  <td><code>return top->data</code></td>
+                  <td><span class="badge badge-primary">O(1)</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--text-main);">isEmpty()</strong></td>
+                  <td>Check if stack is empty</td>
+                  <td><code>top == -1</code></td>
+                  <td><code>top == NULL</code></td>
+                  <td><span class="badge badge-primary">O(1)</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:var(--accent-red);">isFull()</strong></td>
+                  <td>Check if fixed array stack is full</td>
+                  <td><code>top == MAX - 1</code></td>
+                  <td>N/A (Dynamic Memory)</td>
+                  <td><span class="badge badge-primary">O(1)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SUB-VIEW 2: INTERACTIVE STACK SIMULATOR -->
+      <div class="view-panel" id="viewStackSim">
+        
+        <!-- Module Header Card with Dual Implementation Selector -->
+        <div class="module-header-card" style="margin-bottom:1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <h1 class="module-title">📚 Interactive Stack Simulator</h1>
+              <p class="module-subtitle">
+                Perform Push, Pop, and Peek operations with step-by-step playback, real-time variable watch, and C code execution.
+              </p>
+            </div>
+
+            <!-- Mode Selector (Array vs Linked List Stack) -->
+            <div class="mode-toggle-group">
+              <button class="btn-toggle active" id="btnModeArray" onclick="StackSim.setMode('array')">Array-Based Stack (Fixed MAX=6)</button>
+              <button class="btn-toggle" id="btnModeLinkedList" onclick="StackSim.setMode('linkedlist')">Linked List Stack (Dynamic Heap)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overflow / Underflow Alert Container -->
+        <div id="sqAlertBanner" style="display:none; margin-bottom:1.25rem;"></div>
+
+        <!-- Full-Width Stacked Layout -->
+        <div style="display:flex; flex-direction:column; gap:1.5rem; width:100%;">
+
+          <!-- Top: Full-Width Visualizer Stage Card -->
+          <div class="viz-canvas-card" style="width:100%;">
+            
+            <!-- Controls Toolbar -->
+            <div class="op-controls" style="margin-bottom:1.25rem;">
+              <div class="op-input-group">
+                <label for="sqValInput">Value:</label>
+                <input type="number" id="sqValInput" class="op-input" value="99" style="width:70px; text-align:center;">
+              </div>
+
+              <button class="btn btn-primary btn-sm" onclick="StackSim.pushOp()">⬆️ push(val) O(1)</button>
+              <button class="btn btn-secondary btn-sm" onclick="StackSim.popOp()">⬇️ pop() O(1)</button>
+              <button class="btn btn-secondary btn-sm" onclick="StackSim.peekOp()">👁️ peek() O(1)</button>
+            </div>
+
+            <!-- Step Playback Animation Controls Bar -->
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:0.85rem 1.1rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.85rem;">
+              
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <button class="btn btn-secondary btn-sm" onclick="StackSim.stepBack()" title="Step Back">⏪ Back</button>
+                <button class="btn btn-primary btn-sm" id="sqBtnPlayPause" onclick="StackSim.isPlaying ? StackSim.stopPlayback() : StackSim.playSteps()">▶️ Play</button>
+                <button class="btn btn-secondary btn-sm" onclick="StackSim.stepForward()" title="Step Forward">⏩ Forward</button>
+              </div>
+
+              <!-- Step Description Banner -->
+              <div id="sqStepDescBanner" style="font-size:0.88rem; color:var(--secondary); font-weight:600; font-family:var(--font-sans);">
+                Click ⬆️ push(val) or ⬇️ pop() above to start step-by-step visualization.
+              </div>
+
+              <!-- Step Counter Badge -->
+              <span class="badge badge-primary" id="sqStepCounter">Ready</span>
+            </div>
+
+            <!-- Stage Container -->
+            <div class="array-stage" style="overflow-x:auto; padding:1.5rem 0.75rem; scrollbar-width:thin; width:100%;">
               <div id="sqStageContainer"></div>
             </div>
 
           </div>
 
-          <!-- Right C Code View -->
-          <div class="code-panel">
-            <div class="code-panel-header">
-              <div class="code-panel-title">
-                <span>💻 GCC C Execution Code</span>
+          <!-- Bottom: Full-Width GCC C Execution Code Panel with Variable Watch & View Mode Toggle -->
+          <div class="code-panel" style="width:100%;">
+            <div class="code-panel-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+              
+              <div style="display:flex; align-items:center; gap:0.6rem;">
+                <button class="btn btn-secondary btn-sm active" id="sqBtnCodeSnippet" onclick="StackSim.toggleCodeViewMode('snippet')">⚡ Line Execution Tracker</button>
+                <button class="btn btn-secondary btn-sm" id="sqBtnCodeFull" onclick="StackSim.toggleCodeViewMode('full')">💻 Complete GCC C Program</button>
               </div>
+
+              <!-- Variable Watch Box -->
+              <div id="sqVarWatchBox" style="background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.3rem 0.75rem;">
+                <span style="color:var(--text-muted); font-size:0.8rem;">No active variables</span>
+              </div>
+
               <span class="c-badge">GCC / C99</span>
             </div>
 
@@ -144,39 +354,113 @@
 
       </div>
 
-      <!-- VIEW 2: CALL STACK & QUEUES -->
-      <div class="view-panel" id="viewStackQueueCallStack">
+      <!-- SUB-VIEW 3: CALL STACK & CPU MEMORY -->
+      <div class="view-panel" id="viewStackCallStack">
         <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
           <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.75rem; color:var(--text-main);">
-            🔄 Function Call Stack & CPU Scheduler Queues
+            ⚙️ C Function Call Stack & Activation Records
           </h2>
           <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6; margin-bottom:1.5rem;">
-            In computer engineering, <strong>Stacks</strong> are used by compilers to manage function activation records (local variables and return addresses), while <strong>Queues</strong> are used by operating systems for CPU process scheduling (Round-Robin).
+            When a C program runs, the CPU reserves a <strong>Stack Memory Segment</strong>. Every time a function is invoked (e.g. <code>main()</code> -> <code>calculateFactorial(5)</code>), a <strong>Stack Frame (Activation Record)</strong> is pushed onto the stack containing local variables, arguments, and return addresses.
           </p>
+
+          <div style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1.25rem; border-radius:var(--radius-md);">
+            <h4 style="color:var(--secondary); margin-bottom:0.75rem;">Recursion Call Stack Mechanics Example (Factorial C Code)</h4>
+            <pre style="font-family:var(--font-code); font-size:0.83rem; color:var(--text-main); line-height:1.5;"><code>int factorial(int n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1); // Pushes new Stack Frame onto Call Stack!
+}</code></pre>
+          </div>
         </div>
       </div>
 
-      <!-- VIEW 3: C PROGRAMS -->
-      <div class="view-panel" id="viewStackQueuePrograms">
-        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem;">
-          <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:1rem; color:var(--text-main);">
-            💻 C Stack Implementation Code
-          </h2>
-          <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; font-family:var(--font-code); font-size:0.83rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
+      <!-- SUB-VIEW 4: C PROGRAMS & ASSESSMENT -->
+      <div class="view-panel" id="viewStackPrograms">
+        <div style="background:var(--bg-card); border:1px solid var(--bg-surface-border); border-radius:var(--radius-lg); padding:1.75rem; display:flex; flex-direction:column; gap:2rem;">
+          
+          <div>
+            <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.4rem; color:var(--text-main);">
+              💻 Essential C Programs for Stacks
+            </h2>
+            <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:1.5rem;">
+              Compilable, production-ready C implementations for university exams and coding interviews.
+            </p>
+          </div>
+
+          <!-- Section 1: Array-Based Stack C Code -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--primary); margin-bottom:1rem;">
+              1. Array Implementation of Stack in C (Fixed MAX=5)
+            </h3>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 #define MAX 5
 
 int stack[MAX];
-int top = -1;
+int top = -1; // Initial empty state
 
 void push(int val) {
-    if (top == MAX - 1) { printf("Stack Overflow\n"); return; }
+    if (top == MAX - 1) {
+        printf("Stack Overflow! Cannot push %d\n", val);
+        return;
+    }
     stack[++top] = val;
+    printf("Pushed %d\n", val);
 }
 
 int pop() {
-    if (top == -1) { printf("Stack Underflow\n"); return -1; }
+    if (top == -1) {
+        printf("Stack Underflow!\n");
+        return -1;
+    }
     return stack[top--];
+}
+
+int main() {
+    push(10); push(20); push(30);
+    printf("Popped element: %d\n", pop());
+    return 0;
 }</code></pre>
+          </div>
+
+          <!-- Section 2: Dynamic Linked List Stack C Code -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <h3 style="font-size:1.2rem; font-weight:700; color:var(--accent-green); margin-bottom:1rem;">
+              2. Dynamic Linked List Implementation of Stack in C
+            </h3>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* top = NULL;
+
+void push(int val) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = val;
+    newNode->next = top;
+    top = newNode;
+}
+
+int pop() {
+    if (top == NULL) return -1;
+    struct Node* temp = top;
+    int val = temp->data;
+    top = top->next;
+    free(temp);
+    return val;
+}
+
+int main() {
+    push(15); push(30); push(45);
+    printf("Popped: %d\n", pop());
+    return 0;
+}</code></pre>
+          </div>
+
         </div>
       </div>
 
