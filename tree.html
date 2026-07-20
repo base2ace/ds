@@ -480,17 +480,20 @@ struct Node {
           
           <div>
             <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:0.4rem; color:var(--text-main);">
-              💻 Essential C Programs & Problems for Trees
+              💻 Essential C Programs & Problems Suite for Trees
             </h2>
             <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:1.5rem;">
-              Production-ready C source code for node counts, height, diameter, and BST operations.
+              Production-ready, compilable C implementations for university exams and coding interviews.
             </p>
           </div>
 
           <!-- Section 1: Complete BST C Program -->
           <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
-            <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary); margin-bottom:0.75rem;">1. Complete Binary Search Tree (BST) in C</h3>
-            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto;"><code>#include &lt;stdio.h&gt;
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary);">1. Complete Binary Search Tree (BST) in C</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeTree1').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto;"><code id="cCodeTree1">#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 
 struct Node {
@@ -510,28 +513,159 @@ struct Node* insert(struct Node* root, int val) {
     if (val < root->data) root->left = insert(root->left, val);
     else if (val > root->data) root->right = insert(root->right, val);
     return root;
+}
+
+void inorder(struct Node* root) {
+    if (root == NULL) return;
+    inorder(root->left);
+    printf("%d ", root->data);
+    inorder(root->right);
+}
+
+int main() {
+    struct Node* root = NULL;
+    root = insert(root, 50);
+    insert(root, 30);
+    insert(root, 70);
+    printf("Inorder BST: ");
+    inorder(root);
+    printf("\n");
+    return 0;
 }</code></pre>
           </div>
 
-          <!-- Section 2: Tree Node Statistics -->
+          <!-- Section 2: Count Nodes, Leaf Nodes & Internal Nodes -->
           <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
-            <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-green); margin-bottom:0.75rem;">2. Count Nodes, Leaf Nodes & Height in C</h3>
-            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto;"><code>int countNodes(struct Node* root) {
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-green);">2. Count Nodes, Leaf Nodes, Internal Nodes & Size</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeTree2').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto;"><code id="cCodeTree2">// Total Nodes Count / Size of Tree
+int countNodes(struct Node* root) {
     if (root == NULL) return 0;
     return 1 + countNodes(root->left) + countNodes(root->right);
 }
 
+// Count Leaf Nodes (External Nodes with 0 children)
 int countLeafNodes(struct Node* root) {
     if (root == NULL) return 0;
     if (root->left == NULL && root->right == NULL) return 1;
     return countLeafNodes(root->left) + countLeafNodes(root->right);
 }
 
+// Count Internal Nodes (Non-leaf nodes with at least 1 child)
+int countInternalNodes(struct Node* root) {
+    if (root == NULL || (root->left == NULL && root->right == NULL)) return 0;
+    return 1 + countInternalNodes(root->left) + countInternalNodes(root->right);
+}</code></pre>
+          </div>
+
+          <!-- Section 3: Sum of Nodes, Max & Min Element -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-amber);">3. Sum of Nodes, Maximum & Minimum Element</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeTree3').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-amber); overflow-x:auto;"><code id="cCodeTree3">// Calculate Sum of all node values
+int sumNodes(struct Node* root) {
+    if (root == NULL) return 0;
+    return root->data + sumNodes(root->left) + sumNodes(root->right);
+}
+
+// Find Maximum Element in Binary Tree
+int findMax(struct Node* root) {
+    if (root == NULL) return -99999; // Minimum integer sentinel
+    int res = root->data;
+    int lmax = findMax(root->left);
+    int rmax = findMax(root->right);
+    if (lmax > res) res = lmax;
+    if (rmax > res) res = rmax;
+    return res;
+}
+
+// Find Minimum Element in Binary Tree
+int findMin(struct Node* root) {
+    if (root == NULL) return 99999; // Maximum integer sentinel
+    int res = root->data;
+    int lmin = findMin(root->left);
+    int rmin = findMin(root->right);
+    if (lmin < res) res = lmin;
+    if (rmin < res) res = rmin;
+    return res;
+}</code></pre>
+          </div>
+
+          <!-- Section 4: Height of Tree -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-purple);">4. Height / Max Depth of Binary Tree</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeTree4').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-purple); overflow-x:auto;"><code id="cCodeTree4">// Height of Tree (Longest path from root down to a leaf node)
 int getHeight(struct Node* root) {
     if (root == NULL) return 0;
-    int lh = getHeight(root->left);
-    int rh = getHeight(root->right);
-    return 1 + (lh > rh ? lh : rh);
+    int leftHeight = getHeight(root->left);
+    int rightHeight = getHeight(root->right);
+    return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
+}</code></pre>
+          </div>
+
+          <!-- Section 5: Mirror Tree -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--secondary);">5. Mirror Tree (In-Place Left & Right Subtree Swapping)</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeTree5').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--secondary); overflow-x:auto;"><code id="cCodeTree5">// Convert a Binary Tree into its Mirror Image (Invert Binary Tree)
+void mirror(struct Node* root) {
+    if (root == NULL) return;
+    
+    // Recursively mirror left and right subtrees
+    mirror(root->left);
+    mirror(root->right);
+    
+    // Swap left and right pointers
+    struct Node* temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+}</code></pre>
+          </div>
+
+          <!-- Section 6: Identical Trees -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--primary);">6. Identical Trees (Check Structural & Data Equality)</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeTree6').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--primary); overflow-x:auto;"><code id="cCodeTree6">// Check if two Binary Trees t1 and t2 are identical
+int isIdentical(struct Node* t1, struct Node* t2) {
+    if (t1 == NULL && t2 == NULL) return 1; // Both empty -> Identical
+    if (t1 == NULL || t2 == NULL) return 0; // One empty -> Not identical
+    
+    return (t1->data == t2->data) &&
+           isIdentical(t1->left, t2->left) &&
+           isIdentical(t1->right, t2->right);
+}</code></pre>
+          </div>
+
+          <!-- Section 7: Symmetric Tree -->
+          <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1.15rem; font-weight:700; color:var(--accent-green);">7. Symmetric Tree (Check Mirror Reflection Around Root)</h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('cCodeTree7').innerText); this.innerText='✅ Copied!'; setTimeout(() => this.innerText='📋 Copy Code', 2000);">📋 Copy Code</button>
+            </div>
+            <pre style="background:var(--bg-main); border:1px solid var(--bg-surface-border); padding:1rem; border-radius:var(--radius-sm); font-family:var(--font-code); font-size:0.82rem; color:var(--accent-green); overflow-x:auto;"><code id="cCodeTree7">int isMirror(struct Node* t1, struct Node* t2) {
+    if (t1 == NULL && t2 == NULL) return 1;
+    if (t1 == NULL || t2 == NULL) return 0;
+    return (t1->data == t2->data) &&
+           isMirror(t1->left, t2->right) &&
+           isMirror(t1->right, t2->left);
+}
+
+// Check if a Binary Tree is symmetric around its center root
+int isSymmetric(struct Node* root) {
+    if (root == NULL) return 1;
+    return isMirror(root->left, root->right);
 }</code></pre>
           </div>
 
