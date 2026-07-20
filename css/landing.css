@@ -227,3 +227,24 @@
   padding-top: 1rem;
   border-top: 1px solid var(--bg-surface-border);
 }
+
+/* Mobile Responsive Adjustments for Landing Page */
+@media (max-width: 768px) {
+  .hero {
+    padding: 2.5rem 0 1.5rem;
+  }
+  .hero-title {
+    font-size: 2.1rem;
+    line-height: 1.25;
+  }
+  .hero-description {
+    font-size: 0.98rem;
+    margin-bottom: 1.75rem;
+  }
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+  .features-row {
+    grid-template-columns: 1fr;
+  }
+}

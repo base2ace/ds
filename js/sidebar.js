@@ -34,6 +34,11 @@ function initSidebarController() {
       const targetView = item.dataset.view;
       const targetTitle = item.dataset.title || item.innerText.trim();
       switchView(targetView, targetTitle, item);
+
+      // Auto-close drawer on mobile devices (< 768px)
+      if (window.innerWidth <= 768 && sidebar) {
+        sidebar.classList.add('collapsed');
+      }
     });
   });
 }
