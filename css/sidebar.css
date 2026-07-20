@@ -218,6 +218,14 @@
 @media (max-width: 768px) {
   .app-layout {
     flex-direction: column;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .main-workspace {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   .sidebar {
