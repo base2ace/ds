@@ -277,301 +277,301 @@
             📐 2. Classification & 12 Types of Graphs
           </h2>
 
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(360px, 1fr)); gap:1.5rem;">
             
             <!-- 1. Undirected Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--primary); margin-bottom:0.4rem;">1. Undirected Graph ↔️</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Edges have no direction. Traversal is bidirectional: <code>(u, v) == (v, u)</code>.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--primary); margin-bottom:0.5rem;">1. Undirected Graph ↔️</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Edges have no direction. Traversal is bidirectional: <code>(u, v) == (v, u)</code>.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="40" y1="45" x2="100" y2="20" stroke="#3b82f6" stroke-width="2"/>
-                  <line x1="100" y1="20" x2="160" y2="45" stroke="#3b82f6" stroke-width="2"/>
-                  <line x1="40" y1="45" x2="160" y2="45" stroke="#3b82f6" stroke-width="2"/>
-                  <circle cx="40" cy="45" r="16" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="40" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">A</text>
-                  <circle cx="100" cy="20" r="16" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="100" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">B</text>
-                  <circle cx="160" cy="45" r="16" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="160" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">C</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="60" y1="70" x2="160" y2="30" stroke="#3b82f6" stroke-width="3"/>
+                  <line x1="160" y1="30" x2="260" y2="70" stroke="#3b82f6" stroke-width="3"/>
+                  <line x1="60" y1="70" x2="260" y2="70" stroke="#3b82f6" stroke-width="3"/>
+                  <circle cx="60" cy="70" r="22" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="60" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">A</text>
+                  <circle cx="160" cy="30" r="22" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="160" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">B</text>
+                  <circle cx="260" cy="70" r="22" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="260" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">C</text>
                 </svg>
               </div>
             </div>
 
             <!-- 2. Directed Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--secondary); margin-bottom:0.4rem;">2. Directed Graph (Digraph) ➔</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Edges have one-way directional arrows: <code>u ➔ v</code> does NOT imply <code>v ➔ u</code>.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--secondary); margin-bottom:0.5rem;">2. Directed Graph (Digraph) ➔</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Edges have one-way directional arrows: <code>u ➔ v</code> does NOT imply <code>v ➔ u</code>.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
                   <defs>
-                    <marker id="arr1" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <marker id="arr1Big" viewBox="0 0 10 10" refX="28" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
                       <path d="M 0 0 L 10 5 L 0 10 z" fill="#06b6d4"/>
                     </marker>
                   </defs>
-                  <line x1="40" y1="45" x2="100" y2="20" stroke="#06b6d4" stroke-width="2" marker-end="url(#arr1)"/>
-                  <line x1="100" y1="20" x2="160" y2="45" stroke="#06b6d4" stroke-width="2" marker-end="url(#arr1)"/>
-                  <line x1="160" y1="45" x2="40" y2="45" stroke="#06b6d4" stroke-width="2" marker-end="url(#arr1)"/>
-                  <circle cx="40" cy="45" r="16" fill="#1e293b" stroke="#06b6d4" stroke-width="2.5"/>
-                  <text x="40" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">A</text>
-                  <circle cx="100" cy="20" r="16" fill="#1e293b" stroke="#06b6d4" stroke-width="2.5"/>
-                  <text x="100" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">B</text>
-                  <circle cx="160" cy="45" r="16" fill="#1e293b" stroke="#06b6d4" stroke-width="2.5"/>
-                  <text x="160" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">C</text>
+                  <line x1="60" y1="70" x2="160" y2="30" stroke="#06b6d4" stroke-width="3" marker-end="url(#arr1Big)"/>
+                  <line x1="160" y1="30" x2="260" y2="70" stroke="#06b6d4" stroke-width="3" marker-end="url(#arr1Big)"/>
+                  <line x1="260" y1="70" x2="60" y2="70" stroke="#06b6d4" stroke-width="3" marker-end="url(#arr1Big)"/>
+                  <circle cx="60" cy="70" r="22" fill="#1e293b" stroke="#06b6d4" stroke-width="3"/>
+                  <text x="60" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">A</text>
+                  <circle cx="160" cy="30" r="22" fill="#1e293b" stroke="#06b6d4" stroke-width="3"/>
+                  <text x="160" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">B</text>
+                  <circle cx="260" cy="70" r="22" fill="#1e293b" stroke="#06b6d4" stroke-width="3"/>
+                  <text x="260" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">C</text>
                 </svg>
               </div>
             </div>
 
             <!-- 3. Weighted Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-amber); margin-bottom:0.4rem;">3. Weighted Graph ⚖️</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Each edge carries a numerical weight representing distance, cost, or latency.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-amber); margin-bottom:0.5rem;">3. Weighted Graph ⚖️</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Each edge carries a numerical weight representing distance, cost, or latency.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="40" y1="45" x2="100" y2="20" stroke="#f59e0b" stroke-width="2"/>
-                  <text x="65" y="26" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="10">w=5</text>
-                  <line x1="100" y1="20" x2="160" y2="45" stroke="#f59e0b" stroke-width="2"/>
-                  <text x="135" y="26" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="10">w=12</text>
-                  <line x1="40" y1="45" x2="160" y2="45" stroke="#f59e0b" stroke-width="2"/>
-                  <text x="100" y="62" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="10">w=8</text>
-                  <circle cx="40" cy="45" r="16" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
-                  <text x="40" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">A</text>
-                  <circle cx="100" cy="20" r="16" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
-                  <text x="100" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">B</text>
-                  <circle cx="160" cy="45" r="16" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
-                  <text x="160" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">C</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="60" y1="70" x2="160" y2="30" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="100" y="42" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="12">w=5</text>
+                  <line x1="160" y1="30" x2="260" y2="70" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="220" y="42" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="12">w=12</text>
+                  <line x1="60" y1="70" x2="260" y2="70" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="160" y="95" text-anchor="middle" fill="#f59e0b" font-family="JetBrains Mono" font-weight="800" font-size="12">w=8</text>
+                  <circle cx="60" cy="70" r="22" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="60" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">A</text>
+                  <circle cx="160" cy="30" r="22" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="160" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">B</text>
+                  <circle cx="260" cy="70" r="22" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="260" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">C</text>
                 </svg>
               </div>
             </div>
 
             <!-- 4. Unweighted Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-green); margin-bottom:0.4rem;">4. Unweighted Graph ⚪</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">All edges carry equal unit weights (weight = 1). Shortest paths found via BFS.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-green); margin-bottom:0.5rem;">4. Unweighted Graph ⚪</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">All edges carry equal unit weights (weight = 1). Shortest paths found via BFS.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="40" y1="45" x2="100" y2="20" stroke="#10b981" stroke-width="2"/>
-                  <line x1="100" y1="20" x2="160" y2="45" stroke="#10b981" stroke-width="2"/>
-                  <line x1="40" y1="45" x2="160" y2="45" stroke="#10b981" stroke-width="2"/>
-                  <circle cx="40" cy="45" r="16" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="40" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">A</text>
-                  <circle cx="100" cy="20" r="16" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="100" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">B</text>
-                  <circle cx="160" cy="45" r="16" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="160" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">C</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="60" y1="70" x2="160" y2="30" stroke="#10b981" stroke-width="3"/>
+                  <line x1="160" y1="30" x2="260" y2="70" stroke="#10b981" stroke-width="3"/>
+                  <line x1="60" y1="70" x2="260" y2="70" stroke="#10b981" stroke-width="3"/>
+                  <circle cx="60" cy="70" r="22" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="60" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">A</text>
+                  <circle cx="160" cy="30" r="22" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="160" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">B</text>
+                  <circle cx="260" cy="70" r="22" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="260" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">C</text>
                 </svg>
               </div>
             </div>
 
             <!-- 5. Cyclic Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-red); margin-bottom:0.4rem;">5. Cyclic Graph 🔄</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Contains at least 1 closed path loop starting and ending at the same node.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-red); margin-bottom:0.5rem;">5. Cyclic Graph 🔄</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Contains at least 1 closed path loop starting and ending at the same node.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
                   <defs>
-                    <marker id="arrRed" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <marker id="arrRedBig" viewBox="0 0 10 10" refX="28" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
                       <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"/>
                     </marker>
                   </defs>
-                  <line x1="40" y1="45" x2="100" y2="20" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrRed)"/>
-                  <line x1="100" y1="20" x2="160" y2="45" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrRed)"/>
-                  <line x1="160" y1="45" x2="40" y2="45" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrRed)"/>
-                  <text x="100" y="78" text-anchor="middle" fill="#ef4444" font-family="JetBrains Mono" font-weight="800" font-size="9">LOOP (A➔B➔C➔A)</text>
-                  <circle cx="40" cy="45" r="16" fill="#1e293b" stroke="#ef4444" stroke-width="2.5"/>
-                  <text x="40" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">A</text>
-                  <circle cx="100" cy="20" r="16" fill="#1e293b" stroke="#ef4444" stroke-width="2.5"/>
-                  <text x="100" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">B</text>
-                  <circle cx="160" cy="45" r="16" fill="#1e293b" stroke="#ef4444" stroke-width="2.5"/>
-                  <text x="160" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="12">C</text>
+                  <line x1="60" y1="70" x2="160" y2="30" stroke="#ef4444" stroke-width="3.5" marker-end="url(#arrRedBig)"/>
+                  <line x1="160" y1="30" x2="260" y2="70" stroke="#ef4444" stroke-width="3.5" marker-end="url(#arrRedBig)"/>
+                  <line x1="260" y1="70" x2="60" y2="70" stroke="#ef4444" stroke-width="3.5" marker-end="url(#arrRedBig)"/>
+                  <text x="160" y="118" text-anchor="middle" fill="#ef4444" font-family="JetBrains Mono" font-weight="800" font-size="11">LOOP (A ➔ B ➔ C ➔ A)</text>
+                  <circle cx="60" cy="70" r="22" fill="#1e293b" stroke="#ef4444" stroke-width="3"/>
+                  <text x="60" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">A</text>
+                  <circle cx="160" cy="30" r="22" fill="#1e293b" stroke="#ef4444" stroke-width="3"/>
+                  <text x="160" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">B</text>
+                  <circle cx="260" cy="70" r="22" fill="#1e293b" stroke="#ef4444" stroke-width="3"/>
+                  <text x="260" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="14">C</text>
                 </svg>
               </div>
             </div>
 
             <!-- 6. Acyclic Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-purple); margin-bottom:0.4rem;">6. Acyclic Graph ➡️</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">A graph containing zero cycles or closed loops.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-purple); margin-bottom:0.5rem;">6. Acyclic Graph ➡️</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">A graph containing zero cycles or closed loops.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="40" y1="45" x2="100" y2="20" stroke="#8b5cf6" stroke-width="2"/>
-                  <line x1="40" y1="45" x2="100" y2="70" stroke="#8b5cf6" stroke-width="2"/>
-                  <line x1="100" y1="20" x2="160" y2="45" stroke="#8b5cf6" stroke-width="2"/>
-                  <circle cx="40" cy="45" r="15" fill="#1e293b" stroke="#8b5cf6" stroke-width="2.5"/>
-                  <text x="40" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="11">A</text>
-                  <circle cx="100" cy="20" r="15" fill="#1e293b" stroke="#8b5cf6" stroke-width="2.5"/>
-                  <text x="100" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="11">B</text>
-                  <circle cx="100" cy="70" r="15" fill="#1e293b" stroke="#8b5cf6" stroke-width="2.5"/>
-                  <text x="100" y="74" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="11">C</text>
-                  <circle cx="160" cy="45" r="15" fill="#1e293b" stroke="#8b5cf6" stroke-width="2.5"/>
-                  <text x="160" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="11">D</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="50" y1="70" x2="160" y2="30" stroke="#8b5cf6" stroke-width="3"/>
+                  <line x1="50" y1="70" x2="160" y2="110" stroke="#8b5cf6" stroke-width="3"/>
+                  <line x1="160" y1="30" x2="270" y2="70" stroke="#8b5cf6" stroke-width="3"/>
+                  <circle cx="50" cy="70" r="21" fill="#1e293b" stroke="#8b5cf6" stroke-width="3"/>
+                  <text x="50" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">A</text>
+                  <circle cx="160" cy="30" r="21" fill="#1e293b" stroke="#8b5cf6" stroke-width="3"/>
+                  <text x="160" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">B</text>
+                  <circle cx="160" cy="110" r="21" fill="#1e293b" stroke="#8b5cf6" stroke-width="3"/>
+                  <text x="160" y="115" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">C</text>
+                  <circle cx="270" cy="70" r="21" fill="#1e293b" stroke="#8b5cf6" stroke-width="3"/>
+                  <text x="270" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">D</text>
                 </svg>
               </div>
             </div>
 
             <!-- 7. DAG -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-green); margin-bottom:0.4rem;">7. Directed Acyclic Graph (DAG) ⚡</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Directed graph free of cycles! Essential for Topological Sorting & Task Scheduling.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-green); margin-bottom:0.5rem;">7. Directed Acyclic Graph (DAG) ⚡</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Directed graph free of cycles! Essential for Topological Sorting & Task Scheduling.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
                   <defs>
-                    <marker id="arrGreen" viewBox="0 0 10 10" refX="21" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <marker id="arrGreenBig" viewBox="0 0 10 10" refX="27" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
                       <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981"/>
                     </marker>
                   </defs>
-                  <line x1="30" y1="45" x2="90" y2="20" stroke="#10b981" stroke-width="2" marker-end="url(#arrGreen)"/>
-                  <line x1="30" y1="45" x2="90" y2="70" stroke="#10b981" stroke-width="2" marker-end="url(#arrGreen)"/>
-                  <line x1="90" y1="20" x2="160" y2="45" stroke="#10b981" stroke-width="2" marker-end="url(#arrGreen)"/>
-                  <line x1="90" y1="70" x2="160" y2="45" stroke="#10b981" stroke-width="2" marker-end="url(#arrGreen)"/>
-                  <circle cx="30" cy="45" r="15" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="30" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="11">A</text>
-                  <circle cx="90" cy="20" r="15" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="90" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="11">B</text>
-                  <circle cx="90" cy="70" r="15" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="90" y="74" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="11">C</text>
-                  <circle cx="160" cy="45" r="15" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="160" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="11">D</text>
+                  <line x1="50" y1="70" x2="160" y2="30" stroke="#10b981" stroke-width="3" marker-end="url(#arrGreenBig)"/>
+                  <line x1="50" y1="70" x2="160" y2="110" stroke="#10b981" stroke-width="3" marker-end="url(#arrGreenBig)"/>
+                  <line x1="160" y1="30" x2="270" y2="70" stroke="#10b981" stroke-width="3" marker-end="url(#arrGreenBig)"/>
+                  <line x1="160" y1="110" x2="270" y2="70" stroke="#10b981" stroke-width="3" marker-end="url(#arrGreenBig)"/>
+                  <circle cx="50" cy="70" r="21" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="50" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">A</text>
+                  <circle cx="160" cy="30" r="21" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="160" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">B</text>
+                  <circle cx="160" cy="110" r="21" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="160" y="115" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">C</text>
+                  <circle cx="270" cy="70" r="21" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="270" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">D</text>
                 </svg>
               </div>
             </div>
 
             <!-- 8. Connected Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-sky); margin-bottom:0.4rem;">8. Connected Graph 🌐</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Every pair of vertices has a connecting path.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-sky); margin-bottom:0.5rem;">8. Connected Graph 🌐</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Every pair of vertices has a connecting path.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="40" y1="25" x2="160" y2="25" stroke="#38bdf8" stroke-width="2"/>
-                  <line x1="40" y1="65" x2="160" y2="65" stroke="#38bdf8" stroke-width="2"/>
-                  <line x1="40" y1="25" x2="40" y2="65" stroke="#38bdf8" stroke-width="2"/>
-                  <line x1="160" y1="25" x2="160" y2="65" stroke="#38bdf8" stroke-width="2"/>
-                  <line x1="40" y1="25" x2="160" y2="65" stroke="#38bdf8" stroke-width="2"/>
-                  <circle cx="40" cy="25" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
-                  <text x="40" y="29" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">A</text>
-                  <circle cx="160" cy="25" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
-                  <text x="160" y="29" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">B</text>
-                  <circle cx="40" cy="65" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
-                  <text x="40" y="69" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">C</text>
-                  <circle cx="160" cy="65" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5"/>
-                  <text x="160" y="69" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">D</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="60" y1="35" x2="260" y2="35" stroke="#38bdf8" stroke-width="3"/>
+                  <line x1="60" y1="105" x2="260" y2="105" stroke="#38bdf8" stroke-width="3"/>
+                  <line x1="60" y1="35" x2="60" y2="105" stroke="#38bdf8" stroke-width="3"/>
+                  <line x1="260" y1="35" x2="260" y2="105" stroke="#38bdf8" stroke-width="3"/>
+                  <line x1="60" y1="35" x2="260" y2="105" stroke="#38bdf8" stroke-width="3"/>
+                  <circle cx="60" cy="35" r="20" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+                  <text x="60" y="40" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">A</text>
+                  <circle cx="260" cy="35" r="20" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+                  <text x="260" y="40" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">B</text>
+                  <circle cx="60" cy="105" r="20" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+                  <text x="60" y="110" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">C</text>
+                  <circle cx="260" cy="105" r="20" fill="#1e293b" stroke="#38bdf8" stroke-width="3"/>
+                  <text x="260" y="110" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">D</text>
                 </svg>
               </div>
             </div>
 
             <!-- 9. Disconnected Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-amber); margin-bottom:0.4rem;">9. Disconnected Graph 🧩</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Graph broken into 2 or more isolated subgraphs.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-amber); margin-bottom:0.5rem;">9. Disconnected Graph 🧩</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Graph broken into 2 or more isolated subgraphs.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="30" y1="45" x2="80" y2="45" stroke="#f59e0b" stroke-width="2"/>
-                  <circle cx="30" cy="45" r="14" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
-                  <text x="30" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">A</text>
-                  <circle cx="80" cy="45" r="14" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
-                  <text x="80" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">B</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="45" y1="70" x2="115" y2="70" stroke="#f59e0b" stroke-width="3"/>
+                  <circle cx="45" cy="70" r="20" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="45" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">A</text>
+                  <circle cx="115" cy="70" r="20" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="115" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">B</text>
 
-                  <line x1="100" y1="10" x2="100" y2="80" stroke="rgba(255,255,255,0.2)" stroke-dasharray="3,3"/>
+                  <line x1="160" y1="15" x2="160" y2="125" stroke="rgba(255,255,255,0.25)" stroke-dasharray="5,5" stroke-width="2"/>
 
-                  <line x1="120" y1="45" x2="170" y2="45" stroke="#f59e0b" stroke-width="2"/>
-                  <circle cx="120" cy="45" r="14" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
-                  <text x="120" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">C</text>
-                  <circle cx="170" cy="45" r="14" fill="#1e293b" stroke="#f59e0b" stroke-width="2.5"/>
-                  <text x="170" y="49" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">D</text>
+                  <line x1="205" y1="70" x2="275" y2="70" stroke="#f59e0b" stroke-width="3"/>
+                  <circle cx="205" cy="70" r="20" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="205" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">C</text>
+                  <circle cx="275" cy="70" r="20" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+                  <text x="275" y="75" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">D</text>
                 </svg>
               </div>
             </div>
 
             <!-- 10. Complete Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--primary); margin-bottom:0.4rem;">10. Complete Graph (Kn) 🕸️</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Every vertex is connected directly to every other vertex. Total Edges = <code>V*(V-1)/2</code>.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--primary); margin-bottom:0.5rem;">10. Complete Graph (Kn) 🕸️</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Every vertex is connected directly to every other vertex. Total Edges = <code>V*(V-1)/2</code>.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="50" y1="20" x2="150" y2="20" stroke="#3b82f6" stroke-width="2"/>
-                  <line x1="50" y1="70" x2="150" y2="70" stroke="#3b82f6" stroke-width="2"/>
-                  <line x1="50" y1="20" x2="50" y2="70" stroke="#3b82f6" stroke-width="2"/>
-                  <line x1="150" y1="20" x2="150" y2="70" stroke="#3b82f6" stroke-width="2"/>
-                  <line x1="50" y1="20" x2="150" y2="70" stroke="#3b82f6" stroke-width="2"/>
-                  <line x1="150" y1="20" x2="50" y2="70" stroke="#3b82f6" stroke-width="2"/>
-                  <circle cx="50" cy="20" r="14" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="50" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">A</text>
-                  <circle cx="150" cy="20" r="14" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="150" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">B</text>
-                  <circle cx="50" cy="70" r="14" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="50" y="74" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">C</text>
-                  <circle cx="150" cy="70" r="14" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="150" y="74" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">D</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="70" y1="30" x2="250" y2="30" stroke="#3b82f6" stroke-width="3"/>
+                  <line x1="70" y1="110" x2="250" y2="110" stroke="#3b82f6" stroke-width="3"/>
+                  <line x1="70" y1="30" x2="70" y2="110" stroke="#3b82f6" stroke-width="3"/>
+                  <line x1="250" y1="30" x2="250" y2="110" stroke="#3b82f6" stroke-width="3"/>
+                  <line x1="70" y1="30" x2="250" y2="110" stroke="#3b82f6" stroke-width="3"/>
+                  <line x1="250" y1="30" x2="70" y2="110" stroke="#3b82f6" stroke-width="3"/>
+                  <circle cx="70" cy="30" r="20" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="70" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">A</text>
+                  <circle cx="250" cy="30" r="20" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="250" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">B</text>
+                  <circle cx="70" cy="110" r="20" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="70" y="115" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">C</text>
+                  <circle cx="250" cy="110" r="20" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="250" y="115" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="13">D</text>
                 </svg>
               </div>
             </div>
 
             <!-- 11. Bipartite Graph -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--secondary); margin-bottom:0.4rem;">11. Bipartite Graph 🎨</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">Vertices partitionable into 2 sets U & V such that no edge connects nodes in the same set.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--secondary); margin-bottom:0.5rem;">11. Bipartite Graph 🎨</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">Vertices partitionable into 2 sets U & V such that no edge connects nodes in the same set.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="50" y1="25" x2="150" y2="25" stroke="#06b6d4" stroke-width="2"/>
-                  <line x1="50" y1="25" x2="150" y2="65" stroke="#06b6d4" stroke-width="2"/>
-                  <line x1="50" y1="65" x2="150" y2="25" stroke="#06b6d4" stroke-width="2"/>
-                  <line x1="50" y1="65" x2="150" y2="65" stroke="#06b6d4" stroke-width="2"/>
-                  <circle cx="50" cy="25" r="14" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="50" y="29" text-anchor="middle" fill="#3b82f6" font-family="JetBrains Mono" font-weight="800" font-size="10">U1</text>
-                  <circle cx="50" cy="65" r="14" fill="#1e293b" stroke="#3b82f6" stroke-width="2.5"/>
-                  <text x="50" y="69" text-anchor="middle" fill="#3b82f6" font-family="JetBrains Mono" font-weight="800" font-size="10">U2</text>
-                  <circle cx="150" cy="25" r="14" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="150" y="29" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-weight="800" font-size="10">V1</text>
-                  <circle cx="150" cy="65" r="14" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="150" y="69" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-weight="800" font-size="10">V2</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="70" y1="35" x2="250" y2="35" stroke="#06b6d4" stroke-width="3"/>
+                  <line x1="70" y1="35" x2="250" y2="105" stroke="#06b6d4" stroke-width="3"/>
+                  <line x1="70" y1="105" x2="250" y2="35" stroke="#06b6d4" stroke-width="3"/>
+                  <line x1="70" y1="105" x2="250" y2="105" stroke="#06b6d4" stroke-width="3"/>
+                  <circle cx="70" cy="35" r="21" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="70" y="40" text-anchor="middle" fill="#3b82f6" font-family="JetBrains Mono" font-weight="800" font-size="13">U1</text>
+                  <circle cx="70" cy="105" r="21" fill="#1e293b" stroke="#3b82f6" stroke-width="3"/>
+                  <text x="70" y="110" text-anchor="middle" fill="#3b82f6" font-family="JetBrains Mono" font-weight="800" font-size="13">U2</text>
+                  <circle cx="250" cy="35" r="21" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="250" y="40" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-weight="800" font-size="13">V1</text>
+                  <circle cx="250" cy="105" r="21" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="250" y="110" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-weight="800" font-size="13">V2</text>
                 </svg>
               </div>
             </div>
 
             <!-- 12. Tree (Special Graph) -->
-            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div style="background:var(--bg-surface); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:1.6rem; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                <h3 style="font-size:1.05rem; font-weight:700; color:var(--accent-green); margin-bottom:0.4rem;">12. Tree (Special Graph) 🌲</h3>
-                <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.5;">A connected acyclic undirected graph with exactly <code>V - 1</code> edges.</p>
+                <h3 style="font-size:1.2rem; font-weight:800; color:var(--accent-green); margin-bottom:0.5rem;">12. Tree (Special Graph) 🌲</h3>
+                <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6;">A connected acyclic undirected graph with exactly <code>V - 1</code> edges.</p>
               </div>
-              <div style="margin-top:0.85rem; background:rgba(0,0,0,0.3); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:0.6rem; text-align:center;">
-                <svg width="200" height="90" viewBox="0 0 200 90">
-                  <line x1="100" y1="20" x2="50" y2="50" stroke="#10b981" stroke-width="2"/>
-                  <line x1="100" y1="20" x2="150" y2="50" stroke="#10b981" stroke-width="2"/>
-                  <line x1="50" y1="50" x2="25" y2="75" stroke="#10b981" stroke-width="2"/>
-                  <line x1="50" y1="50" x2="75" y2="75" stroke="#10b981" stroke-width="2"/>
-                  <circle cx="100" cy="20" r="12" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="100" y="24" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="10">R</text>
-                  <circle cx="50" cy="50" r="11" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="50" y="54" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="9">A</text>
-                  <circle cx="150" cy="50" r="11" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
-                  <text x="150" y="54" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="9">B</text>
-                  <circle cx="25" cy="75" r="10" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
-                  <text x="25" y="78" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="8">C</text>
-                  <circle cx="75" cy="75" r="10" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
-                  <text x="75" y="78" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="700" font-size="8">D</text>
+              <div style="margin-top:1.1rem; background:rgba(0,0,0,0.35); border:1px solid var(--bg-surface-border); border-radius:var(--radius-sm); padding:1rem; text-align:center;">
+                <svg width="100%" height="140" viewBox="0 0 320 140" style="overflow:visible;">
+                  <line x1="160" y1="30" x2="80" y2="75" stroke="#10b981" stroke-width="3"/>
+                  <line x1="160" y1="30" x2="240" y2="75" stroke="#10b981" stroke-width="3"/>
+                  <line x1="80" y1="75" x2="40" y2="120" stroke="#10b981" stroke-width="3"/>
+                  <line x1="80" y1="75" x2="120" y2="120" stroke="#10b981" stroke-width="3"/>
+                  <circle cx="160" cy="30" r="18" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="160" y="35" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="12">R</text>
+                  <circle cx="80" cy="75" r="16" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="80" y="80" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="11">A</text>
+                  <circle cx="240" cy="75" r="16" fill="#1e293b" stroke="#10b981" stroke-width="3"/>
+                  <text x="240" y="80" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="11">B</text>
+                  <circle cx="40" cy="120" r="14" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
+                  <text x="40" y="124" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="10">C</text>
+                  <circle cx="120" cy="120" r="14" fill="#1e293b" stroke="#10b981" stroke-width="2.5"/>
+                  <text x="120" y="124" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="10">D</text>
                 </svg>
               </div>
             </div>
