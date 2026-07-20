@@ -95,12 +95,12 @@ const GraphEngine = {
       apps: 'Twitter/Instagram Followers, Web page hyperlinks (Google PageRank), One-way traffic streets.',
       svg: `
         <svg width="340" height="180" viewBox="0 0 340 180">
-          <line x1="93" y1="78" x2="132" y2="59" stroke="#06b6d4" stroke-width="4"/>
-          <polygon points="145,53 135,63 130,54" fill="#06b6d4"/>
-          <line x1="193" y1="52" x2="232" y2="71" stroke="#06b6d4" stroke-width="4"/>
-          <polygon points="245,77 230,76 235,67" fill="#06b6d4"/>
-          <line x1="244" y1="90" x2="112" y2="90" stroke="#06b6d4" stroke-width="4"/>
-          <polygon points="98,90 112,85 112,95" fill="#06b6d4"/>
+          <line x1="93" y1="78" x2="145" y2="52" stroke="#06b6d4" stroke-width="4"/>
+          <polygon points="145,52 134,64 129,54" fill="#06b6d4" stroke="#06b6d4" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="193" y1="52" x2="245" y2="77" stroke="#06b6d4" stroke-width="4"/>
+          <polygon points="245,77 230,76 235,65" fill="#06b6d4" stroke="#06b6d4" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="244" y1="90" x2="96" y2="90" stroke="#06b6d4" stroke-width="4"/>
+          <polygon points="96,90 111,84 111,96" fill="#06b6d4" stroke="#06b6d4" stroke-width="1.5" stroke-linejoin="round"/>
           <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#06b6d4" stroke-width="3.5"/>
           <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
           <circle cx="170" cy="40" r="26" fill="#1e293b" stroke="#06b6d4" stroke-width="3.5"/>
@@ -158,12 +158,12 @@ const GraphEngine = {
       apps: 'Circular routing loops, Deadlock detection in OS process graphs, Chemical molecular ring bonds.',
       svg: `
         <svg width="340" height="180" viewBox="0 0 340 180">
-          <line x1="93" y1="78" x2="132" y2="59" stroke="#ef4444" stroke-width="4"/>
-          <polygon points="145,53 135,63 130,54" fill="#ef4444"/>
-          <line x1="193" y1="52" x2="232" y2="71" stroke="#ef4444" stroke-width="4"/>
-          <polygon points="245,77 230,76 235,67" fill="#ef4444"/>
-          <line x1="244" y1="90" x2="112" y2="90" stroke="#ef4444" stroke-width="4"/>
-          <polygon points="98,90 112,85 112,95" fill="#ef4444"/>
+          <line x1="93" y1="78" x2="145" y2="52" stroke="#ef4444" stroke-width="4"/>
+          <polygon points="145,52 134,64 129,54" fill="#ef4444" stroke="#ef4444" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="193" y1="52" x2="245" y2="77" stroke="#ef4444" stroke-width="4"/>
+          <polygon points="245,77 230,76 235,65" fill="#ef4444" stroke="#ef4444" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="244" y1="90" x2="96" y2="90" stroke="#ef4444" stroke-width="4"/>
+          <polygon points="96,90 111,84 111,96" fill="#ef4444" stroke="#ef4444" stroke-width="1.5" stroke-linejoin="round"/>
           <text x="170" y="150" text-anchor="middle" fill="#ef4444" font-family="JetBrains Mono" font-weight="800" font-size="13">LOOP DETECTED (A ➔ B ➔ C ➔ A)</text>
           <circle cx="70" cy="90" r="26" fill="#1e293b" stroke="#ef4444" stroke-width="3.5"/>
           <text x="70" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="16">A</text>
@@ -202,14 +202,14 @@ const GraphEngine = {
       apps: 'Build systems (Bazel, Webpack, Makefiles), Course prerequisite chains, Git commit history graphs.',
       svg: `
         <svg width="340" height="180" viewBox="0 0 340 180">
-          <line x1="83" y1="80" x2="133" y2="57" stroke="#10b981" stroke-width="4"/>
-          <polygon points="145,51 135,62 131,52" fill="#10b981"/>
-          <line x1="83" y1="100" x2="133" y2="123" stroke="#10b981" stroke-width="4"/>
-          <polygon points="145,129 131,128 135,118" fill="#10b981"/>
-          <line x1="193" y1="50" x2="243" y2="63" stroke="#10b981" stroke-width="4"/>
-          <polygon points="255,69 241,68 245,58" fill="#10b981"/>
-          <line x1="193" y1="130" x2="243" y2="117" stroke="#10b981" stroke-width="4"/>
-          <polygon points="255,111 245,122 241,112" fill="#10b981"/>
+          <line x1="83" y1="80" x2="145" y2="51" stroke="#10b981" stroke-width="4"/>
+          <polygon points="145,51 134,62 130,52" fill="#10b981" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="83" y1="100" x2="145" y2="129" stroke="#10b981" stroke-width="4"/>
+          <polygon points="145,129 130,128 134,118" fill="#10b981" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="193" y1="50" x2="255" y2="69" stroke="#10b981" stroke-width="4"/>
+          <polygon points="255,69 240,68 245,58" fill="#10b981" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round"/>
+          <line x1="193" y1="130" x2="255" y2="111" stroke="#10b981" stroke-width="4"/>
+          <polygon points="255,111 245,122 240,112" fill="#10b981" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round"/>
           <circle cx="60" cy="90" r="25" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
           <text x="60" y="96" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-weight="800" font-size="15">A</text>
           <circle cx="170" cy="40" r="25" fill="#1e293b" stroke="#10b981" stroke-width="3.5"/>
