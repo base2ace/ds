@@ -311,20 +311,35 @@ const StackQueueEngine = {
   },
 
   activeStepPrefix: 's',
+  playbackMode: 'manual', // 'auto' or 'manual'
+
+  setPlaybackMode(mode, prefix = 's') {
+    this.playbackMode = mode;
+    const btnAuto = document.getElementById(`${prefix}BtnModeAuto`);
+    const btnManual = document.getElementById(`${prefix}BtnModeManual`);
+    if (btnAuto) btnAuto.classList.toggle('active', mode === 'auto');
+    if (btnManual) btnManual.classList.toggle('active', mode === 'manual');
+  },
 
   playSteps(prefix = 's') {
     this.activeStepPrefix = prefix;
-    this.isPlaying = true;
-    this.updatePlaybackUI();
+    
+    if (this.playbackMode === 'auto') {
+      this.isPlaying = true;
+      this.updatePlaybackUI();
 
-    this.playInterval = setInterval(() => {
-      if (this.currentStepIdx >= this.steps.length - 1) {
-        this.stopPlayback();
-        return;
-      }
-      this.currentStepIdx++;
-      this.renderCurrentStep();
-    }, this.speedMs);
+      this.playInterval = setInterval(() => {
+        if (this.currentStepIdx >= this.steps.length - 1) {
+          this.stopPlayback();
+          return;
+        }
+        this.currentStepIdx++;
+        this.renderCurrentStep();
+      }, this.speedMs);
+    } else {
+      this.isPlaying = false;
+      this.updatePlaybackUI();
+    }
 
     this.renderCurrentStep();
   },

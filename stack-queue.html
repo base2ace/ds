@@ -256,13 +256,18 @@
 
             <div style="background:rgba(255,255,255,0.03); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:0.85rem 1.1rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.85rem;">
               <div style="display:flex; align-items:center; gap:0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.3rem; background:rgba(0,0,0,0.35); padding:0.25rem; border-radius:var(--radius-sm); border:1px solid var(--bg-surface-border); margin-right:0.5rem;">
+                  <button class="btn-toggle active" id="sBtnModeManual" onclick="StackQueueEngine.setPlaybackMode('manual', 's')">⏩ Manual Step Mode</button>
+                  <button class="btn-toggle" id="sBtnModeAuto" onclick="StackQueueEngine.setPlaybackMode('auto', 's')">▶️ Auto Play</button>
+                </div>
+
                 <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepBack()">⏪ Back</button>
                 <button class="btn btn-primary btn-sm" id="sBtnPlayPause" onclick="StackQueueEngine.isPlaying ? StackQueueEngine.stopPlayback() : StackQueueEngine.playSteps('s')">▶️ Play</button>
-                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepForward()">⏩ Forward</button>
+                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepForward()">⏩ Step Forward</button>
               </div>
 
               <div id="sStepDescBanner" style="font-size:0.88rem; color:var(--secondary); font-weight:600;">
-                Click ⬆️ push(val) or ⬇️ pop() above to start visualization.
+                Click ⬆️ push(val) or ⬇️ pop() above to step manually.
               </div>
 
               <span class="badge badge-primary" id="sStepCounter">Ready</span>
@@ -403,13 +408,18 @@
 
             <div style="background:rgba(255,255,255,0.03); border:1px solid var(--bg-surface-border); border-radius:var(--radius-md); padding:0.85rem 1.1rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.85rem;">
               <div style="display:flex; align-items:center; gap:0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.3rem; background:rgba(0,0,0,0.35); padding:0.25rem; border-radius:var(--radius-sm); border:1px solid var(--bg-surface-border); margin-right:0.5rem;">
+                  <button class="btn-toggle active" id="qBtnModeManual" onclick="StackQueueEngine.setPlaybackMode('manual', 'q')">⏩ Manual Step Mode</button>
+                  <button class="btn-toggle" id="qBtnModeAuto" onclick="StackQueueEngine.setPlaybackMode('auto', 'q')">▶️ Auto Play</button>
+                </div>
+
                 <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepBack()">⏪ Back</button>
                 <button class="btn btn-primary btn-sm" id="qBtnPlayPause" onclick="StackQueueEngine.isPlaying ? StackQueueEngine.stopPlayback() : StackQueueEngine.playSteps('q')">▶️ Play</button>
-                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepForward()">⏩ Forward</button>
+                <button class="btn btn-secondary btn-sm" onclick="StackQueueEngine.stepForward()">⏩ Step Forward</button>
               </div>
 
               <div id="qStepDescBanner" style="font-size:0.88rem; color:var(--secondary); font-weight:600;">
-                Click ➕ enqueue(val) or ❌ dequeue() above to start visualization.
+                Click ➕ enqueue(val) or ❌ dequeue() above to step manually.
               </div>
 
               <span class="badge badge-primary" id="qStepCounter">Ready</span>
