@@ -400,19 +400,19 @@ function runInsert(autoPlay = true) {
 
   animationSteps = [];
 
-  // Step 1: Shift right loop animation (starts at last element down to idx to prevent data overwriting)
-  for (let i = arrayData.length - 1; i >= idx; i--) {
+  // Step 1: Traverse from start of array (index 0) forward to target position idx
+  for (let i = 0; i < idx; i++) {
     animationSteps.push({
-      msg: `Right Shift (moving right-to-left from last element down to idx=${idx} to avoid data loss): arr[${i}] (${arrayData[i]}) ➔ arr[${i + 1}]`,
-      highlights: { current: i, target: i + 1 },
-      cLine: 5,
-      vars: { i: i, "arr[i]": arrayData[i] }
+      msg: `Traversing array from start: checking index [${i}] (val: ${arrayData[i]})... moving to insertion position [${idx}]`,
+      highlights: { current: i },
+      cLine: 4,
+      vars: { i: i, "arr[i]": arrayData[i], targetIndex: idx }
     });
   }
 
-  // Step 2: Insert new element
+  // Step 2: Insert new element at index idx
   animationSteps.push({
-    msg: `Slot free at index [${idx}]! Placing new value ${val} into arr[${idx}]`,
+    msg: `Reached target index [${idx}]! Inserting new value ${val} into arr[${idx}]`,
     highlights: { success: idx },
     cLine: 7,
     vars: { index: idx, val: val },
@@ -439,30 +439,24 @@ function runDelete(autoPlay = true) {
   }
 
   const targetVal = arrayData[idx];
-  animationSteps = [
-    {
-      msg: `Targeting element at index [${idx}] (value ${targetVal}) for deletion`,
-      highlights: { target: idx, pointerName: "DELETE" },
-      cLine: 2,
-      vars: { index: idx, targetVal: targetVal }
-    }
-  ];
+  animationSteps = [];
 
-  // Shift left loop (moving left-to-right from deleted index to fill the gap)
-  for (let i = idx; i < arrayData.length - 1; i++) {
+  // Step 1: Traverse from start of array (index 0) forward to deletion target index
+  for (let i = 0; i < idx; i++) {
     animationSteps.push({
-      msg: `Left Shift (filling deleted gap, moving left-to-right from idx=${idx}): Overwriting arr[${i}]  arr[${i + 1}] (${arrayData[i + 1]})`,
-      highlights: { current: i + 1, target: i },
-      cLine: 5,
-      vars: { i: i, "arr[i+1]": arrayData[i + 1] }
+      msg: `Traversing array from start: checking index [${i}] (val: ${arrayData[i]})... searching for deletion index [${idx}]`,
+      highlights: { current: i },
+      cLine: 4,
+      vars: { i: i, "arr[i]": arrayData[i], targetIndex: idx }
     });
   }
 
+  // Step 2: Delete element at index idx
   animationSteps.push({
-    msg: `Element deleted! Gap filled & array size decremented to ${arrayData.length - 1}`,
-    highlights: {},
+    msg: `Target element found at index [${idx}] (value ${targetVal})! Deleting element and updating size to ${arrayData.length - 1}`,
+    highlights: { target: idx, pointerName: "DELETE" },
     cLine: 7,
-    vars: { newSize: arrayData.length - 1 },
+    vars: { index: idx, targetVal: targetVal, newSize: arrayData.length - 1 },
     action: () => {
       arrayData.splice(idx, 1);
       renderArrayStage();
