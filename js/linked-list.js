@@ -239,7 +239,47 @@ struct Node* head = NULL; // Initial List State</code></pre>
         break;
 
       case 'deleteHead':
+      case 'deleteTail':
+      case 'reverse':
+      case 'traverse':
         html = `
+          <button class="btn btn-primary btn-sm" onclick="LinkedListSim.generateAndPlaySteps(true)">▶️ Auto Play</button>
+          <button class="btn btn-secondary btn-sm" onclick="LinkedListSim.prepareManualStep()">⏩ Manual Step-by-Step</button>
+        `;
+        break;
+
+      case 'deletePos':
+        html = `
+          <div class="op-input-group">
+            <label for="llPosInput">Pos (1..${posMax}):</label>
+            <input type="number" id="llPosInput" class="op-input" value="2" min="1" max="${posMax}" style="width:65px; text-align:center;">
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="LinkedListSim.generateAndPlaySteps(true)">▶️ Auto Play</button>
+          <button class="btn btn-secondary btn-sm" onclick="LinkedListSim.prepareManualStep()">⏩ Manual Step-by-Step</button>
+        `;
+        break;
+
+      case 'updatePos':
+        html = `
+          <div class="op-input-group">
+            <label for="llPosInput">Pos (1..${posMax}):</label>
+            <input type="number" id="llPosInput" class="op-input" value="2" min="1" max="${posMax}" style="width:65px; text-align:center;">
+          </div>
+          <div class="op-input-group">
+            <label for="llValInput">New Value:</label>
+            <input type="number" id="llValInput" class="op-input" value="99" style="width:70px; text-align:center;">
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="LinkedListSim.generateAndPlaySteps(true)">▶️ Auto Play</button>
+          <button class="btn btn-secondary btn-sm" onclick="LinkedListSim.prepareManualStep()">⏩ Manual Step-by-Step</button>
+        `;
+        break;
+
+      case 'searchVal':
+        html = `
+          <div class="op-input-group">
+            <label for="llValInput">Target Value:</label>
+            <input type="number" id="llValInput" class="op-input" value="28" style="width:70px; text-align:center;">
+          </div>
           <button class="btn btn-primary btn-sm" onclick="LinkedListSim.generateAndPlaySteps(true)">▶️ Auto Play</button>
           <button class="btn btn-secondary btn-sm" onclick="LinkedListSim.prepareManualStep()">⏩ Manual Step-by-Step</button>
         `;
@@ -332,6 +372,83 @@ struct Node* head = NULL; // Initial List State</code></pre>
 
       this.nodes = tempNodes;
 
+    } else if (this.activeOp === 'insertPos') {
+      const newHex = this.generateHexAddr();
+      const tempNodes = JSON.parse(JSON.stringify(this.nodes));
+
+      let targetPos = Math.max(1, Math.min(pos, tempNodes.length + 1));
+      const insertIndex = targetPos - 1;
+
+      if (insertIndex === 0 || tempNodes.length === 0) {
+        const oldHead = tempNodes.length > 0 ? tempNodes[0].addr : 'NULL';
+        const newNode = { id: Date.now(), val: val, addr: newHex, tempNew: true };
+        tempNodes.unshift(newNode);
+
+        this.steps.push(snapshot(tempNodes, newNode.id, `Step 1: Save head reference: temp = head (${oldHead})`, 1, { 'head': oldHead, 'temp': oldHead }));
+        this.steps.push(snapshot(tempNodes, newNode.id, `Step 2: malloc(sizeof(struct Node)) allocated node at ${newHex}`, 3, { 'newNode': newHex, 'val': val }));
+        this.steps.push(snapshot(tempNodes, newNode.id, `Step 3: Assign value: newNode->data = ${val}`, 4, { 'newNode': newHex, 'newNode->data': val }));
+        this.steps.push(snapshot(tempNodes, newNode.id, `Step 4: Point next pointer to head: newNode->next = ${oldHead}`, 5, { 'newNode->next': oldHead }));
+        newNode.tempNew = false;
+        this.steps.push(snapshot(tempNodes, newNode.id, `Step 5: Update head pointer to newNode (${newHex}). Position 1 insertion complete!`, 6, { 'head': newHex }));
+      } else {
+        this.steps.push(snapshot(tempNodes, tempNodes[0].id, `Step 1: Save head pointer: temp = head (${tempNodes[0].addr})`, 1, { 'head': tempNodes[0].addr, 'temp': tempNodes[0].addr }));
+
+        for (let i = 0; i < insertIndex - 1; i++) {
+          this.steps.push(snapshot(
+            tempNodes,
+            tempNodes[i].id,
+            `Step ${this.steps.length + 1}: Traversed to Node #${i + 1} (${tempNodes[i].addr}). Advance temp = temp->next (${tempNodes[i + 1].addr})`,
+            2,
+            { 'temp': tempNodes[i + 1].addr, 'temp->data': tempNodes[i + 1].val, 'i': i + 2 }
+          ));
+        }
+
+        const prevNode = tempNodes[insertIndex - 1];
+        const nextNodeAddr = (insertIndex < tempNodes.length) ? tempNodes[insertIndex].addr : 'NULL';
+
+        const newNode = { id: Date.now(), val: val, addr: newHex, tempNew: true };
+        tempNodes.splice(insertIndex, 0, newNode);
+
+        this.steps.push(snapshot(
+          tempNodes,
+          newNode.id,
+          `Step ${this.steps.length + 1}: malloc(sizeof(struct Node)) allocated node at RAM address ${newHex}`,
+          3,
+          { 'temp': prevNode.addr, 'newNode': newHex, 'val': val }
+        ));
+
+        this.steps.push(snapshot(
+          tempNodes,
+          newNode.id,
+          `Step ${this.steps.length + 1}: Assign payload value: newNode->data = ${val}`,
+          4,
+          { 'temp': prevNode.addr, 'newNode': newHex, 'newNode->data': val }
+        ));
+
+        this.steps.push(snapshot(
+          tempNodes,
+          newNode.id,
+          isDoubly 
+            ? `Step ${this.steps.length + 1}: Set newNode pointers: newNode->prev = ${prevNode.addr}, newNode->next = ${nextNodeAddr}`
+            : `Step ${this.steps.length + 1}: Point next pointer: newNode->next = temp->next (${nextNodeAddr})`,
+          5,
+          isDoubly 
+            ? { 'temp': prevNode.addr, 'newNode->prev': prevNode.addr, 'newNode->next': nextNodeAddr }
+            : { 'temp': prevNode.addr, 'newNode->next': nextNodeAddr }
+        ));
+
+        newNode.tempNew = false;
+        this.steps.push(snapshot(
+          tempNodes,
+          newNode.id,
+          `Step ${this.steps.length + 1}: Connect predecessor: temp->next = newNode (${newHex}). Middle insertion at Position ${targetPos} complete!`,
+          6,
+          { 'temp': prevNode.addr, 'temp->next': newHex }
+        ));
+      }
+
+      this.nodes = tempNodes;
+
     } else if (this.activeOp === 'insertTail') {
       const newHex = this.generateHexAddr();
       const tempNodes = JSON.parse(JSON.stringify(this.nodes));
@@ -344,7 +461,7 @@ struct Node* head = NULL; // Initial List State</code></pre>
           tempNodes,
           tempNodes[i].id,
           `Step 2: Traverse node #${i+1} (${tempNodes[i].addr}) searching for tail (next == NULL)`,
-          6,
+          4,
           { 'temp': tempNodes[i].addr, 'temp->data': tempNodes[i].val }
         ));
       }
@@ -354,7 +471,7 @@ struct Node* head = NULL; // Initial List State</code></pre>
         tempNodes,
         newNode.id,
         `Step 3: Attach newNode to tail: temp->next = newNode (${newHex}). Tail insertion complete!`,
-        7,
+        4,
         { 'tail': newHex, 'tail->data': val }
       ));
 
@@ -371,7 +488,224 @@ struct Node* head = NULL; // Initial List State</code></pre>
       const newHeadAddr = tempNodes.length > 0 ? tempNodes[0].addr : 'NULL';
 
       this.steps.push(snapshot(tempNodes, null, `Step 2: Advance head pointer: head = head->next (${newHeadAddr})`, 3, { 'head': newHeadAddr, 'temp': deletedNode.addr }));
-      this.steps.push(snapshot(tempNodes, null, `Step 3: free(temp) released heap memory at ${deletedNode.addr} back to OS!`, 4, { 'head': newHeadAddr, 'free_addr': deletedNode.addr }));
+      this.steps.push(snapshot(tempNodes, null, `Step 3: free(temp) released heap memory at ${deletedNode.addr} back to OS!`, 5, { 'head': newHeadAddr, 'free_addr': deletedNode.addr }));
+
+      this.nodes = tempNodes;
+
+    } else if (this.activeOp === 'deletePos') {
+      if (this.nodes.length === 0) return;
+      const tempNodes = JSON.parse(JSON.stringify(this.nodes));
+      let targetPos = Math.max(1, Math.min(pos, tempNodes.length));
+      const delIndex = targetPos - 1;
+
+      if (delIndex === 0) {
+        const deletedNode = tempNodes[0];
+        this.steps.push(snapshot(tempNodes, deletedNode.id, `Step 1: Save head pointer: temp = head (${deletedNode.addr})`, 1, { 'head': deletedNode.addr, 'temp': deletedNode.addr }));
+        tempNodes.shift();
+        const newHeadAddr = tempNodes.length > 0 ? tempNodes[0].addr : 'NULL';
+        this.steps.push(snapshot(tempNodes, null, `Step 2: Advance head pointer: head = head->next (${newHeadAddr})`, 4, { 'head': newHeadAddr, 'temp': deletedNode.addr }));
+        this.steps.push(snapshot(tempNodes, null, `Step 3: free(temp) released heap memory at ${deletedNode.addr}!`, 5, { 'head': newHeadAddr, 'free_addr': deletedNode.addr }));
+      } else {
+        this.steps.push(snapshot(tempNodes, tempNodes[0].id, `Step 1: Save head pointer: temp = head (${tempNodes[0].addr})`, 1, { 'head': tempNodes[0].addr, 'temp': tempNodes[0].addr }));
+
+        for (let i = 0; i < delIndex - 1; i++) {
+          this.steps.push(snapshot(
+            tempNodes,
+            tempNodes[i].id,
+            `Step ${this.steps.length + 1}: Traverse to Node #${i + 1} (${tempNodes[i].addr}). Advance temp = temp->next (${tempNodes[i + 1].addr})`,
+            2,
+            { 'temp': tempNodes[i + 1].addr, 'i': i + 2 }
+          ));
+        }
+
+        const prevNode = tempNodes[delIndex - 1];
+        const targetNode = tempNodes[delIndex];
+        const nextNodeAddr = (delIndex + 1 < tempNodes.length) ? tempNodes[delIndex + 1].addr : 'NULL';
+
+        this.steps.push(snapshot(
+          tempNodes,
+          targetNode.id,
+          `Step ${this.steps.length + 1}: Identify target node to delete: target = temp->next (${targetNode.addr})`,
+          3,
+          { 'temp': prevNode.addr, 'target': targetNode.addr, 'target->data': targetNode.val }
+        ));
+
+        tempNodes.splice(delIndex, 1);
+
+        this.steps.push(snapshot(
+          tempNodes,
+          null,
+          `Step ${this.steps.length + 1}: Bypass target node: temp->next = target->next (${nextNodeAddr})`,
+          4,
+          { 'temp': prevNode.addr, 'temp->next': nextNodeAddr }
+        ));
+
+        this.steps.push(snapshot(
+          tempNodes,
+          null,
+          `Step ${this.steps.length + 1}: free(target) released memory at ${targetNode.addr}. Deletion at Position ${targetPos} complete!`,
+          5,
+          { 'free_addr': targetNode.addr }
+        ));
+      }
+
+      this.nodes = tempNodes;
+
+    } else if (this.activeOp === 'deleteTail') {
+      if (this.nodes.length === 0) return;
+      const tempNodes = JSON.parse(JSON.stringify(this.nodes));
+
+      if (tempNodes.length === 1) {
+        const deletedNode = tempNodes[0];
+        this.steps.push(snapshot(tempNodes, deletedNode.id, `Step 1: Single node list: temp = head (${deletedNode.addr})`, 1, { 'head': deletedNode.addr }));
+        tempNodes.pop();
+        this.steps.push(snapshot(tempNodes, null, `Step 2: Update head = NULL`, 4, { 'head': 'NULL' }));
+        this.steps.push(snapshot(tempNodes, null, `Step 3: free(tail) released memory at ${deletedNode.addr}!`, 5, { 'free_addr': deletedNode.addr }));
+      } else {
+        this.steps.push(snapshot(tempNodes, tempNodes[0].id, `Step 1: Save head pointer: temp = head (${tempNodes[0].addr})`, 1, { 'head': tempNodes[0].addr }));
+
+        for (let i = 0; i < tempNodes.length - 2; i++) {
+          this.steps.push(snapshot(
+            tempNodes,
+            tempNodes[i].id,
+            `Step ${this.steps.length + 1}: Traverse to Node #${i + 1} (${tempNodes[i].addr}) looking for second-to-last node`,
+            2,
+            { 'temp': tempNodes[i].addr }
+          ));
+        }
+
+        const secondLast = tempNodes[tempNodes.length - 2];
+        const tailNode = tempNodes[tempNodes.length - 1];
+
+        this.steps.push(snapshot(
+          tempNodes,
+          tailNode.id,
+          `Step ${this.steps.length + 1}: Identify tail node: tail = temp->next (${tailNode.addr})`,
+          3,
+          { 'temp': secondLast.addr, 'tail': tailNode.addr }
+        ));
+
+        tempNodes.pop();
+
+        this.steps.push(snapshot(
+          tempNodes,
+          secondLast.id,
+          `Step ${this.steps.length + 1}: Disconnect tail: temp->next = NULL`,
+          4,
+          { 'temp': secondLast.addr, 'temp->next': 'NULL' }
+        ));
+
+        this.steps.push(snapshot(
+          tempNodes,
+          null,
+          `Step ${this.steps.length + 1}: free(tail) released memory at ${tailNode.addr}. Tail deletion complete!`,
+          5,
+          { 'free_addr': tailNode.addr }
+        ));
+      }
+
+      this.nodes = tempNodes;
+
+    } else if (this.activeOp === 'updatePos') {
+      if (this.nodes.length === 0) return;
+      const tempNodes = JSON.parse(JSON.stringify(this.nodes));
+      let targetPos = Math.max(1, Math.min(pos, tempNodes.length));
+      const updateIndex = targetPos - 1;
+
+      this.steps.push(snapshot(tempNodes, tempNodes[0].id, `Step 1: Start at head pointer: temp = head (${tempNodes[0].addr})`, 1, { 'head': tempNodes[0].addr, 'temp': tempNodes[0].addr }));
+
+      for (let i = 0; i < updateIndex; i++) {
+        this.steps.push(snapshot(
+          tempNodes,
+          tempNodes[i].id,
+          `Step ${this.steps.length + 1}: Traverse node #${i + 1} (${tempNodes[i].addr})`,
+          2,
+          { 'temp': tempNodes[i].addr, 'temp->data': tempNodes[i].val }
+        ));
+      }
+
+      const oldVal = tempNodes[updateIndex].val;
+      tempNodes[updateIndex].val = val;
+
+      this.steps.push(snapshot(
+        tempNodes,
+        tempNodes[updateIndex].id,
+        `Step ${this.steps.length + 1}: Found node #${targetPos} (${tempNodes[updateIndex].addr}). Update payload: temp->data = ${val} (was ${oldVal})`,
+        3,
+        { 'temp': tempNodes[updateIndex].addr, 'temp->data': val }
+      ));
+
+      this.nodes = tempNodes;
+
+    } else if (this.activeOp === 'searchVal') {
+      let foundIdx = -1;
+      for (let i = 0; i < this.nodes.length; i++) {
+        const isMatch = this.nodes[i].val === val;
+        this.steps.push(snapshot(
+          this.nodes,
+          this.nodes[i].id,
+          `Step ${i + 1}: Inspecting Node #${i + 1} [val: ${this.nodes[i].val}, addr: ${this.nodes[i].addr}] — ${isMatch ? 'MATCH FOUND! 🎉' : 'No match, moving next'}`,
+          2,
+          { 'temp': this.nodes[i].addr, 'temp->data': this.nodes[i].val, 'target': val }
+        ));
+        if (isMatch) {
+          foundIdx = i;
+          break;
+        }
+      }
+
+      if (foundIdx !== -1) {
+        this.steps.push(snapshot(
+          this.nodes,
+          this.nodes[foundIdx].id,
+          `Search Complete: Target value ${val} found at Position ${foundIdx + 1} (address ${this.nodes[foundIdx].addr})!`,
+          3,
+          { 'status': 'FOUND', 'pos': foundIdx + 1, 'addr': this.nodes[foundIdx].addr }
+        ));
+      } else {
+        this.steps.push(snapshot(
+          this.nodes,
+          null,
+          `Search Complete: Target value ${val} was NOT found in the linked list (returned -1 / NULL).`,
+          3,
+          { 'status': 'NOT_FOUND', 'target': val }
+        ));
+      }
+
+    } else if (this.activeOp === 'reverse') {
+      if (this.nodes.length <= 1) return;
+      const tempNodes = JSON.parse(JSON.stringify(this.nodes));
+
+      this.steps.push(snapshot(
+        tempNodes,
+        tempNodes[0].id,
+        `Step 1: Initialize pointers: prev = NULL, current = head (${tempNodes[0].addr}), next = NULL`,
+        1,
+        { 'prev': 'NULL', 'current': tempNodes[0].addr, 'next': 'NULL' }
+      ));
+
+      for (let i = 0; i < tempNodes.length; i++) {
+        const currAddr = tempNodes[i].addr;
+        const nextAddr = (i + 1 < tempNodes.length) ? tempNodes[i + 1].addr : 'NULL';
+        const prevAddr = (i > 0) ? tempNodes[i - 1].addr : 'NULL';
+
+        this.steps.push(snapshot(
+          tempNodes,
+          tempNodes[i].id,
+          `Step ${this.steps.length + 1}: Node #${i + 1} (${currAddr}): next = current->next (${nextAddr}), current->next = prev (${prevAddr})`,
+          2,
+          { 'prev': prevAddr, 'current': currAddr, 'next': nextAddr }
+        ));
+      }
+
+      tempNodes.reverse();
+      this.steps.push(snapshot(
+        tempNodes,
+        tempNodes[0].id,
+        `Step ${this.steps.length + 1}: Reversing complete! Update head = prev (${tempNodes[0].addr}).`,
+        3,
+        { 'head': tempNodes[0].addr }
+      ));
 
       this.nodes = tempNodes;
 
@@ -638,6 +972,40 @@ struct Node* head = NULL; // Initial List State</code></pre>
         isDoubly ? `    if (head != NULL) head->prev = NULL;` : ``,
         `    free(temp);`,
         `}`
+      ];
+    } else if (opKey === 'deletePos') {
+      codeLines = [
+        `struct Node* temp = head;`,
+        `for (int i = 1; i < pos - 1 && temp->next != NULL; i++) temp = temp->next;`,
+        `struct Node* target = temp->next;`,
+        isDoubly ? `temp->next = target->next; if (target->next) target->next->prev = temp;` : `temp->next = target->next;`,
+        `free(target);`
+      ];
+    } else if (opKey === 'deleteTail') {
+      codeLines = [
+        `struct Node* temp = head;`,
+        `while (temp->next && temp->next->next) temp = temp->next;`,
+        `struct Node* tail = temp->next;`,
+        `temp->next = NULL;`,
+        `free(tail);`
+      ];
+    } else if (opKey === 'updatePos') {
+      codeLines = [
+        `struct Node* temp = head;`,
+        `for (int i = 1; i < pos && temp != NULL; i++) temp = temp->next;`,
+        `if (temp != NULL) temp->data = newVal;`
+      ];
+    } else if (opKey === 'searchVal') {
+      codeLines = [
+        `struct Node* temp = head; int pos = 1;`,
+        `while (temp != NULL && temp->data != target) { temp = temp->next; pos++; }`,
+        `if (temp != NULL) return pos; else return -1;`
+      ];
+    } else if (opKey === 'reverse') {
+      codeLines = [
+        isDoubly ? `struct Node *temp = NULL, *current = head;` : `struct Node *prev = NULL, *current = head, *next = NULL;`,
+        isDoubly ? `while (current != NULL) { temp = current->prev; current->prev = current->next; current->next = temp; current = current->prev; }` : `while (current != NULL) { next = current->next; current->next = prev; prev = current; current = next; }`,
+        isDoubly ? `if (temp != NULL) head = temp->prev;` : `head = prev;`
       ];
     } else {
       codeLines = [
