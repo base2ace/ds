@@ -62,11 +62,11 @@ const CSnippets = {
   insert: {
     title: "Insert Element at Index in C",
     lines: [
-      '<span class="syn-cmt">// Insert element & shift elements right O(n)</span>',
+      '<span class="syn-cmt">// Insert element at index O(n)</span>',
       '<span class="syn-kw">int</span> <span class="syn-fn">insertAtIndex</span>(<span class="syn-kw">int</span> arr[], <span class="syn-kw">int</span> *size, <span class="syn-kw">int</span> index, <span class="syn-kw">int</span> val) {',
-      '    <span class="syn-cmt">// Shift elements right from end to index</span>',
-      '    <span class="syn-kw">for</span> (<span class="syn-kw">int</span> i = *size - <span class="syn-num">1</span>; i &gt;= index; i--) {',
-      '        arr[i + <span class="syn-num">1</span>] = arr[i];',
+      '    <span class="syn-cmt">// Traverse array from index 0 to target index</span>',
+      '    <span class="syn-kw">for</span> (<span class="syn-kw">int</span> i = <span class="syn-num">0</span>; i &lt; index; i++) {',
+      '        <span class="syn-cmt">// Step forward to insertion index</span>',
       '    }',
       '    arr[index] = val;',
       '    (*size)++;',
@@ -74,8 +74,7 @@ const CSnippets = {
       '}'
     ],
     stepLineMap: {
-      shiftLoop: 4,
-      shifting: 5,
+      traverse: 4,
       placeVal: 7,
       incSize: 8
     }
@@ -84,21 +83,20 @@ const CSnippets = {
   delete: {
     title: "Delete Element at Index in C",
     lines: [
-      '<span class="syn-cmt">// Delete element & shift elements left O(n)</span>',
+      '<span class="syn-cmt">// Delete element at index O(n)</span>',
       '<span class="syn-kw">int</span> <span class="syn-fn">deleteAtIndex</span>(<span class="syn-kw">int</span> arr[], <span class="syn-kw">int</span> *size, <span class="syn-kw">int</span> index) {',
-      '    <span class="syn-cmt">// Shift elements left to overwrite target</span>',
-      '    <span class="syn-kw">for</span> (<span class="syn-kw">int</span> i = index; i &lt; *size - <span class="syn-num">1</span>; i++) {',
-      '        arr[i] = arr[i + <span class="syn-num">1</span>];',
+      '    <span class="syn-cmt">// Traverse array from index 0 to target index</span>',
+      '    <span class="syn-kw">for</span> (<span class="syn-kw">int</span> i = <span class="syn-num">0</span>; i &lt; index; i++) {',
+      '        <span class="syn-cmt">// Step forward to deletion index</span>',
       '    }',
+      '    <span class="syn-cmt">// Remove element & update size</span>',
       '    (*size)--;',
       '    <span class="syn-kw">return</span> <span class="syn-num">1</span>;',
       '}'
     ],
     stepLineMap: {
-      target: 2,
-      shiftLoop: 4,
-      shifting: 5,
-      decSize: 7
+      traverse: 4,
+      decSize: 8
     }
   },
 

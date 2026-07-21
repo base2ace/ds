@@ -455,7 +455,7 @@ function runDelete(autoPlay = true) {
   animationSteps.push({
     msg: `Target element found at index [${idx}] (value ${targetVal})! Deleting element and updating size to ${arrayData.length - 1}`,
     highlights: { target: idx, pointerName: "DELETE" },
-    cLine: 7,
+    cLine: 8,
     vars: { index: idx, targetVal: targetVal, newSize: arrayData.length - 1 },
     action: () => {
       arrayData.splice(idx, 1);
