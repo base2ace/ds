@@ -400,10 +400,10 @@ function runInsert(autoPlay = true) {
 
   animationSteps = [];
 
-  // Step 1: Shift right loop animation
+  // Step 1: Shift right loop animation (starts at last element down to idx to prevent data overwriting)
   for (let i = arrayData.length - 1; i >= idx; i--) {
     animationSteps.push({
-      msg: `Shifting element arr[${i}] (${arrayData[i]}) right to index [${i + 1}]`,
+      msg: `Right Shift (moving right-to-left from last element down to idx=${idx} to avoid data loss): arr[${i}] (${arrayData[i]}) ➔ arr[${i + 1}]`,
       highlights: { current: i, target: i + 1 },
       cLine: 5,
       vars: { i: i, "arr[i]": arrayData[i] }
@@ -412,7 +412,7 @@ function runInsert(autoPlay = true) {
 
   // Step 2: Insert new element
   animationSteps.push({
-    msg: `Placing new value ${val} at index [${idx}]`,
+    msg: `Slot free at index [${idx}]! Placing new value ${val} into arr[${idx}]`,
     highlights: { success: idx },
     cLine: 7,
     vars: { index: idx, val: val },
@@ -448,10 +448,10 @@ function runDelete(autoPlay = true) {
     }
   ];
 
-  // Shift left loop
+  // Shift left loop (moving left-to-right from deleted index to fill the gap)
   for (let i = idx; i < arrayData.length - 1; i++) {
     animationSteps.push({
-      msg: `Overwriting arr[${i}] with next element arr[${i + 1}] (${arrayData[i + 1]})`,
+      msg: `Left Shift (filling deleted gap, moving left-to-right from idx=${idx}): Overwriting arr[${i}]  arr[${i + 1}] (${arrayData[i + 1]})`,
       highlights: { current: i + 1, target: i },
       cLine: 5,
       vars: { i: i, "arr[i+1]": arrayData[i + 1] }
@@ -459,7 +459,7 @@ function runDelete(autoPlay = true) {
   }
 
   animationSteps.push({
-    msg: `Element deleted! Array size decremented to ${arrayData.length - 1}`,
+    msg: `Element deleted! Gap filled & array size decremented to ${arrayData.length - 1}`,
     highlights: {},
     cLine: 7,
     vars: { newSize: arrayData.length - 1 },
