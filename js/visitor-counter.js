@@ -224,23 +224,8 @@ const VisitorCounter = (function () {
       navLinks.appendChild(li);
     }
 
-    // Inject in footer
-    const footers = document.querySelectorAll('.footer-content');
-    footers.forEach(footer => {
-      if (!footer.querySelector('.footer-visitor-counter')) {
-        const badge = document.createElement('div');
-        badge.className = 'footer-visitor-counter';
-        badge.onclick = () => openVisitorModal();
-        badge.style.cursor = 'pointer';
-        badge.title = 'Click to view site visitor traffic analytics';
-        badge.innerHTML = `
-          <span class="visitor-live-dot"></span>
-          <span>Site Visitors: <strong id="footerVisitCount">${state.totalVisits.toLocaleString()}</strong></span>
-          <span class="visitor-footer-tag">📊 Analytics</span>
-        `;
-        footer.appendChild(badge);
-      }
-    });
+    // Ensure footer visitor counter is not displayed
+    document.querySelectorAll('.footer-visitor-counter').forEach(el => el.remove());
 
     // Workspace headers on visualizer pages: inject visitor button
     const wsHeaderActions = document.querySelector('.workspace-header > div:last-child');
